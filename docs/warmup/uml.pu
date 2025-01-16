@@ -1,0 +1,48 @@
+@startuml Opetustilan varaamisjärjestelmä
+class Varaus {
++ varausId
++ opetustilaId
++ kayttajaId
++ periodiId
++ kuvaus
++ startTime
++ endTime
+}
+
+class Opetustila{
++ opetustilaId
++ tunnus
++ paikkaluku
++ vuokrakustannus
++ lisatiedot
+}
+
+class Varustus{
++ varustusId
++ nimi
+}
+
+class OpetustilaVarustus {
++ OpetustilaId
++ VarustusId
+}
+
+class Kayttaja {
++ kayttajaId
++ nimi
++ yksikkö
+}
+
+class Periodi {
++ periodiId
++ numero
++ alkupaiva
++ loppupaiva
+}
+
+Opetustila --> Varaus
+Kayttaja--> Varaus
+OpetustilaVarustus --> Varustus
+OpetustilaVarustus --> Opetustila
+Periodi --> Varaus
+@enduml

@@ -1,0 +1,22 @@
+@startuml Seller Antiquarian
+class Books {
+    + bookId: UUID /'primary key, globally unique'/
+    + isbn: text /'optional if data synced from central db'/
+    + price: numeric
+    + title: text
+    + author: text
+    + year: int
+    + type: text
+    + genre: text
+    + mass: numeric
+    + buyInPrice: numeric
+    + soldDate: timestamptz
+}
+class Seller {
+    + sellerId: int /'if needed for internal use'/
+    + name: text
+    + address: text
+    + email: text
+    + phone: text
+}
+@enduml

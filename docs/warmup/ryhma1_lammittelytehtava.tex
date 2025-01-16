@@ -1,0 +1,52 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[finnish]{babel}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{graphicx}
+\usepackage{minted}
+\usepackage{svg}
+\usepackage[normalem]{ulem}
+
+% Page settings
+\geometry{margin=1in}
+\setstretch{1.2}
+\pagestyle{fancy}
+
+% Header and Footer
+\fancyhead[L]{v. 1.0}
+\fancyhead[C]{DATA.DB.210}
+\fancyhead[R]{\thepage}
+\fancyfoot{}
+
+% Title page
+\title{DATA.DB.210 - Lämmittelytehtävä \\ \large Opetustilan varaamisjärjestelmä}
+\author{Ryhmä 1 \\ \small Elias Peltonen, Taisto Palo ja Roope Lindroos}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{UML-kaavio}
+\includesvg[width=\textwidth]{assets/uml.svg}
+
+\newpage
+
+\section*{Tietokantakaavio tekstimuodossa}
+
+\noindent
+\textbf{Varaus}(\underline{varausId}, \dashuline{opetustilaId}, \dashuline{kayttajaId}, \dashuline{periodiId}, kuvaus, startTime, endTime) \\[0.5em]
+\textbf{Opetustila}(\underline{opetustilaId}, tunnus, paikkaluku, varustus, vuokrakustannus, lisatiedot) \\[0.5em]
+\textbf{Varustus}(\underline{varustusId}, nimi) \\[0.5em]
+\textbf{OpetustilaVarustus}(\dashuline{opetustilaId}, \dashuline{varustusId}) \\[0.5em]
+\textbf{Kayttaja}(\underline{kayttajaId}, nimi, yksikko) \\[0.5em]
+\textbf{Periodi}(\underline{periodiId}, numero, alkupaiva, loppupaiva) \\[0.5em]
+
+\section*{SQL-luontilauseet}
+% Include the SQL creation script from assets/create.sql
+\inputminted{sql}{assets/create.sql}
+
+\end{document}

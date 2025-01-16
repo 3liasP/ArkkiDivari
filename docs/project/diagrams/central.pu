@@ -1,0 +1,47 @@
+@startuml Central Antiquarian
+class Books {
+    + bookId: UUID /'primary key, globally unique'/
+    + isbn: text /'unique for same edition of book'/
+    + sellerId: int /'foreign key'/
+    + price: numeric
+    + title: text
+    + author: text
+    + year: int
+    + type: text
+    + genre: text
+    + mass: numeric
+    + buyInPrice: numeric
+    + soldDate: timestamptz
+}
+class Users {
+    + userId: serial
+    + role: enum /'or linked to Roles table'/
+    + username: text /'unique'/
+    + password: text /'hashed'/
+    + name: text
+    + address: text
+    + email: text
+    + phone: text
+}
+class Orders {
+    + orderId: serial
+    + userId: int
+    + time: timestamptz
+    + status: enum
+    + subtotal: numeric
+    + shipping: numeric
+    + total: numeric
+}
+class OrderItems {
+    + orderId: int /'foreign key'/
+    + bookId: UUID /'foreign key'/
+}
+class Sellers {
+    + sellerId: serial
+    + independent: boolean
+    + name: text
+    + address: text
+    + email: text
+    + phone: text
+}
+@enduml
