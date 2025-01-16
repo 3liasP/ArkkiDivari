@@ -1,8 +1,9 @@
 @startuml Central Antiquarian
-class Books {
+entity Books {
     + bookId: UUID /'primary key, globally unique'/
     + isbn: text /'unique for same edition of book'/
     + sellerId: int /'foreign key'/
+    + status: enum /'available, reserved, sold'/
     + price: numeric
     + title: text
     + author: text
@@ -13,9 +14,11 @@ class Books {
     + buyInPrice: numeric
     + soldDate: timestamptz
 }
-class Users {
-    + userId: serial
-    + role: enum /'or linked to Roles table'/
+
+entity Users {
+    + userId: serial /'primary key'/
+    + sellerId: int /'foreign key'/
+    + role: enum /'admin, seller, customer'/
     + username: text /'unique'/
     + password: text /'hashed'/
     + name: text
@@ -23,25 +26,37 @@ class Users {
     + email: text
     + phone: text
 }
-class Orders {
-    + orderId: serial
+
+entity Orders {
+    + orderId: serial /'primary key'/
     + userId: int
     + time: timestamptz
-    + status: enum
+    + status: enum /'pending, completed'/
     + subtotal: numeric
     + shipping: numeric
     + total: numeric
 }
-class OrderItems {
-    + orderId: int /'foreign key'/
-    + bookId: UUID /'foreign key'/
+
+entity OrderItems {
+    + orderId: int /'primary key, foreign key'/
+    + bookId: UUID /'primary key, foreign key'/
 }
-class Sellers {
+
+entity Sellers {
     + sellerId: serial
+    + schemaName: text
+    + independent: boolean
     + independent: boolean
     + name: text
     + address: text
+    + zip: text
     + email: text
     + phone: text
 }
+
+Books --> Sellers
+Orders --> Users
+Orders <-- OrderItems
+Users --> Sellers
+Books <-- OrderItems
 @enduml

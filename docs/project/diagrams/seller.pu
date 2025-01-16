@@ -1,7 +1,9 @@
 @startuml Seller Antiquarian
-class Books {
+entity Books {
     + bookId: UUID /'primary key, globally unique'/
-    + isbn: text /'optional if data synced from central db'/
+    + isbn: text /'unique for same edition of book'/
+    + sellerId: int /'foreign key'/
+    + status: enum /'available, reserved, sold'/
     + price: numeric
     + title: text
     + author: text
@@ -11,12 +13,5 @@ class Books {
     + mass: numeric
     + buyInPrice: numeric
     + soldDate: timestamptz
-}
-class Seller {
-    + sellerId: int /'if needed for internal use'/
-    + name: text
-    + address: text
-    + email: text
-    + phone: text
 }
 @enduml
