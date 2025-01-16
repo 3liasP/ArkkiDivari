@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+    contentStyleType="text/css" data-diagram-type="CLASS" height="280px" preserveAspectRatio="none"
+    style="width:206px;height:280px;background:#FFFFFF;" version="1.1" viewBox="0 0 206 280"
+    width="206px" zoomAndPan="magnify">
+    <defs />
+    <g><!--class
+        Books-->
+        <g id="elem_Books">
+            <rect codeLine="1" fill="#F1F1F1" height="259.8594" id="Books" rx="2.5" ry="2.5"
+                style="stroke:#181818;stroke-width:0.5;" width="185.6191" x="7" y="7" />
+            <ellipse cx="74.4912" cy="23" fill="#ADD1B2" rx="11" ry="11"
+                style="stroke:#181818;stroke-width:1;" />
+            <path
+                d="M78.6006,29 L70.8818,29 L70.8818,16.6094 L78.6006,16.6094 L78.6006,18.7656 L73.335,18.7656 L73.335,21.4375 L78.1006,21.4375 L78.1006,23.5938 L73.335,23.5938 L73.335,26.8438 L78.6006,26.8438 L78.6006,29 Z "
+                fill="#000000" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="42.1367" x="94.9912" y="27.8467">Books</text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="8" x2="191.6191" y1="39" y2="39" />
+            <ellipse cx="18" cy="52.6484" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="91.7109" x="27" y="55.9951">bookId: UUID</text>
+            <ellipse cx="18" cy="68.9453" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="65.9873" x="27" y="72.292">isbn: text</text>
+            <ellipse cx="18" cy="85.2422" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="78.4902" x="27" y="88.5889">sellerId: int</text>
+            <ellipse cx="18" cy="101.5391" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="92.1826" x="27" y="104.8857">status: enum</text>
+            <ellipse cx="18" cy="117.8359" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="101.3496" x="27" y="121.1826">price: numeric</text>
+            <ellipse cx="18" cy="134.1328" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="64.415" x="27" y="137.4795">title: text</text>
+            <ellipse cx="18" cy="150.4297" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="83.1797" x="27" y="153.7764">author: text</text>
+            <ellipse cx="18" cy="166.7266" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="58.6523" x="27" y="170.0732">year: int</text>
+            <ellipse cx="18" cy="183.0234" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="68.3184" x="27" y="186.3701">type: text</text>
+            <ellipse cx="18" cy="199.3203" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="77.7861" x="27" y="202.667">genre: text</text>
+            <ellipse cx="18" cy="215.6172" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="103.3115" x="27" y="218.9639">mass: numeric</text>
+            <ellipse cx="18" cy="231.9141" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="139.9521" x="27" y="235.2607">buyInPrice: numeric</text>
+            <ellipse cx="18" cy="248.2109" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="159.6191" x="27" y="251.5576">soldDate: timestamptz</text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="8" x2="191.6191" y1="258.8594"
+                y2="258.8594" />
+        </g><!--SRC=[RO-zRiCm38JtF0Mt33MGtMEHnLkNF01LNrmX-d4bAeWQvDrB9MuA5zKadUxZ7H74IgNN64-PhXlIyq96NyFOq-4mx6ctdPFrd2gTK3kQN3JiNAKIx6V1ThSmDflGa-0YIZp-w1WJPVOWZ5Pi31IFzzbFACCvf1PbG-CKW9r2I_hr24l9FI4KhnO-itLi73fAo4XdZ1tbwCOde7NVqPFQeRT5r2qT7lqMXOjynBIIAZZTg_n0TLup4q9QAvvp_fjbIXt2styjMiyzInjXFNGpFylNvlOD]-->
+    </g>
+</svg>

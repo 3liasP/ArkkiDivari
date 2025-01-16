@@ -1,0 +1,295 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+    contentStyleType="text/css" data-diagram-type="CLASS" height="783px" preserveAspectRatio="none"
+    style="width:412px;height:783px;background:#FFFFFF;" version="1.1" viewBox="0 0 412 783"
+    width="412px" zoomAndPan="magnify">
+    <defs />
+    <g><!--class
+        Books-->
+        <g id="elem_Books">
+            <rect codeLine="1" fill="#F1F1F1" height="259.8594" id="Books" rx="2.5" ry="2.5"
+                style="stroke:#181818;stroke-width:0.5;" width="185.6191" x="7" y="7" />
+            <ellipse cx="74.4912" cy="23" fill="#ADD1B2" rx="11" ry="11"
+                style="stroke:#181818;stroke-width:1;" />
+            <path
+                d="M78.6006,29 L70.8818,29 L70.8818,16.6094 L78.6006,16.6094 L78.6006,18.7656 L73.335,18.7656 L73.335,21.4375 L78.1006,21.4375 L78.1006,23.5938 L73.335,23.5938 L73.335,26.8438 L78.6006,26.8438 L78.6006,29 Z "
+                fill="#000000" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="42.1367" x="94.9912" y="27.8467">Books</text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="8" x2="191.6191" y1="39" y2="39" />
+            <ellipse cx="18" cy="52.6484" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="91.7109" x="27" y="55.9951">bookId: UUID</text>
+            <ellipse cx="18" cy="68.9453" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="65.9873" x="27" y="72.292">isbn: text</text>
+            <ellipse cx="18" cy="85.2422" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="78.4902" x="27" y="88.5889">sellerId: int</text>
+            <ellipse cx="18" cy="101.5391" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="92.1826" x="27" y="104.8857">status: enum</text>
+            <ellipse cx="18" cy="117.8359" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="101.3496" x="27" y="121.1826">price: numeric</text>
+            <ellipse cx="18" cy="134.1328" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="64.415" x="27" y="137.4795">title: text</text>
+            <ellipse cx="18" cy="150.4297" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="83.1797" x="27" y="153.7764">author: text</text>
+            <ellipse cx="18" cy="166.7266" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="58.6523" x="27" y="170.0732">year: int</text>
+            <ellipse cx="18" cy="183.0234" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="68.3184" x="27" y="186.3701">type: text</text>
+            <ellipse cx="18" cy="199.3203" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="77.7861" x="27" y="202.667">genre: text</text>
+            <ellipse cx="18" cy="215.6172" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="103.3115" x="27" y="218.9639">mass: numeric</text>
+            <ellipse cx="18" cy="231.9141" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="139.9521" x="27" y="235.2607">buyInPrice: numeric</text>
+            <ellipse cx="18" cy="248.2109" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="159.6191" x="27" y="251.5576">soldDate: timestamptz</text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="8" x2="191.6191" y1="258.8594"
+                y2="258.8594" />
+        </g><!--class
+        Users-->
+        <g id="elem_Users">
+            <rect codeLine="17" fill="#F1F1F1" height="194.6719" id="Users" rx="2.5" ry="2.5"
+                style="stroke:#181818;stroke-width:0.5;" width="133.2832" x="272.17" y="326.86" />
+            <ellipse cx="315.1056" cy="342.86" fill="#ADD1B2" rx="11" ry="11"
+                style="stroke:#181818;stroke-width:1;" />
+            <path
+                d="M319.215,348.86 L311.4962,348.86 L311.4962,336.4694 L319.215,336.4694 L319.215,338.6256 L313.9493,338.6256 L313.9493,341.2975 L318.715,341.2975 L318.715,343.4538 L313.9493,343.4538 L313.9493,346.7038 L319.215,346.7038 L319.215,348.86 Z "
+                fill="#000000" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="39.2041" x="335.3135" y="347.7067">Users</text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="273.17" x2="404.4532" y1="358.86"
+                y2="358.86" />
+            <ellipse cx="283.17" cy="372.5084" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="90.7402" x="292.17" y="375.8551">userId: serial</text>
+            <ellipse cx="283.17" cy="388.8053" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="78.4902" x="292.17" y="392.152">sellerId: int</text>
+            <ellipse cx="283.17" cy="405.1022" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="75.9883" x="292.17" y="408.4489">role: enum</text>
+            <ellipse cx="283.17" cy="421.3991" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="107.2832" x="292.17" y="424.7457">username: text</text>
+            <ellipse cx="283.17" cy="437.6959" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="103.7559" x="292.17" y="441.0426">password: text</text>
+            <ellipse cx="283.17" cy="453.9928" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="76.7471" x="292.17" y="457.3395">name: text</text>
+            <ellipse cx="283.17" cy="470.2897" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="92.3535" x="292.17" y="473.6364">address: text</text>
+            <ellipse cx="283.17" cy="486.5866" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="75.6533" x="292.17" y="489.9332">email: text</text>
+            <ellipse cx="283.17" cy="502.8834" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="80.8555" x="292.17" y="506.2301">phone: text</text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="273.17" x2="404.4532" y1="513.5319"
+                y2="513.5319" />
+        </g><!--class
+        Orders-->
+        <g id="elem_Orders">
+            <rect codeLine="29" fill="#F1F1F1" height="162.0781" id="Orders" rx="2.5" ry="2.5"
+                style="stroke:#181818;stroke-width:0.5;" width="155.1514" x="244.23" y="55.89" />
+            <ellipse cx="293.8931" cy="71.89" fill="#ADD1B2" rx="11" ry="11"
+                style="stroke:#181818;stroke-width:1;" />
+            <path
+                d="M298.0025,77.89 L290.2837,77.89 L290.2837,65.4994 L298.0025,65.4994 L298.0025,67.6556 L292.7368,67.6556 L292.7368,70.3275 L297.5025,70.3275 L297.5025,72.4838 L292.7368,72.4838 L292.7368,75.7338 L298.0025,75.7338 L298.0025,77.89 Z "
+                fill="#000000" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="47.3252" x="314.3931" y="76.7367">Orders</text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="245.23" x2="398.3814" y1="87.89"
+                y2="87.89" />
+            <ellipse cx="255.23" cy="101.5384" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="97.7813" x="264.23" y="104.8851">orderId: serial</text>
+            <ellipse cx="255.23" cy="117.8353" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="70.9707" x="264.23" y="121.182">userId: int</text>
+            <ellipse cx="255.23" cy="134.1322" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="129.1514" x="264.23" y="137.4789">time: timestamptz</text>
+            <ellipse cx="255.23" cy="150.4291" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="92.1826" x="264.23" y="153.7757">status: enum</text>
+            <ellipse cx="255.23" cy="166.7259" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="123.5732" x="264.23" y="170.0726">subtotal: numeric</text>
+            <ellipse cx="255.23" cy="183.0228" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="125.9863" x="264.23" y="186.3695">shipping: numeric</text>
+            <ellipse cx="255.23" cy="199.3197" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="98.5195" x="264.23" y="202.6664">total: numeric</text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="245.23" x2="398.3814" y1="209.9681"
+                y2="209.9681" />
+        </g><!--class
+        OrderItems-->
+        <g id="elem_OrderItems">
+            <rect codeLine="39" fill="#F1F1F1" height="80.5938" id="OrderItems" rx="2.5" ry="2.5"
+                style="stroke:#181818;stroke-width:0.5;" width="117.7109" x="119.95" y="383.9" />
+            <ellipse cx="137.8825" cy="399.9" fill="#ADD1B2" rx="11" ry="11"
+                style="stroke:#181818;stroke-width:1;" />
+            <path
+                d="M141.9918,405.9 L134.2731,405.9 L134.2731,393.5094 L141.9918,393.5094 L141.9918,395.6656 L136.7262,395.6656 L136.7262,398.3375 L141.4918,398.3375 L141.4918,400.4938 L136.7262,400.4938 L136.7262,403.7438 L141.9918,403.7438 L141.9918,405.9 Z "
+                fill="#000000" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="79.1943" x="152.5341" y="404.7467">OrderItems</text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="120.95" x2="236.6609" y1="415.9"
+                y2="415.9" />
+            <ellipse cx="130.95" cy="429.5484" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="78.0117" x="139.95" y="432.8951">orderId: int</text>
+            <ellipse cx="130.95" cy="445.8453" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="91.7109" x="139.95" y="449.192">bookId: UUID</text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="120.95" x2="236.6609" y1="456.4938"
+                y2="456.4938" />
+        </g><!--class
+        Sellers-->
+        <g id="elem_Sellers">
+            <rect codeLine="44" fill="#F1F1F1" height="194.6719" id="Sellers" rx="2.5" ry="2.5"
+                style="stroke:#181818;stroke-width:0.5;" width="179.6377" x="112.99" y="581.53" />
+            <ellipse cx="175.0877" cy="597.53" fill="#ADD1B2" rx="11" ry="11"
+                style="stroke:#181818;stroke-width:1;" />
+            <path
+                d="M179.197,603.53 L171.4783,603.53 L171.4783,591.1394 L179.197,591.1394 L179.197,593.2956 L173.9314,593.2956 L173.9314,595.9675 L178.697,595.9675 L178.697,598.1238 L173.9314,598.1238 L173.9314,601.3738 L179.197,601.3738 L179.197,603.53 Z "
+                fill="#000000" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="46.9424" x="195.5877" y="602.3767">Sellers</text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="113.99" x2="291.6277" y1="613.53"
+                y2="613.53" />
+            <ellipse cx="123.99" cy="627.1784" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="98.2598" x="132.99" y="630.5251">sellerId: serial</text>
+            <ellipse cx="123.99" cy="643.4753" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="133.041" x="132.99" y="646.822">schemaName: text</text>
+            <ellipse cx="123.99" cy="659.7722" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="153.6377" x="132.99" y="663.1189">independent: boolean</text>
+            <ellipse cx="123.99" cy="676.0691" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="153.6377" x="132.99" y="679.4157">independent: boolean</text>
+            <ellipse cx="123.99" cy="692.3659" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="76.7471" x="132.99" y="695.7126">name: text</text>
+            <ellipse cx="123.99" cy="708.6628" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="92.3535" x="132.99" y="712.0095">address: text</text>
+            <ellipse cx="123.99" cy="724.9597" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="57.1689" x="132.99" y="728.3064">zip: text</text>
+            <ellipse cx="123.99" cy="741.2566" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="75.6533" x="132.99" y="744.6032">email: text</text>
+            <ellipse cx="123.99" cy="757.5534" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="80.8555" x="132.99" y="760.9001">phone: text</text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="113.99" x2="291.6277" y1="768.2019"
+                y2="768.2019" />
+        </g><!--link
+        Books to Sellers-->
+        <g id="link_Books_Sellers">
+            <path codeLine="56"
+                d="M83.22,267.11 C77.8,342.78 78.42,439.32 102.81,521.53 C108.86,541.91 115.4406,556.9835 126.3206,575.8335 "
+                fill="#FFFFFF" fill-opacity="0.00000" id="Books-to-Sellers"
+                style="stroke:#181818;stroke-width:1;" />
+            <polygon fill="#181818"
+                points="129.32,581.03,128.2853,571.2356,126.8205,576.6996,121.3566,575.2348,129.32,581.03"
+                style="stroke:#181818;stroke-width:1;" />
+        </g><!--link
+        Orders to Users-->
+        <g id="link_Orders_Users">
+            <path codeLine="57"
+                d="M326.59,218.15 C328.59,251.77 330.5828,285.1606 332.6828,320.3706 "
+                fill="#FFFFFF" fill-opacity="0.00000" id="Orders-to-Users"
+                style="stroke:#181818;stroke-width:1;" />
+            <polygon fill="#181818"
+                points="333.04,326.36,336.4971,317.1378,332.7423,321.3689,328.5113,317.6141,333.04,326.36"
+                style="stroke:#181818;stroke-width:1;" />
+        </g><!--reverse
+        link Orders to OrderItems-->
+        <g id="link_Orders_OrderItems">
+            <path codeLine="58"
+                d="M278.9108,223.5136 C251.8108,277.5636 219.94,341.15 198.59,383.72 "
+                fill="#FFFFFF" fill-opacity="0.00000" id="Orders-backto-OrderItems"
+                style="stroke:#181818;stroke-width:1;" />
+            <polygon fill="#181818"
+                points="281.6,218.15,273.9904,224.4026,279.359,222.6197,281.1419,227.9882,281.6,218.15"
+                style="stroke:#181818;stroke-width:1;" />
+        </g><!--link
+        Users to Sellers-->
+        <g id="link_Users_Sellers">
+            <path codeLine="59" d="M286.81,521.8 C276.31,541.3 268.1246,556.5272 257.6246,576.0272 "
+                fill="#FFFFFF" fill-opacity="0.00000" id="Users-to-Sellers"
+                style="stroke:#181818;stroke-width:1;" />
+            <polygon fill="#181818"
+                points="254.78,581.31,262.5688,575.2822,257.1505,576.9076,255.525,571.4894,254.78,581.31"
+                style="stroke:#181818;stroke-width:1;" />
+        </g><!--reverse
+        link Books to OrderItems-->
+        <g id="link_Books_OrderItems">
+            <path codeLine="60" d="M137.2115,272.9823 C148.8915,315.1523 159.4,353.1 167.81,383.49 "
+                fill="#FFFFFF" fill-opacity="0.00000" id="Books-backto-OrderItems"
+                style="stroke:#181818;stroke-width:1;" />
+            <polygon fill="#181818"
+                points="135.61,267.2,134.1575,276.9412,136.9446,272.0186,141.8672,274.8058,135.61,267.2"
+                style="stroke:#181818;stroke-width:1;" />
+        </g><!--SRC=[bLJBRjim4BphA_QMGsNaBXGz5BxuaWGe_06KkRQ8y1K-qYf1_hrBKp95nSX35ud37Uxkp5AeWmWZ_3RcqSDh0_JyW9vMEzx1Vh_RmksDTK8nDy8ZZYsSfEcPb2D4BPuYtjnE7E5xtK70Vu4OUG-Ene5d2W6v2C9eCCVpsHUIHodHfLH29nuHK9nqobHY0WlHTu0wAWfXpqn8rajimQ57zuoy1Myaln2et0DsGE58NnD8NKhCzKq8Ys4mhe96PEvSoamQRSqveNOrefZtwrnz77VwuLeLgSuj2-a8eP0wKpQyD6zDWzc6FJLKR8W-QqClmMHjnBSaT2RrFWl8bT3jn6lX47qmLECbE6NLPDhAp28lTVpNE7xP7vWViCXVkBFGd9DJli9GaOiLOWUZPruHvDxnfI8cBJ-LPDPjOQHGAyslpfP5pOK-aIX6MObXqPMFVJ21oNUE3i9QuhoRjpfurT4keBhILNQmkcxNxFpeUjRn9UsVizqbPncRBEKC7mQovcvjeT0SapXqM9VIIsJwywqlJSABiD-RZFohscn-pJqrqv0aw7o1Pk3dPhEGkycNQqdCHzLX_m40]-->
+    </g>
+</svg>
