@@ -26,17 +26,17 @@ CREATE TABLE central.Sellers (
 
 CREATE TABLE central.Books (
   bookId UUID DEFAULT uuid_generate_v4 () PRIMARY KEY,
-  isbn TEXT,
+  isbn TEXT NOT NULL,
   sellerId INT REFERENCES central.Sellers (sellerId),
   status bookStatus NOT NULL DEFAULT 'available',
-  price NUMERIC,
+  price NUMERIC NOT NULL,
   title TEXT NOT NULL,
   author TEXT NOT NULL,
   year INT,
   type TEXT,
   genre TEXT,
-  mass NUMERIC,
-  buyInPrice NUMERIC,
+  mass NUMERIC NOT NULL,
+  buyInPrice NUMERIC DEFAULT 0,
   soldDate TIMESTAMPTZ
 );
 
