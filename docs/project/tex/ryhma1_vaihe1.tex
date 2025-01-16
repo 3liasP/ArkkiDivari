@@ -30,13 +30,10 @@
 
 \maketitle
 
-
-\newpage
-
 \section*{Tietokantakaavio tekstimuodossa}
 
 \noindent
-\textbf{central.Sellers}(\underline{sellerId}, schemaName, independent, name, address, zip, city, email, phone) \\[0.5em]
+\textbf{central.Sellers}(\underline{sellerId}, \dashuline{schemaName}, independent, name, address, zip, city, email, phone) \\[0.5em]
 \textbf{central.Books}(\underline{bookId}, isbn, \dashuline{sellerId}, status, price, title, author, year, type, genre, mass, buyInPrice, soldDate) \\[0.5em]
 \textbf{central.Users}(\underline{userId}, role, \dashuline{sellerId}, username, password, name, address, zip, city, email, phone) \\[0.5em]
 \textbf{central.Orders}(\underline{orderId}, \dashuline{userId}, time, status, subtotal, shipping, total) \\[0.5em]
@@ -45,4 +42,6 @@
 
 \section*{SQL-luontilauseet}
 % Include the SQL creation script from create.sql
-\inputminted{sql}{create.sql}
+\inputminted{sql}{./create.sql}
+
+\end{document}
