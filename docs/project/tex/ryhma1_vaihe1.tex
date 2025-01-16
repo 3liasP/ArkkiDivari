@@ -2,6 +2,10 @@
 \author{Ryhmä 1 \\ \small Elias Peltonen, Taisto Palo ja Roope Lindroos}
 \date{\today}
 
+\newpage
+
+\section*{Tietokantakaavio tekstimuodossa}
+
 \noindent
 \textbf{central.Sellers}(\underline{sellerId}, schemaName, independent, name, address, zip, city, email, phone) \\[0.5em]
 \textbf{central.Books}(\underline{bookId}, isbn, \dashuline{sellerId}, status, price, title, author, year, type, genre, mass, buyInPrice, soldDate) \\[0.5em]
@@ -9,3 +13,7 @@
 \textbf{central.Orders}(\underline{orderId}, \dashuline{userId}, time, status, subtotal, shipping, total) \\[0.5em]
 \textbf{central.OrderItems}(\dashuline{orderId}, \dashuline{bookId}) \\[0.5em]
 \textbf{D1.Books}(\underline{bookId}, isbn, price, title, author, year, type, genre, mass, buyInPrice, soldDate) \\[0.5em]
+
+\section*{SQL-luontilauseet}
+% Include the SQL creation script from create.sql
+\inputminted{sql}{create.sql}
