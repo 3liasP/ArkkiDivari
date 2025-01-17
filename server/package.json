@@ -1,0 +1,23 @@
+{
+    "name": "antiquarian-backend",
+    "version": "1.0.0",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "dev": "nodemon index.js",
+        "start": "node index.js",
+        "lint": "npm run lint --prefix ../",
+        "prettier": "npm run prettier --prefix ../"
+    },
+    "author": "Rubber Ducks",
+    "license": "MIT",
+    "description": "Backend for Antiquarian",
+    "dependencies": {
+        "dotenv": "^16.4.7",
+        "express": "^4.21.2",
+        "pg": "^8.13.1"
+    },
+    "devDependencies": {
+        "nodemon": "^3.1.9"
+    }
+}
