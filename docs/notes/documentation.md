@@ -8,7 +8,7 @@ Sellers-entiteetistä otettiin central.Scheman pääavaimeksi attribuutti bookId
 
 Books-entiteetin perusteella luotiin central.Books, jonka pääavaimeksi tuli bookId ja vierasavaimeksi sellerId. Loput attribuutit lisättiin muuttamattomina mukaan. Books-taulussa jokainen rivi on yksittäinen nide, jonka yksilöi bookId (UUID). ISBN-attribuutin avulla saadaan rajattua kaikki yksittäisen teoksen niteet. Tällä rajauksella saamme laskettua teosten lukumäärät samalla säilyttäen yksittäisten niteiden yksilöinnin. Esimerkiksi samaa teosta voi olla usealla divarilla myynnissä ja hinnoissa voi olla eroavaisuuksia.
 
-Users-entiteetin perusteella luotiin central.Users, jonka pääavaimeksi valittiin userId ja vierasavaimeksi sinne valittiin sellerId. Loput attribuutit lisättiin kaavioon muuttumattomina perään. Users-taulu sisältää pääkäyttäjät, myyjät sekä asiakkaat. Käyttäjän rooli määritetään enum-tyypin attribuutilla. Käyttäjällä *voi* olla sellerId, mikäli käyttäjän rooli on "seller".
+Users-entiteetin perusteella luotiin central.Users, jonka pääavaimeksi valittiin userId ja vierasavaimeksi sinne valittiin sellerId. Loput attribuutit lisättiin kaavioon muuttumattomina perään. Users-taulu sisältää pääkäyttäjät, myyjät sekä asiakkaat. Käyttäjän rooli määritetään enum-tyypin attribuutilla. Käyttäjällä _voi_ olla sellerId, mikäli käyttäjän rooli on "seller".
 
 Orders-entiteetin perusteella luotiin central.Orders, jonka pääavaimeksi valittiin orderId ja vierasavaimeksi userId. Loput entitettin attribuutit lisättiin kaavioon mukaan. Tilaus-tauluun tallennetaan kokonaistilauksen summa kirjanpitoa ajatellen (attribuutti total) sekä pelkkien kirjojen osuun kokonaistilauksesta (attribuutti subtotal).
 
@@ -47,19 +47,20 @@ Tietokannassa käytetään skeemaa erottamaan keskusdivari ja yksittäiset divar
 Ohjelmointikielenä käytetään JavaScriptiä. Alla yksityiskohtaisempi erittely käytetyistä työkaluista:
 
 ### Palvelin
-- Suorituspäristö: Node.js
-- Verkkokehys: Express.js
-- Tietokantamoduuli: pg
-- Tietokanta: PostgreSQL
 
+-   Suorituspäristö: Node.js
+-   Verkkokehys: Express.js
+-   Tietokantamoduuli: pg
+-   Tietokanta: PostgreSQL
 
 ### Käyttöliittymä
-- Verkkokehys: React
-- Tilanhallinta: Redux
 
+-   Verkkokehys: React
+-   Tilanhallinta: Redux
 
 ### Kehitysympäristö
-- Käyttöliittymä: Vite
-- Formatointityökalu: Prettier
-- Tarkistustyökalu: ESLint
-- Versiohallinta: Git
+
+-   Käyttöliittymä: Vite
+-   Formatointityökalu: Prettier
+-   Tarkistustyökalu: ESLint
+-   Versiohallinta: Git

@@ -3,4 +3,4 @@ Opetustila(<u>opetustilaId</u>,tunnus,paikkaluku,varustus,vuokrakustannus,lisati
 Varustus(<u>varustusId</u>,nimi)
 OpetustilaVarustus(<u>opetustilaId</u>,<u>varustusId</u>)
 Kayttaja(<u>kayttajaId</u>,nimi,yksikko)
-Periodi(<u>periodiId</u>,numero,alkupaiva,loppupaiva) 
+Periodi(<u>periodiId</u>,numero,alkupaiva,loppupaiva)

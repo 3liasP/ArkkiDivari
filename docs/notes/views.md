@@ -1,11 +1,11 @@
 # Näkymät
 
 ## Johdettavat tiedot
-- Tilauksen kokonaispaino ja jakaminen painoluokittain
-- Tilauksessa olevien niteiden kokonaishinta
-- Tilauksen postituksen kustannukset
-- Tilauksen kokonaishinta (niteiden ja postituksen yhteishinta)
 
+-   Tilauksen kokonaispaino ja jakaminen painoluokittain
+-   Tilauksessa olevien niteiden kokonaishinta
+-   Tilauksen postituksen kustannukset
+-   Tilauksen kokonaishinta (niteiden ja postituksen yhteishinta)
 
 ## Raporttien näkymät
 
