@@ -1,6 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import db from './db/index.js';
+import bookRoutes from './routes/book.routes.js';
+import { accessLogMiddleware, errorLogMiddleware } from './utils/logger.js';
 
 const init = () => {
     db.connect();
@@ -9,6 +11,11 @@ const init = () => {
 
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
+
+    app.use(accessLogMiddleware);
+    app.use(errorLogMiddleware);
+
+    app.use('/api/book', bookRoutes);
 
     app.get('/api', (req, res) => {
         res.send({ message: 'Server running', time: new Date() });

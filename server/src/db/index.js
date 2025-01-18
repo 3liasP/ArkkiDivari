@@ -35,7 +35,7 @@ class Database {
     query = async (sql, values) => {
         try {
             if (process.env.DB_DEBUG)
-                console.log('SQL: ' + sql, '\nARGS', values);
+                console.log('SQL: ' + sql, '\nARGS:', values);
             return await this.pool.query(sql, values);
         } catch (error) {
             if (process.env.DB_DEBUG)
@@ -60,7 +60,7 @@ class Database {
         return {
             query: async (sql, values) => {
                 if (process.env.DB_DEBUG)
-                    console.log('SQL TRANSACTION: ' + sql, '\nARGS', values);
+                    console.log('SQL TRANSACTION: ' + sql, '\nARGS:', values);
                 return await client.query(sql, values);
             },
             rollback: async () => {
