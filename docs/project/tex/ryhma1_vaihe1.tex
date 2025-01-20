@@ -19,7 +19,7 @@
 % Header and Footer
 \setlength{\headheight}{13.6pt}
 \addtolength{\topmargin}{-1.6pt}
-\fancyhead[L]{v. 0.8}
+\fancyhead[L]{v. 1.0}
 \fancyhead[C]{DATA.DB.210}
 \fancyhead[R]{\thepage}
 \fancyfoot{}
@@ -40,7 +40,7 @@
 \tableofcontents
 \newpage
 
-\section{UML-kaavio}
+\section{UML-kaaviot}
 
 \subsection{Keskustietokanta}
 
@@ -86,19 +86,19 @@ Haku kohdistuu suoraan Books-tauluun, joten haussa käytettyä tietoa ei tarvits
 
 \subsubsection{Raportti R2}
 
-Raportti voidaan esittää tietokantakaaviona seuraavasti:
+Raportti voidaan esittää tietokantakaaviomaisena seuraavasti:
 
 \small{\textbf{R2}(genre, totalSoldPrice, averagePrice)}
 
-Genre (luokka) saadaan suoraan Books-taulusta. totalSoldPrice johdetaan luokkakohtaisesti kaikkien saman luokan niteille laskemalla näiden kokonaismyyntihinta summaamalla kaikkien luokan niteiden attribuutti price. averagePrice voidaan johtaa totalSoldPrice attribuutin perusteella jakamalla se luokassa olevien niteiden kokonaismäärällä.
+Genre (luokka) saadaan suoraan Books-taulusta. totalSoldPrice johdetaan luokkakohtaisesti kaikkien saman luokan niteille laskemalla näiden kokonaismyyntihinta summaamalla kaikkien luokan niteiden attribuutti price. averagePrice voidaan johtaa totalSoldPrice attribuutin perusteella jakamalla se samassa luokassa olevien niteiden kokonaismäärällä.
 
 \subsubsection{Raportti R3}
 
-Raportti voidaan esittää tietokantakaaviona seuraavasti:
+Raportti voidaan esittää tietokantakaaviomaisena seuraavasti:
 
 \textbf{R3}(usersName, boughtBooksCount)
 
-Käyttäjänimet saadaan suoraan Users-taulusta. Teemme haun Order-tauluun ryhmitellen käyttäjänimen perusteella ja rajaten hakutulokset viime vuoden ajalta. Viime vuosi voidaan johtaa nykyisestä vuodesta vähentämällä siitä yksi (ei kiinnitetä). Asiakkaan ostamat niteet saadaan Order-taulusta ja lopuksi kaikkien niteiden summa voidaan laskea asiakaskohtaisesti. Hakua voidaan optimoida myöhemmässä vaiheessa eli tässä demonstroidaan esimerkillä, kuinka tulokset on mahdollista johtaa nykyisestä tietokannasta.
+Käyttäjänimet saadaan suoraan Users-taulusta. Teemme haun Order-tauluun ryhmitellen käyttäjänimen perusteella ja rajaten hakutulokset viime vuoden ajalta. Viime vuosi voidaan johtaa nykyisestä vuodesta vähentämällä siitä yksi (ei kiinnitetä). Asiakkaan ostamat niteet saadaan Order-taulusta ja lopuksi kaikkien niteiden summa voidaan laskea asiakaskohtaisesti. Haku on tarkoitus optimoida implementaatiovaiheessa eli tässä demonstroidaan esimerkillä, kuinka tulokset on mahdollista johtaa nykyisestä tietokannasta.
 
 \subsubsection{Raportti R4}
 
@@ -106,7 +106,180 @@ Raportti R4 on jatkojalostus raporttiin R1, jolloin vakiojärjestys toteutetaan 
 
 \section{Tapahtumakuvaukset}
 
-TODO...
+\subsection{Tapahtuma T1}
+{\large{\textit{Asiakas kirjautuu tai rekisteröityy}}}
+
+\subsubsection{Kirjautuminen}
+
+\begin{enumerate}
+	\item Lue syötteenä käyttäjän antamat username ja password.
+	\item Lue central.Users-relaatiosta rivi, jossa username = :username.
+	\item Vertaile syötteenä tullutta password-arvoa tallennettuun (esim. hashattuun) password-arvoon.
+	\item Jos salasana on oikea, palauta tieto onnistuneesta kirjautumisesta (esim. asiakkaan userId ja rooli).
+\end{enumerate}
+
+\subsubsection{Rekisteröityminen (jos käyttäjää ei vielä ole)}
+
+\begin{enumerate}
+	\item Lue syötteenä käyttäjän rekisteröintitiedot (esim. username, password, name, address, ym.).
+	\item Lue central.Users-relaatiosta, onko samaa username-arvoa jo olemassa.
+	\item Jos ei ole, kirjoita uusi rivi central.Users-relaatioon (sis. roolin customer, hashatun salasanan ym.).
+	\item Palauta tieto onnistuneesta rekisteröitymisestä.
+\end{enumerate}
+
+\subsection{Tapahtuma T2}
+{\large{\textit{Lisää uuden teoksen tiedot divarin D1 tietokantaan sekä keskustietokantaan}}}
+
+\begin{enumerate}
+	\item Lue syötteenä kirjan tiedot (esim. title, author, isbn, year, genre, price, mass).
+	\item Kirjoita ensin teoksen perustiedot central.Books-relaatioon:
+	      \begin{itemize}
+		      \item bookId generoidaan (UUID).
+		      \item isbn, title, author, year, genre, ym. tallennetaan.
+		      \item sellerId asetetaan vastaamaan D1:n sellerId-arvoa (haettava esim. central.Sellers-taulusta, jos ei tiedossa).
+	      \end{itemize}
+	\item Kirjoita sama teos D1.Books-relaatioon käyttäen samaa bookId:tä (UUID):
+	      \begin{itemize}
+		      \item Kopioi perustiedot (otsikko, kirjailija, hinta, paino, jne.).
+		      \item sellerId asetetaan myös D1:n sellerId-arvoon.
+	      \end{itemize}
+	\item Palauta tieto onnistuneesta tallennuksesta ja uuden teoksen tiedot.
+\end{enumerate}
+
+\subsection{Tapahtuma T3}
+{\large{\textit{Lisää uusi myyntikappale teoksesta, jonka tiedot ovat jo kannassa (D2:n ylläpitäjä)}}}
+
+\begin{enumerate}
+	\item Lue syötteenä tiedot, jotka yksilöivät olemassa olevan teoksen (esim. isbn tai jokin sisäinen tunniste).
+	\item Lue central.Books-relaatiosta onko kirjan perustiedot olemassa (vrt. isbn, title, author).
+	\item Jos perustiedot löytyvät, kirjoita central.Books-relaatioon uusi rivi
+	\item Kirjoita D2:n omaan skeemaan (esim. D2.Books) uusi rivi tai päivitys:
+	      \begin{itemize}
+		      \item Käytä samaa bookId-tunnistetta, jos halutaan pitää yhteys keskusdivarin tietoon.
+		      \item Aseta sellerId D2:n myyjän tunnisteeksi.
+		      \item Aseta status = 'available'.
+		      \item Aseta hinta, paino, ym. tiedot.
+	      \end{itemize}
+\end{enumerate}
+
+\subsubsection{Tapahtuma T4}
+{\large{\textit{Asiakas tekee yksittäisen kirjan tilauksen}}}
+
+\begin{enumerate}
+	\item Asiakas kirjautuu/rekisteröityy (ks. T1).
+	\item Asiakas tekee haun (esim. hakukenttä):
+	      \begin{itemize}
+		      \item Lue hakuehdot (otsikko, kirjailija, genre ym.).
+		      \item Lue central.Books-relaatiosta vastaavat teokset, joilla status = 'available'.
+	      \end{itemize}
+	\item Asiakas valitsee halutun kirjan ja tekee tilauksen:
+	      \begin{itemize}
+		      \item Kirjoita uusi rivi central.Orders-relaatioon:
+		            \begin{itemize}
+			            \item userId = asiakkaan userId.
+			            \item status = 'pending'.
+		            \end{itemize}
+	      \end{itemize}
+	\item Kirjoita uusi rivi central.OrderItems-relaatioon (tilauksen ja kirjan välinen linkki).
+	      \begin{itemize}
+		      \item Divari lähettää tilausvahvistuksen (sis. tilauksen hinta + toimituskulut)
+		      \item Toimituskulujen laskenta (kirjeen painorajat) on johdettua tietoa, joten:
+		            \begin{itemize}
+			            \item lue central.Books.mass tilatuille kirjoille
+			            \item laske kokonaispaino
+			            \item valitse postikulutaulukosta oikea hinta
+		            \end{itemize}
+		      \item kirjoita/päivitä central.Orders-relaatioon subtotal, shipping, total.
+	      \end{itemize}
+	\item Asiakas maksaa tilauksen (tapahtuma maksurajapinnassa, ei välttämättä suoraa tietokantatoimintaa).
+	\item Divari lähettää tilauksen:
+	      \begin{itemize}
+		      \item Päivitä central.Orders.status arvoksi 'completed'.
+		      \item Päivitä central.Books.status arvoksi 'sold' niille teoksille, jotka kuuluvat tilaukseen.
+	      \end{itemize}
+\end{enumerate}
+
+\subsection{Tapahtuma T5}
+{\large{\textit{Asiakas tekee tilauksen, jonka paino ylittää 2000 g (tilaus jaetaan useaan erään)}}}
+
+Huom: Yksinkertaistettuna laskemme postikulut ikään kuin yhden divarin teoksille.
+
+\begin{enumerate}
+	\item Asiakas tekee tilauksen (kuten T4:n vaiheet 1-3).
+	\item Lue tilauksen kokonaistiedot central.OrderItems- ja central.Books-relaatioista:\
+	      \begin{itemize}
+		      \item Summataan tilattujen niteiden massat.
+	      \end{itemize}
+	\item Totea, että kokonaispaino ylittää 2000 g.
+	      \begin{itemize}
+		      \item Joudutaan jakamaan paketti useampaan erään.
+		      \item Postikulut lasketaan esim. jakamalla teokset useampaan painoluokkaan tai sovittujen sääntöjen mukaan.
+	      \end{itemize}
+	\item Kirjoita central.Orders-relaatioon lopulliset postikulut (tietueen shipping-kenttä).
+	\item Asiakas maksaa ja Divari lähettää (kuten T4, vaiheet 5-6).
+\end{enumerate}
+
+\subsection{Tapahtuma T6}
+{\large{\textit{Toteuta triggeri, joka päivittää keskusdivarin automaattisesti, kun divarin tietokantaan tuodaan uusi myyntikappale}}}
+
+\begin{enumerate}
+	\item Lue (triggerissä) uusi rivi, joka lisätään D3.Books-tauluun.
+	\item Trigger-funktion sisällä:
+	      \begin{itemize}
+		      \item Tarkista, löytyvätkö teoksen perustiedot jo central.Books-relaatiosta (vrt. ISBN, tekijä, nimi).
+		      \item Jos eivät löydy $\to$ kirjoita uusi rivi central.Books-relaatioon (luo UUID, täytä teostiedot).
+		      \item Jos perustiedot löytyvät, tarkista onko sellerId = D3:n sellerId, ja jos ei, lisää/päivitä tallenne (riippuu toteutustavasta, halutaanko montaa riviä samaan ISBN:ään).
+		      \item Aseta status = 'available' tai triggerin logiikan mukainen oletusarvo.
+	      \end{itemize}
+	\item Tämän seurauksena keskusdivari pysyy automaattisesti synkronoituna jokaisen uuden myyntikappaleen osalta, kun se lisätään D3:n kantaan.
+\end{enumerate}
+
+\subsection{Tapahtuma T7}
+{\large{\textit{Divarin tietokannassa (D1) on kirjoja, joita ei löydy keskustietokannasta - päivitä keskusdivari}}}
+
+\begin{enumerate}
+	\item Lue kaikki D1.Books-rivit, joita ei löydy central.Books-relaatiosta (verrataan esim. ISBN-tunnusta, kirjan nimeä ja kirjoittajaa).
+	\item Jokaiselle puuttuvalle teokselle:
+	      \begin{itemize}
+		      \item Kirjoita puuttuvat tiedot central.Books-relaatioon (luo uusi UUID, täytä perustiedot).
+		      \item Aseta sellerId = D1:n tunniste (hae central.Sellers).
+		      \item Aseta status, price, ym. kentät.
+	      \end{itemize}
+	\item \textit{Vaihtoehtoinen toteutus:} Jos käytössä on jokin “muuttunut/tallennettu” -lippu D1:n päässä, voidaan lukea vain ne rivit, jotka on merkitty uusiksi tai muuttuneiksi viimeisimmän synkronoinnin jälkeen.
+	\item Palauta tieto päivityksen onnistumisesta (esim. kirjattiin X uutta teosta keskustietokantaan).
+\end{enumerate}
+
+\subsection{Tapahtuma T8}
+{\large{\textit{Divari D4:n data XML-muodossa - siirrä tiedot keskustietokantaan}}}
+
+Oletetaan, että XML-data noudattaa annettua DTD-rakennetta (tehtävänannon liite 2) ja siinä on vähintään kaksi teosta, joista kummassakin kaksi nidettä.
+
+\inputminted{xml}{assets/dtd.xml}
+
+\begin{enumerate}
+	\item Lue D4:n XML-aineisto (esim. tiedostosta tai rajapinnasta).
+	\item Parsi XML dokumentti ja erota:
+	      \begin{itemize}
+		      \item Teoksen perustiedot (otsikko, kirjailija, ISBN, genre, julkaisu vuosi).
+		      \item Jokaisen niteen tiedot (hinta, paino, status).
+	      \end{itemize}
+	\item Jokaiselle teokselle:
+	      \begin{itemize}
+		      \item Tarkista, onko teos jo central.Books-relaatiossa (vertaa ISBN/otsikko).
+		      \item Jos ei ole, kirjoita uusi rivi perustiedoilla central.Books.
+	      \end{itemize}
+	\item Sitten kullekin niteelle:
+	      \begin{itemize}
+		      \item Kirjoita tai päivitä central.Books, jos halutaan jokaiselle myyntikappaleelle oma rivi.
+		      \item Aseta sellerId = D4:n tunniste (lisää ensin D4 central.Sellers-relaatioon, jos sitä ei vielä ole).
+		      \item Aseta status, price, mass, ym. tiedot niteelle.
+	      \end{itemize}
+	\item Mikäli D4 on täysin uusi myyjä:
+	      \begin{itemize}
+		      \item Kirjoita uusi rivi central.Sellers-relaatioon (schemaName “D4”, osoitetiedot, ym.).
+		      \item Palauta tieto onnistuneesta siirrosta (esim. montako uutta teosta/nidettä lisättiin).
+	      \end{itemize}
+\end{enumerate}
 
 \section{SQL-luontilauseet}
 % Include the SQL creation script from create.sql
