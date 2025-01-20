@@ -67,7 +67,7 @@
 
 \section{Tietokantakaavio tekstimuodossa}
 
-\small{
+{\small{
 	\textbf{central.Sellers}(\underline{sellerId}, \dashuline{schemaName}, independent, name, address, zip, city, email, phone)
 	
 	\textbf{central.Books}(\underline{bookId}, isbn, \dashuline{sellerId}, status, price, title, author, year, type, genre, mass, buyInPrice, soldDate)
@@ -79,7 +79,7 @@
 	\textbf{central.OrderItems}(\dashuline{orderId}, \dashuline{bookId})
 	
 	\textbf{D1.Books}(\underline{bookId}, isbn, price, title, author, year, type, genre, mass, buyInPrice, soldDate)
-}
+}}
 
 
 \section{Näkymät}
@@ -103,7 +103,7 @@ Haku kohdistuu suoraan Books-tauluun, joten haussa käytettyä tietoa ei tarvits
 
 Raportti voidaan esittää tietokantakaaviomaisena seuraavasti:
 
-\small{\textbf{R2}(genre, totalSoldPrice, averagePrice)}
+\textbf{R2}(genre, totalSoldPrice, averagePrice)
 
 Genre (luokka) saadaan suoraan Books-taulusta. totalSoldPrice johdetaan luokkakohtaisesti kaikkien saman luokan niteille laskemalla näiden kokonaismyyntihinta summaamalla kaikkien luokan niteiden attribuutti price. averagePrice voidaan johtaa totalSoldPrice attribuutin perusteella jakamalla se samassa luokassa olevien niteiden kokonaismäärällä.
 
@@ -349,7 +349,7 @@ Ohjelmointikielenä käytetään JavaScriptiä. Alla erittely käytetyistä työ
 \subsection{Palvelin}
 
 \begin{itemize}
-	\item \textbf{Suorituspäristö:} Node.js
+	\item \textbf{Suoritusympäristö:} Node.js
 	\item \textbf{Verkkokehys:} Express.js
 	\item \textbf{Tietokantamoduuli:} pg
 	\item \textbf{Tietokanta:} PostgreSQL
