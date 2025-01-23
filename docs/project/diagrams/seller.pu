@@ -1,17 +1,35 @@
 @startuml Seller Antiquarian
+skinparam linetype ortho
+
 entity Books {
-    + bookId: UUID /'primary key, globally unique'/
-    + isbn: text /'unique for same edition of book'/
-    + sellerId: int /'foreign key'/
-    + status: enum /'available, reserved, sold'/
-    + price: numeric
-    + title: text
-    + author: text
-    + year: int
-    + type: text
-    + genre: text
-    + mass: numeric
-    + buyInPrice: numeric
-    + soldDate: timestamptz
+    + bookId
+    + isbn
+    + title
+    + author
+    + year
 }
+
+entity Copies {
+    + copyId
+    + seller
+    + status
+    + price
+    + weight
+    + buyInPrice
+    + soldDate
+}
+
+entity Types {
+    + typeId
+    + name
+}
+
+entity Genres {
+    + genreId
+    + name
+}
+
+Books "1 " -- "N " Copies
+Copies "N " -- "1  " Types
+Copies "N  " -- "1 " Genres
 @enduml

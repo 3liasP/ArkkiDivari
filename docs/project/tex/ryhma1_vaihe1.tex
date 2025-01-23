@@ -59,26 +59,38 @@
 
 \subsection{Keskustietokanta}
 
-\includesvg{assets/central.svg}
+\includesvg[scale=0.9]{assets/central.svg}
 
 \subsection{Yksittäisen divarin tietokanta}
 
 \includesvg{assets/seller.svg}
 
-\section{Tietokantakaavio tekstimuodossa}
+\section{Tietokantakaaviot tekstimuodossa}
 
 {\small{
 	\textbf{central.Sellers}(\underline{sellerId}, \dashuline{schemaName}, independent, name, address, zip, city, email, phone)
 	
-	\textbf{central.Books}(\underline{bookId}, isbn, \dashuline{sellerId}, status, price, title, author, year, type, genre, mass, buyInPrice, soldDate)
+	\textbf{central.Books}(\underline{bookId}, \dashuline{typeId}, \dashuline{genreId}, isbn, title, author)
 	
-	\textbf{central.Users}(\underline{userId}, role, \dashuline{sellerId}, username, password, name, address, zip, city, email, phone)
+	\textbf{central.Copies}(\underline{copyId}, \dashuline{bookId}, \dashuline{sellerId}, status, price, mass, buyInPrice, soldDate)
+
+	\textbf{central.Type}(\underline{typeId}, name)
+
+	\textbf{central.Genre}(\underline{genreId}, name)
+
+	\textbf{central.Users}(\underline{userId}, \dashuline{sellerId}, role, password, name, address, zip, city, phone)
 	
 	\textbf{central.Orders}(\underline{orderId}, \dashuline{userId}, time, status, subtotal, shipping, total)
 	
 	\textbf{central.OrderItems}(\dashuline{orderId}, \dashuline{bookId})
 	
 	\textbf{D1.Books}(\underline{bookId}, isbn, price, title, author, year, type, genre, mass, buyInPrice, soldDate)
+
+	\textbf{D1.Copies}(\underline{copyId}, \dashuline{bookId}, \dashuline{sellerId}, status, price, mass, buyInPrice, soldDate)
+
+	\textbf{D1.Type}(\underline{typeId}, name)
+
+	\textbf{D1.Genre}(\underline{genreId}, name)
 }}
 
 

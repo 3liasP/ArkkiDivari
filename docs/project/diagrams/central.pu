@@ -1,62 +1,71 @@
 @startuml Central Antiquarian
+skinparam linetype ortho
+
+entity Types {
+    + typeId
+    + name
+}
+
+entity Genres {
+    + genreId
+    + name
+}
+
 entity Books {
-    + bookId: UUID /'primary key, globally unique'/
-    + isbn: text /'unique for same edition of book'/
-    + sellerId: int /'foreign key'/
-    + status: enum /'available, reserved, sold'/
-    + price: numeric
-    + title: text
-    + author: text
-    + year: int
-    + type: text
-    + genre: text
-    + mass: numeric
-    + buyInPrice: numeric
-    + soldDate: timestamptz
+    + bookId
+    + isbn
+    + title
+    + author
+    + year
+}
+
+entity Copies {
+    + copyId
+    + status
+    + price
+    + weight
+    + buyInPrice
+    + soldDate
 }
 
 entity Users {
-    + userId: serial /'primary key'/
-    + sellerId: int /'foreign key'/
-    + role: enum /'admin, seller, customer'/
-    + username: text /'unique'/
-    + password: text /'hashed'/
-    + name: text
-    + address: text
-    + email: text
-    + phone: text
+    + userId
+    + role
+    + password
+    + name
+    + address
+    + zip
+    + city
+    + phone
 }
 
 entity Orders {
-    + orderId: serial /'primary key'/
-    + userId: int
-    + time: timestamptz
-    + status: enum /'pending, completed'/
-    + subtotal: numeric
-    + shipping: numeric
-    + total: numeric
-}
-
-entity OrderItems {
-    + orderId: int /'primary key, foreign key'/
-    + bookId: UUID /'primary key, foreign key'/
+    + orderId
+    + time
+    + status
+    + subtotal
+    + shipping
+    + total
 }
 
 entity Sellers {
-    + sellerId: serial
-    + schemaName: text
-    + independent: boolean
-    + independent: boolean
-    + name: text
-    + address: text
-    + zip: text
-    + email: text
-    + phone: text
+    + sellerId
+    + schemaName
+    + independent
+    + name
+    + address
+    + zip
+    + city
+    + phone
 }
 
-Books --> Sellers
-Orders --> Users
-Orders <-- OrderItems
-Users --> Sellers
-Books <-- OrderItems
+Books "1  " -- "N" Copies
+Books "N" -- "M  " Sellers
+Books "N " -- "1" Types
+Books "N" -- "1  " Genres
+Copies "N" -- "1 " Orders
+Copies "N " -- "1" Sellers
+Orders "N " -- "1" Users
+Users "N  " -- "1" Sellers
+
 @enduml
