@@ -37,16 +37,48 @@
 
 \section*{Tietokantakaavio tekstimuodossa}
 
-\noindent
-\textbf{Varaus}(\underline{varausId}, \dashuline{opetustilaId}, \dashuline{kayttajaId}, \dashuline{periodiId}, kuvaus, startTime, endTime) \\[0.5em]
+\noindent{
+\textbf{Varaus}(\underline{varausId}, \dashuline{opetustilaId}, \dashuline{kayttajaId}, \dashuline{periodiId}, \dashuline{tapahtumaId}, startTime, endTime) \\[0.5em]
+\textbf{Tapahtuma}(\underline{tapahtumaId}, nimi, kuvaus) \\[0.5em]
 \textbf{Opetustila}(\underline{opetustilaId}, tunnus, paikkaluku, varustus, vuokrakustannus, lisatiedot) \\[0.5em]
 \textbf{Varustus}(\underline{varustusId}, nimi) \\[0.5em]
 \textbf{OpetustilaVarustus}(\dashuline{opetustilaId}, \dashuline{varustusId}) \\[0.5em]
 \textbf{Kayttaja}(\underline{kayttajaId}, nimi, yksikko) \\[0.5em]
-\textbf{Periodi}(\underline{periodiId}, numero, alkupaiva, loppupaiva) \\[0.5em]
+\textbf{Periodi}(\underline{periodiId}, numero, alkupaiva, loppupaiva, vuosi) \\[0.5em]
+}
 
 \section*{SQL-luontilauseet}
 % Include the SQL creation script from assets/create.sql
 \inputminted{sql}{assets/create.sql}
+
+\section*{Muokkaukset (\today)}
+
+\subsection*{UML-kaavio}
+
+\begin{itemize}
+    \item Lisätty lukumääräsuhteet
+    \item Lisätty attribuutti vuosi Periodi-entiteettiin
+    \item Luotu Tapahtuma-entieetti, jotta voidaan jäljittää mitkä yksittäiset varaukset kuuluvat yhteen
+    \item Poistettu vierasavaimet entiteeteistä
+    \item Poistettu kuvaus Varaus-entiteetistä
+    \item Korjattu asettelua hieman
+\end{itemize}
+
+\subsection*{Tietokantakaavio}
+
+\begin{itemize}
+    \item Tehty UML-kaavion mukaiset muutokset
+    \item Lisätty Varaus-entiteetille tapahtumaId-attribuutti
+    \item Uutena osiona lisätty Tapahtuma-entiteetti
+\end{itemize}
+
+\subsection*{SQL-luontilauseet}
+
+\begin{itemize}
+    \item Tehty UML-kaavion mukaiset muutokset
+    \item Luotu uusi taulu Tapahtuma-entiteetille
+    \item Lisätty vierasavain tapahtumaId Varaus-entiteetille
+    \item Lisätty vuosi-attribuutti Periodi-tauluun
+\end{itemize}
 
 \end{document}

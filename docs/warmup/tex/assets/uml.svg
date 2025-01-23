@@ -1,243 +1,236 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-    contentStyleType="text/css" data-diagram-type="CLASS" height="506px" preserveAspectRatio="none"
-    style="width:564px;height:506px;background:#FFFFFF;" version="1.1" viewBox="0 0 564 506"
-    width="564px" zoomAndPan="magnify">
+    contentStyleType="text/css" data-diagram-type="CLASS" height="300px" preserveAspectRatio="none"
+    style="width:581px;height:300px;background:#FFFFFF;" version="1.1" viewBox="0 0 581 300"
+    width="581px" zoomAndPan="magnify">
     <defs />
     <g><!--class
         Varaus-->
         <g id="elem_Varaus">
-            <rect codeLine="1" fill="#F1F1F1" height="162.0781" id="Varaus" rx="2.5" ry="2.5"
-                style="stroke:#181818;stroke-width:0.5;" width="108.585" x="316.92" y="337.08" />
-            <ellipse cx="344.487" cy="353.08" fill="#ADD1B2" rx="11" ry="11"
+            <rect codeLine="2" fill="#F1F1F1" height="96.8906" id="Varaus" rx="2.5" ry="2.5"
+                style="stroke:#181818;stroke-width:0.5;" width="93.2998" x="227.35" y="196.48" />
+            <ellipse cx="248.0387" cy="212.48" fill="#ADD1B2" rx="11" ry="11"
                 style="stroke:#181818;stroke-width:1;" />
             <path
-                d="M347.4558,358.7206 Q346.8777,359.0175 346.237,359.1581 Q345.5964,359.3144 344.8933,359.3144 Q342.3933,359.3144 341.0652,357.6738 Q339.7527,356.0175 339.7527,352.8925 Q339.7527,349.7675 341.0652,348.1113 Q342.3933,346.455 344.8933,346.455 Q345.5964,346.455 346.237,346.6113 Q346.8933,346.7675 347.4558,347.0644 L347.4558,349.7831 Q346.8308,349.205 346.237,348.9394 Q345.6433,348.6581 345.0183,348.6581 Q343.6745,348.6581 342.987,349.7363 Q342.2995,350.7988 342.2995,352.8925 Q342.2995,354.9863 342.987,356.0644 Q343.6745,357.1269 345.0183,357.1269 Q345.6433,357.1269 346.237,356.8613 Q346.8308,356.58 347.4558,356.0019 L347.4558,358.7206 Z "
+                d="M252.1481,218.48 L244.4293,218.48 L244.4293,206.0894 L252.1481,206.0894 L252.1481,208.2456 L246.8825,208.2456 L246.8825,210.9175 L251.6481,210.9175 L251.6481,213.0738 L246.8825,213.0738 L246.8825,216.3238 L252.1481,216.3238 L252.1481,218.48 Z "
                 fill="#000000" />
             <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
-                textLength="48.6582" x="361.2797" y="357.9267">Varaus</text>
-            <line style="stroke:#181818;stroke-width:0.5;" x1="317.92" x2="424.505" y1="369.08"
-                y2="369.08" />
-            <ellipse cx="327.92" cy="382.7284" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                textLength="48.6582" x="263.3029" y="217.3267">Varaus</text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="228.35" x2="319.6498" y1="228.48"
+                y2="228.48" />
+            <ellipse cx="238.35" cy="242.1284" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
                 style="stroke:#038048;stroke-width:1;" />
             <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
-                textLength="60.3818" x="336.92" y="386.0751">varausId</text>
-            <ellipse cx="327.92" cy="399.0253" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                textLength="60.3818" x="247.35" y="245.4751">varausId</text>
+            <ellipse cx="238.35" cy="258.4253" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
                 style="stroke:#038048;stroke-width:1;" />
             <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
-                textLength="82.585" x="336.92" y="402.372">opetustilaId</text>
-            <ellipse cx="327.92" cy="415.3222" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                textLength="67.2998" x="247.35" y="261.772">startTime</text>
+            <ellipse cx="238.35" cy="274.7222" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
                 style="stroke:#038048;stroke-width:1;" />
             <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
-                textLength="70.0137" x="336.92" y="418.6689">kayttajaId</text>
-            <ellipse cx="327.92" cy="431.6191" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                textLength="61.0654" x="247.35" y="278.0689">endTime</text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="228.35" x2="319.6498" y1="285.3706"
+                y2="285.3706" />
+        </g><!--class
+        Tapahtuma-->
+        <g id="elem_Tapahtuma">
+            <rect codeLine="8" fill="#F1F1F1" height="96.8906" id="Tapahtuma" rx="2.5" ry="2.5"
+                style="stroke:#181818;stroke-width:0.5;" width="116.002" x="7" y="23.29" />
+            <ellipse cx="23.7789" cy="39.29" fill="#ADD1B2" rx="11" ry="11"
+                style="stroke:#181818;stroke-width:1;" />
+            <path
+                d="M27.8883,45.29 L20.1695,45.29 L20.1695,32.8994 L27.8883,32.8994 L27.8883,35.0556 L22.6227,35.0556 L22.6227,37.7275 L27.3883,37.7275 L27.3883,39.8838 L22.6227,39.8838 L22.6227,43.1338 L27.8883,43.1338 L27.8883,45.29 Z "
+                fill="#000000" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="80.0488" x="38.1742" y="44.1367">Tapahtuma</text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="8" x2="122.002" y1="55.29" y2="55.29" />
+            <ellipse cx="18" cy="68.9384" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
                 style="stroke:#038048;stroke-width:1;" />
             <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
-                textLength="61.5029" x="336.92" y="434.9657">periodiId</text>
-            <ellipse cx="327.92" cy="447.9159" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                textLength="90.002" x="27" y="72.2851">tapahtumaId</text>
+            <ellipse cx="18" cy="85.2353" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
                 style="stroke:#038048;stroke-width:1;" />
             <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
-                textLength="50.0117" x="336.92" y="451.2626">kuvaus</text>
-            <ellipse cx="327.92" cy="464.2128" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                textLength="30.29" x="27" y="88.582">nimi</text>
+            <ellipse cx="18" cy="101.5322" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
                 style="stroke:#038048;stroke-width:1;" />
             <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
-                textLength="67.2998" x="336.92" y="467.5595">startTime</text>
-            <ellipse cx="327.92" cy="480.5097" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
-                style="stroke:#038048;stroke-width:1;" />
-            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
-                textLength="61.0654" x="336.92" y="483.8564">endTime</text>
-            <line style="stroke:#181818;stroke-width:0.5;" x1="317.92" x2="424.505" y1="491.1581"
-                y2="491.1581" />
+                textLength="50.0117" x="27" y="104.8789">kuvaus</text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="8" x2="122.002" y1="112.1806"
+                y2="112.1806" />
         </g><!--class
         Opetustila-->
         <g id="elem_Opetustila">
-            <rect codeLine="11" fill="#F1F1F1" height="129.4844" id="Opetustila" rx="2.5" ry="2.5"
-                style="stroke:#181818;stroke-width:0.5;" width="146.4219" x="7" y="147.6" />
-            <ellipse cx="41.0793" cy="163.6" fill="#ADD1B2" rx="11" ry="11"
+            <rect codeLine="14" fill="#F1F1F1" height="129.4844" id="Opetustila" rx="2.5" ry="2.5"
+                style="stroke:#181818;stroke-width:0.5;" width="146.4219" x="427.79" y="7" />
+            <ellipse cx="461.8693" cy="23" fill="#ADD1B2" rx="11" ry="11"
                 style="stroke:#181818;stroke-width:1;" />
             <path
-                d="M44.048,169.2406 Q43.4699,169.5375 42.8293,169.6781 Q42.1887,169.8344 41.4855,169.8344 Q38.9855,169.8344 37.6574,168.1938 Q36.3449,166.5375 36.3449,163.4125 Q36.3449,160.2875 37.6574,158.6313 Q38.9855,156.975 41.4855,156.975 Q42.1887,156.975 42.8293,157.1313 Q43.4855,157.2875 44.048,157.5844 L44.048,160.3031 Q43.423,159.725 42.8293,159.4594 Q42.2355,159.1781 41.6105,159.1781 Q40.2668,159.1781 39.5793,160.2563 Q38.8918,161.3188 38.8918,163.4125 Q38.8918,165.5063 39.5793,166.5844 Q40.2668,167.6469 41.6105,167.6469 Q42.2355,167.6469 42.8293,167.3813 Q43.423,167.1 44.048,166.5219 L44.048,169.2406 Z "
+                d="M465.9787,29 L458.2599,29 L458.2599,16.6094 L465.9787,16.6094 L465.9787,18.7656 L460.713,18.7656 L460.713,21.4375 L465.4787,21.4375 L465.4787,23.5938 L460.713,23.5938 L460.713,26.8438 L465.9787,26.8438 L465.9787,29 Z "
                 fill="#000000" />
             <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
-                textLength="72.0234" x="59.3191" y="168.4467">Opetustila</text>
-            <line style="stroke:#181818;stroke-width:0.5;" x1="8" x2="152.4219" y1="179.6"
-                y2="179.6" />
-            <ellipse cx="18" cy="193.2484" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                textLength="72.0234" x="480.1091" y="27.8467">Opetustila</text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="428.79" x2="573.2119" y1="39" y2="39" />
+            <ellipse cx="438.79" cy="52.6484" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
                 style="stroke:#038048;stroke-width:1;" />
             <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
-                textLength="82.585" x="27" y="196.5951">opetustilaId</text>
-            <ellipse cx="18" cy="209.5453" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                textLength="82.585" x="447.79" y="55.9951">opetustilaId</text>
+            <ellipse cx="438.79" cy="68.9453" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
                 style="stroke:#038048;stroke-width:1;" />
             <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
-                textLength="48.2754" x="27" y="212.892">tunnus</text>
-            <ellipse cx="18" cy="225.8422" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                textLength="48.2754" x="447.79" y="72.292">tunnus</text>
+            <ellipse cx="438.79" cy="85.2422" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
                 style="stroke:#038048;stroke-width:1;" />
             <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
-                textLength="75.8926" x="27" y="229.1889">paikkaluku</text>
-            <ellipse cx="18" cy="242.1391" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                textLength="75.8926" x="447.79" y="88.5889">paikkaluku</text>
+            <ellipse cx="438.79" cy="101.5391" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
                 style="stroke:#038048;stroke-width:1;" />
             <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
-                textLength="120.4219" x="27" y="245.4857">vuokrakustannus</text>
-            <ellipse cx="18" cy="258.4359" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                textLength="120.4219" x="447.79" y="104.8857">vuokrakustannus</text>
+            <ellipse cx="438.79" cy="117.8359" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
                 style="stroke:#038048;stroke-width:1;" />
             <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
-                textLength="64.5859" x="27" y="261.7826">lisatiedot</text>
-            <line style="stroke:#181818;stroke-width:0.5;" x1="8" x2="152.4219" y1="269.0844"
-                y2="269.0844" />
+                textLength="64.5859" x="447.79" y="121.1826">lisatiedot</text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="428.79" x2="573.2119" y1="128.4844"
+                y2="128.4844" />
         </g><!--class
         Varustus-->
         <g id="elem_Varustus">
-            <rect codeLine="19" fill="#F1F1F1" height="80.5938" id="Varustus" rx="2.5" ry="2.5"
-                style="stroke:#181818;stroke-width:0.5;" width="99.459" x="188.48" y="172.04" />
-            <ellipse cx="206.0556" cy="188.04" fill="#ADD1B2" rx="11" ry="11"
+            <rect codeLine="22" fill="#F1F1F1" height="80.5938" id="Varustus" rx="2.5" ry="2.5"
+                style="stroke:#181818;stroke-width:0.5;" width="99.459" x="451.27" y="204.63" />
+            <ellipse cx="468.8456" cy="220.63" fill="#ADD1B2" rx="11" ry="11"
                 style="stroke:#181818;stroke-width:1;" />
             <path
-                d="M209.0244,193.6806 Q208.4463,193.9775 207.8056,194.1181 Q207.165,194.2744 206.4619,194.2744 Q203.9619,194.2744 202.6338,192.6338 Q201.3213,190.9775 201.3213,187.8525 Q201.3213,184.7275 202.6338,183.0713 Q203.9619,181.415 206.4619,181.415 Q207.165,181.415 207.8056,181.5713 Q208.4619,181.7275 209.0244,182.0244 L209.0244,184.7431 Q208.3994,184.165 207.8056,183.8994 Q207.2119,183.6181 206.5869,183.6181 Q205.2431,183.6181 204.5556,184.6963 Q203.8681,185.7588 203.8681,187.8525 Q203.8681,189.9463 204.5556,191.0244 Q205.2431,192.0869 206.5869,192.0869 Q207.2119,192.0869 207.8056,191.8213 Q208.3994,191.54 209.0244,190.9619 L209.0244,193.6806 Z "
+                d="M472.955,226.63 L465.2363,226.63 L465.2363,214.2394 L472.955,214.2394 L472.955,216.3956 L467.6894,216.3956 L467.6894,219.0675 L472.455,219.0675 L472.455,221.2238 L467.6894,221.2238 L467.6894,224.4738 L472.955,224.4738 L472.955,226.63 Z "
                 fill="#000000" />
             <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
-                textLength="61.7354" x="220.628" y="192.8867">Varustus</text>
-            <line style="stroke:#181818;stroke-width:0.5;" x1="189.48" x2="286.939" y1="204.04"
-                y2="204.04" />
-            <ellipse cx="199.48" cy="217.6884" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                textLength="61.7354" x="483.418" y="225.4767">Varustus</text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="452.27" x2="549.729" y1="236.63"
+                y2="236.63" />
+            <ellipse cx="462.27" cy="250.2784" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
                 style="stroke:#038048;stroke-width:1;" />
             <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
-                textLength="73.459" x="208.48" y="221.0351">varustusId</text>
-            <ellipse cx="199.48" cy="233.9853" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                textLength="73.459" x="471.27" y="253.6251">varustusId</text>
+            <ellipse cx="462.27" cy="266.5753" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
                 style="stroke:#038048;stroke-width:1;" />
             <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
-                textLength="30.29" x="208.48" y="237.332">nimi</text>
-            <line style="stroke:#181818;stroke-width:0.5;" x1="189.48" x2="286.939" y1="244.6338"
-                y2="244.6338" />
-        </g><!--class
-        OpetustilaVarustus-->
-        <g id="elem_OpetustilaVarustus">
-            <rect codeLine="24" fill="#F1F1F1" height="80.5938" id="OpetustilaVarustus" rx="2.5"
-                ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="165.7588" x="76.33" y="7" />
-            <ellipse cx="91.33" cy="23" fill="#ADD1B2" rx="11" ry="11"
-                style="stroke:#181818;stroke-width:1;" />
-            <path
-                d="M94.2988,28.6406 Q93.7206,28.9375 93.08,29.0781 Q92.4394,29.2344 91.7363,29.2344 Q89.2363,29.2344 87.9081,27.5938 Q86.5956,25.9375 86.5956,22.8125 Q86.5956,19.6875 87.9081,18.0313 Q89.2363,16.375 91.7363,16.375 Q92.4394,16.375 93.08,16.5313 Q93.7363,16.6875 94.2988,16.9844 L94.2988,19.7031 Q93.6738,19.125 93.08,18.8594 Q92.4863,18.5781 91.8613,18.5781 Q90.5175,18.5781 89.83,19.6563 Q89.1425,20.7188 89.1425,22.8125 Q89.1425,24.9063 89.83,25.9844 Q90.5175,27.0469 91.8613,27.0469 Q92.4863,27.0469 93.08,26.7813 Q93.6738,26.5 94.2988,25.9219 L94.2988,28.6406 Z "
-                fill="#000000" />
-            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
-                textLength="133.7588" x="105.33" y="27.8467">OpetustilaVarustus</text>
-            <line style="stroke:#181818;stroke-width:0.5;" x1="77.33" x2="241.0888" y1="39" y2="39" />
-            <ellipse cx="87.33" cy="52.6484" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
-                style="stroke:#038048;stroke-width:1;" />
-            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
-                textLength="85.0391" x="96.33" y="55.9951">OpetustilaId</text>
-            <ellipse cx="87.33" cy="68.9453" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
-                style="stroke:#038048;stroke-width:1;" />
-            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
-                textLength="74.751" x="96.33" y="72.292">VarustusId</text>
-            <line style="stroke:#181818;stroke-width:0.5;" x1="77.33" x2="241.0888" y1="79.5938"
-                y2="79.5938" />
+                textLength="30.29" x="471.27" y="269.922">nimi</text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="452.27" x2="549.729" y1="277.2238"
+                y2="277.2238" />
         </g><!--class
         Kayttaja-->
         <g id="elem_Kayttaja">
-            <rect codeLine="29" fill="#F1F1F1" height="96.8906" id="Kayttaja" rx="2.5" ry="2.5"
-                style="stroke:#181818;stroke-width:0.5;" width="96.0137" x="323.2" y="163.89" />
-            <ellipse cx="340.8741" cy="179.89" fill="#ADD1B2" rx="11" ry="11"
+            <rect codeLine="27" fill="#F1F1F1" height="96.8906" id="Kayttaja" rx="2.5" ry="2.5"
+                style="stroke:#181818;stroke-width:0.5;" width="96.0137" x="157.99" y="23.29" />
+            <ellipse cx="175.6641" cy="39.29" fill="#ADD1B2" rx="11" ry="11"
                 style="stroke:#181818;stroke-width:1;" />
             <path
-                d="M343.8428,185.5306 Q343.2647,185.8275 342.6241,185.9681 Q341.9834,186.1244 341.2803,186.1244 Q338.7803,186.1244 337.4522,184.4838 Q336.1397,182.8275 336.1397,179.7025 Q336.1397,176.5775 337.4522,174.9213 Q338.7803,173.265 341.2803,173.265 Q341.9834,173.265 342.6241,173.4213 Q343.2803,173.5775 343.8428,173.8744 L343.8428,176.5931 Q343.2178,176.015 342.6241,175.7494 Q342.0303,175.4681 341.4053,175.4681 Q340.0616,175.4681 339.3741,176.5463 Q338.6866,177.6088 338.6866,179.7025 Q338.6866,181.7963 339.3741,182.8744 Q340.0616,183.9369 341.4053,183.9369 Q342.0303,183.9369 342.6241,183.6713 Q343.2178,183.39 343.8428,182.8119 L343.8428,185.5306 Z "
+                d="M179.7734,45.29 L172.0547,45.29 L172.0547,32.8994 L179.7734,32.8994 L179.7734,35.0556 L174.5078,35.0556 L174.5078,37.7275 L179.2734,37.7275 L179.2734,39.8838 L174.5078,39.8838 L174.5078,43.1338 L179.7734,43.1338 L179.7734,45.29 Z "
                 fill="#000000" />
             <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
-                textLength="58.0713" x="355.4683" y="184.7367">Kayttaja</text>
-            <line style="stroke:#181818;stroke-width:0.5;" x1="324.2" x2="418.2137" y1="195.89"
-                y2="195.89" />
-            <ellipse cx="334.2" cy="209.5384" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                textLength="58.0713" x="190.2583" y="44.1367">Kayttaja</text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="158.99" x2="253.0037" y1="55.29"
+                y2="55.29" />
+            <ellipse cx="168.99" cy="68.9384" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
                 style="stroke:#038048;stroke-width:1;" />
             <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
-                textLength="70.0137" x="343.2" y="212.8851">kayttajaId</text>
-            <ellipse cx="334.2" cy="225.8353" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                textLength="70.0137" x="177.99" y="72.2851">kayttajaId</text>
+            <ellipse cx="168.99" cy="85.2353" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
                 style="stroke:#038048;stroke-width:1;" />
             <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
-                textLength="30.29" x="343.2" y="229.182">nimi</text>
-            <ellipse cx="334.2" cy="242.1322" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                textLength="30.29" x="177.99" y="88.582">nimi</text>
+            <ellipse cx="168.99" cy="101.5322" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
                 style="stroke:#038048;stroke-width:1;" />
             <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
-                textLength="52.3564" x="343.2" y="245.4789">yksikk&#246;</text>
-            <line style="stroke:#181818;stroke-width:0.5;" x1="324.2" x2="418.2137" y1="252.7806"
-                y2="252.7806" />
+                textLength="52.3564" x="177.99" y="104.8789">yksikk&#246;</text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="158.99" x2="253.0037" y1="112.1806"
+                y2="112.1806" />
         </g><!--class
         Periodi-->
         <g id="elem_Periodi">
-            <rect codeLine="35" fill="#F1F1F1" height="113.1875" id="Periodi" rx="2.5" ry="2.5"
-                style="stroke:#181818;stroke-width:0.5;" width="103.3213" x="454.55" y="155.75" />
-            <ellipse cx="480.0252" cy="171.75" fill="#ADD1B2" rx="11" ry="11"
+            <rect codeLine="33" fill="#F1F1F1" height="129.4844" id="Periodi" rx="2.5" ry="2.5"
+                style="stroke:#181818;stroke-width:0.5;" width="103.3213" x="289.34" y="7" />
+            <ellipse cx="314.8152" cy="23" fill="#ADD1B2" rx="11" ry="11"
                 style="stroke:#181818;stroke-width:1;" />
             <path
-                d="M482.994,177.3906 Q482.4159,177.6875 481.7752,177.8281 Q481.1346,177.9844 480.4315,177.9844 Q477.9315,177.9844 476.6034,176.3438 Q475.2909,174.6875 475.2909,171.5625 Q475.2909,168.4375 476.6034,166.7813 Q477.9315,165.125 480.4315,165.125 Q481.1346,165.125 481.7752,165.2813 Q482.4315,165.4375 482.994,165.7344 L482.994,168.4531 Q482.369,167.875 481.7752,167.6094 Q481.1815,167.3281 480.5565,167.3281 Q479.2127,167.3281 478.5252,168.4063 Q477.8377,169.4688 477.8377,171.5625 Q477.8377,173.6563 478.5252,174.7344 Q479.2127,175.7969 480.5565,175.7969 Q481.1815,175.7969 481.7752,175.5313 Q482.369,175.25 482.994,174.6719 L482.994,177.3906 Z "
+                d="M318.9246,29 L311.2059,29 L311.2059,16.6094 L318.9246,16.6094 L318.9246,18.7656 L313.659,18.7656 L313.659,21.4375 L318.4246,21.4375 L318.4246,23.5938 L313.659,23.5938 L313.659,26.8438 L318.9246,26.8438 L318.9246,29 Z "
                 fill="#000000" />
             <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
-                textLength="48.043" x="496.3531" y="176.5967">Periodi</text>
-            <line style="stroke:#181818;stroke-width:0.5;" x1="455.55" x2="556.8713" y1="187.75"
-                y2="187.75" />
-            <ellipse cx="465.55" cy="201.3984" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                textLength="48.043" x="331.1431" y="27.8467">Periodi</text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="290.34" x2="391.6613" y1="39" y2="39" />
+            <ellipse cx="300.34" cy="52.6484" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
                 style="stroke:#038048;stroke-width:1;" />
             <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
-                textLength="61.5029" x="474.55" y="204.7451">periodiId</text>
-            <ellipse cx="465.55" cy="217.6953" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                textLength="61.5029" x="309.34" y="55.9951">periodiId</text>
+            <ellipse cx="300.34" cy="68.9453" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
                 style="stroke:#038048;stroke-width:1;" />
             <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
-                textLength="54.3184" x="474.55" y="221.042">numero</text>
-            <ellipse cx="465.55" cy="233.9922" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                textLength="54.3184" x="309.34" y="72.292">numero</text>
+            <ellipse cx="300.34" cy="85.2422" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
                 style="stroke:#038048;stroke-width:1;" />
             <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
-                textLength="67.6689" x="474.55" y="237.3389">alkupaiva</text>
-            <ellipse cx="465.55" cy="250.2891" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                textLength="67.6689" x="309.34" y="88.5889">alkupaiva</text>
+            <ellipse cx="300.34" cy="101.5391" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
                 style="stroke:#038048;stroke-width:1;" />
             <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
-                textLength="77.3213" x="474.55" y="253.6357">loppupaiva</text>
-            <line style="stroke:#181818;stroke-width:0.5;" x1="455.55" x2="556.8713" y1="260.9375"
-                y2="260.9375" />
+                textLength="77.3213" x="309.34" y="104.8857">loppupaiva</text>
+            <ellipse cx="300.34" cy="117.8359" fill="#FFFFFF" fill-opacity="0.00000" rx="3" ry="3"
+                style="stroke:#038048;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="36.9072" x="309.34" y="121.1826">vuosi</text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="290.34" x2="391.6613" y1="128.4844"
+                y2="128.4844" />
         </g><!--link
         Opetustila to Varaus-->
         <g id="link_Opetustila_Varaus">
-            <path codeLine="42"
-                d="M153.64,264.76 C204.32,300.25 265.6951,343.2286 311.7251,375.4586 "
-                fill="#FFFFFF" fill-opacity="0.00000" id="Opetustila-to-Varaus"
+            <path codeLine="41"
+                d="M439.53,136.93 C439.53,169.21 439.53,201.37 439.53,201.37 C439.53,201.37 369.93,201.37 320.99,201.37 "
+                fill="#FFFFFF" fill-opacity="0.00000" id="Opetustila-Varaus"
                 style="stroke:#181818;stroke-width:1;" />
-            <polygon fill="#181818"
-                points="316.64,378.9,311.5619,370.4612,312.5442,376.0322,306.9733,377.0145,316.64,378.9"
-                style="stroke:#181818;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+                textLength="8.271" x="424.7923" y="156.4997">1</text>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+                textLength="9.7246" x="328.6058" y="190.9479">N</text>
         </g><!--link
         Kayttaja to Varaus-->
         <g id="link_Kayttaja_Varaus">
-            <path codeLine="43" d="M371.21,261.12 C371.21,283.7 371.21,305.29 371.21,330.95 "
-                fill="#FFFFFF" fill-opacity="0.00000" id="Kayttaja-to-Varaus"
+            <path codeLine="42" d="M240.68,120.44 C240.68,144.05 240.68,172.34 240.68,195.99 "
+                fill="#FFFFFF" fill-opacity="0.00000" id="Kayttaja-Varaus"
                 style="stroke:#181818;stroke-width:1;" />
-            <polygon fill="#181818"
-                points="371.21,336.95,375.21,327.95,371.21,331.95,367.21,327.95,371.21,336.95"
-                style="stroke:#181818;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+                textLength="8.271" x="228.47" y="140.42">1</text>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+                textLength="9.7246" x="226.6466" y="185.4823">N</text>
         </g><!--link
-        OpetustilaVarustus to Varustus-->
-        <g id="link_OpetustilaVarustus_Varustus">
-            <path codeLine="44" d="M178.33,87.77 C190.66,113.21 204.023,140.7908 216.373,166.2708 "
-                fill="#FFFFFF" fill-opacity="0.00000" id="OpetustilaVarustus-to-Varustus"
+        Tapahtuma to Varaus-->
+        <g id="link_Tapahtuma_Varaus">
+            <path codeLine="43"
+                d="M65,120.57 C65,171.92 65,245.37 65,245.37 C65,245.37 165.48,245.37 227.1,245.37 "
+                fill="#FFFFFF" fill-opacity="0.00000" id="Tapahtuma-Varaus"
                 style="stroke:#181818;stroke-width:1;" />
-            <polygon fill="#181818"
-                points="218.99,171.67,218.664,161.8265,216.8092,167.1707,211.4651,165.3158,218.99,171.67"
-                style="stroke:#181818;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+                textLength="8.271" x="52.2207" y="140.2158">1</text>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+                textLength="9.7246" x="209.6469" y="241.2794">N</text>
         </g><!--link
-        OpetustilaVarustus to Opetustila-->
-        <g id="link_OpetustilaVarustus_Opetustila">
-            <path codeLine="45"
-                d="M140.09,87.77 C131.46,105.58 123.6563,121.6804 113.9463,141.7204 " fill="#FFFFFF"
-                fill-opacity="0.00000" id="OpetustilaVarustus-to-Opetustila"
+        Opetustila to Varustus-->
+        <g id="link_Opetustila_Varustus">
+            <path codeLine="44" d="M501,136.72 C501,159.37 501,184.13 501,204.24 " fill="#FFFFFF"
+                fill-opacity="0.00000" id="Opetustila-Varustus"
                 style="stroke:#181818;stroke-width:1;" />
-            <polygon fill="#181818"
-                points="111.33,147.12,118.8541,140.7648,113.5102,142.6204,111.6547,137.2765,111.33,147.12"
-                style="stroke:#181818;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+                textLength="9.7246" x="487.3358" y="156.7214">N</text>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+                textLength="11.2163" x="484.8326" y="193.6377">M</text>
         </g><!--link
         Periodi to Varaus-->
         <g id="link_Periodi_Varaus">
-            <path codeLine="46"
-                d="M469.14,269.29 C455.33,290.15 442.6739,309.2482 427.6939,331.8582 "
-                fill="#FFFFFF" fill-opacity="0.00000" id="Periodi-to-Varaus"
-                style="stroke:#181818;stroke-width:1;" />
-            <polygon fill="#181818"
-                points="424.38,336.86,432.6854,331.5665,427.1416,332.6918,426.0163,327.148,424.38,336.86"
-                style="stroke:#181818;stroke-width:1;" />
-        </g><!--SRC=[TL4nRiCm3Dpr2kr1lj2zw90CGNOYri1AbWI9D104_LO_q8-LeUN8HfBjAFAETzGbGAts30MusflPsKdXvo0mPKTS2GDewU5A1DzpaLt1DE3Su4ae0Yf1eHEEJh2BWw8VOowwu_1Gkprh4yUe4XdGUmZi-Uw5ao_WPGvQEs05GZSawi9YNYQuDlUALJJYYA_sBmJDUzWQENU11_Eh1TVvpHLqmyvUVHNNVx-TSfpFeuprgIAFhYG143nBrWdkeLBEhH21RiZkzn_jQypYOVNq8b3hQl6ktv_DuhAB_WC0]-->
+            <path codeLine="45" d="M305,136.72 C305,156.39 305,177.66 305,196.09 " fill="#FFFFFF"
+                fill-opacity="0.00000" id="Periodi-Varaus" style="stroke:#181818;stroke-width:1;" />
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+                textLength="9.7246" x="291.6099" y="156.7214">N</text>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+                textLength="11.2163" x="289.0573" y="185.2441">M</text>
+        </g><!--SRC=[NP1DQWCn38NtSmhXRSWYnoYbQHUXUy4OedhyWoqD3ANNwWLoiMWyVoOhF_7qoKygZaB2Z1u62fQdP25cliVE1YQUu5izAV3RdM2iygrNMHWptyXRrJRqLVrr6tF3X7SMZnNZhQfa84_wE1brLiDy9ijIc0QScRXN5M89GRjFa92Smq6Sp7aakenE-t2r1oh8PFl8pMJTG5kah2jKVKGv-jvnOiQV9RHRYpRpv8h-_lXlc2-RAVPKaRJeXH1lSrI1WnCDFUASBgQq5ng-rD-FnS5S39pFOAvcFNktPp8NW5VpEBEwhsOxzhgw7s3sQtHRz9bPJDZW9m00]-->
     </g>
 </svg>

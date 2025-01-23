@@ -1,15 +1,18 @@
 @startuml Opetustilan varaamisjärjestelmä
-class Varaus {
+skinparam linetype ortho
+entity Varaus {
 + varausId
-+ opetustilaId
-+ kayttajaId
-+ periodiId
-+ kuvaus
 + startTime
 + endTime
 }
 
-class Opetustila{
+entity Tapahtuma {
++ tapahtumaId
++ nimi
++ kuvaus
+}
+
+entity Opetustila{
 + opetustilaId
 + tunnus
 + paikkaluku
@@ -17,32 +20,28 @@ class Opetustila{
 + lisatiedot
 }
 
-class Varustus{
+entity Varustus{
 + varustusId
 + nimi
 }
 
-class OpetustilaVarustus {
-+ OpetustilaId
-+ VarustusId
-}
-
-class Kayttaja {
+entity Kayttaja {
 + kayttajaId
 + nimi
 + yksikkö
 }
 
-class Periodi {
+entity Periodi {
 + periodiId
 + numero
 + alkupaiva
 + loppupaiva
++ vuosi
 }
 
-Opetustila --> Varaus
-Kayttaja--> Varaus
-OpetustilaVarustus --> Varustus
-OpetustilaVarustus --> Opetustila
-Periodi --> Varaus
+Opetustila "1" -- "N" Varaus
+Kayttaja "1  " -- "N" Varaus
+Tapahtuma "1 " -- "N" Varaus
+Opetustila "N " -- "M " Varustus
+Periodi "N" -- "M  " Varaus
 @enduml

@@ -31,7 +31,14 @@ CREATE TABLE Periodi (
     periodiId SERIAL PRIMARY KEY,
     numero INT NOT NULL,
     alkupaiva DATE NOT NULL,
-    loppupaiva DATE NOT NULL
+    loppupaiva DATE NOT NULL,
+    vuosi INT NOT NULL
+);
+
+CREATE TABLE Tapahtuma (
+    tapahtumaId SERIAL PRIMARY KEY,
+    nimi VARCHAR(255) NOT NULL,
+    kuvaus TEXT
 );
 
 CREATE TABLE Varaus (
@@ -39,11 +46,12 @@ CREATE TABLE Varaus (
     opetustilaId INT NOT NULL,
     kayttajaId INT NOT NULL,
     periodiId INT NOT NULL,
-    kuvaus TEXT,
+    tapahtumaId INT NOT NULL,
     startTime TIMESTAMP NOT NULL,
     endTime TIMESTAMP NOT NULL,
     FOREIGN KEY (opetustilaId) REFERENCES Opetustila(opetustilaId),
     FOREIGN KEY (kayttajaId) REFERENCES Kayttaja(kayttajaId),
-    FOREIGN KEY (periodiId) REFERENCES Periodi(periodiId)
+    FOREIGN KEY (periodiId) REFERENCES Periodi(periodiId),
+    FOREIGN KEY (tapahtumaId) REFERENCES Tapahtuma(tapahtumaId)
 );
 
