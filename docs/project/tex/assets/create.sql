@@ -61,7 +61,7 @@ CREATE TABLE central.Copies (
     bookId UUID NOT NULL REFERENCES central.Books (bookId),
     sellerId TEXT REFERENCES central.Sellers (sellerId),
     status bookStatus NOT NULL DEFAULT 'available',
-    price NUMERIC,
+    price NUMERIC NOT NULL,
     weight NUMERIC,
     buyInPrice NUMERIC,
     soldDate TIMESTAMPTZ
