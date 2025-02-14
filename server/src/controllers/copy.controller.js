@@ -3,19 +3,18 @@ import db from '../db/database.js';
 const create = async (req, res) => {
     try {
         const result = await db.query(
-            `INSERT INTO central.Books (
-                isbn, title, author, year, weight, typeid, genreid
+            `INSERT INTO central.Copies (
+                bookId, sellerId, status, price, buyinprice, solddate
             ) VALUES (
-                $1, $2, $3, $4, $5, $6, $7
+                $1, $2, $3, $4, $5, $6
             ) RETURNING *`,
             [
-                req.body.isbn,
-                req.body.title,
-                req.body.author,
-                req.body.year,
-                req.body.weight,
-                req.body.typeid,
-                req.body.genreid,
+                req.body.bookid,
+                req.body.sellerid,
+                req.body.status,
+                req.body.price,
+                req.body.buyinprice,
+                req.body.solddate,
             ],
         );
         res.status(201).json(result.rows[0]);
@@ -27,7 +26,7 @@ const create = async (req, res) => {
 const findOne = async (req, res) => {
     try {
         const result = await db.query(
-            'SELECT * FROM central.Books WHERE bookid = $1',
+            'SELECT * FROM central.Copies WHERE copyid = $1',
             [req.params.id],
         );
         if (result.rows.length) {
@@ -43,14 +42,14 @@ const findOne = async (req, res) => {
 const update = async (req, res) => {
     try {
         const result = await db.query(
-            `UPDATE central.Books SET
+            `UPDATE central.Copies SET
                 isbn = $1,
                 title = $2,
                 author = $3,
                 year = $4,
                 typeid = $5,
                 genreid = $6
-            WHERE bookid = $7 RETURNING *`,
+            WHERE copyid = $7 RETURNING *`,
             [
                 req.body.isbn,
                 req.body.title,
@@ -74,7 +73,7 @@ const update = async (req, res) => {
 const remove = async (req, res) => {
     try {
         const result = await db.query(
-            'DELETE FROM central.Books WHERE bookid = $1 RETURNING *',
+            'DELETE FROM central.Copies WHERE copyid = $1 RETURNING *',
             [req.params.id],
         );
         if (result.rows.length) {

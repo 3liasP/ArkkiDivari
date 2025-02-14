@@ -35,16 +35,16 @@ class Database {
     query = async (sql, values) => {
         try {
             if (process.env.DB_DEBUG)
-                console.log('SQL: ' + sql, '\nARGS:', values);
+                console.log('SQL: ' + sql, '\nVALUES: ', values);
             return await this.pool.query(sql, values);
         } catch (error) {
             if (process.env.DB_DEBUG)
                 console.log(
-                    'SQL ERROR: \n  SQL:' +
+                    'SQL ERROR: \n  SQL: ' +
                         sql +
-                        '\n  VALUES:' +
+                        '\n  VALUES: ' +
                         values +
-                        '\n  ERROR:' +
+                        '\n  ERROR: ' +
                         error,
                 );
             throw error;

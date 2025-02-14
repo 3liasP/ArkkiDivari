@@ -1,27 +1,45 @@
 class Api {
     constructor() {
-        this.baseURL = process.env.BASE_URL || 'http://localhost:8081/api';
+        this.baseURL = process.env.BASE_URL || 'http://localhost:8010/api';
     }
 
-    createBook = async (bookData) => {
+    createBook = async (book) => {
         try {
             const response = await fetch(`${this.baseURL}/book`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(bookData),
+                body: JSON.stringify(book),
             });
 
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
-            const data = await response.json();
-            console.log(data);
-            console.log(`Book created with ISBN: ${data.isbn}`);
+            return await response.json();
         } catch (error) {
             console.error('Error creating book:', error.message);
+        }
+    };
+
+    createCopy = async (copy) => {
+        try {
+            const response = await fetch(`${this.baseURL}/copy`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(copy),
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            return await response.json();
+        } catch (error) {
+            console.error('Error creating copy:', error.message);
         }
     };
 }

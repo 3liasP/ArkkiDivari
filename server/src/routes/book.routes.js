@@ -5,8 +5,8 @@ const router = express.Router();
 
 router.post('/', bookController.create);
 router.get('/:id', bookController.findOne);
-// router.put('/:id', bookController.update);
-// router.delete('/:id', bookController.delete);
+router.put('/:id', bookController.update);
+router.delete('/:id', bookController.remove);
 
 router.use((req, res) => {
     res.status(405).send({ message: 'Method not allowed' });

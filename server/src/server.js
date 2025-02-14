@@ -1,7 +1,9 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import db from './db/index.js';
+import db from './db/database.js';
 import bookRoutes from './routes/book.routes.js';
+import copyRoutes from './routes/copy.routes.js';
+import schemaRoutes from './routes/schema.routes.js';
 import { accessLogMiddleware, errorLogMiddleware } from './utils/logger.js';
 
 const init = () => {
@@ -16,6 +18,8 @@ const init = () => {
     app.use(errorLogMiddleware);
 
     app.use('/api/book', bookRoutes);
+    app.use('/api/copy', copyRoutes);
+    app.use('/api/schema', schemaRoutes);
 
     app.get('/api', (req, res) => {
         res.send({ message: 'Server running', time: new Date() });

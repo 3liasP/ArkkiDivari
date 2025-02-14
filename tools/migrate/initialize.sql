@@ -36,15 +36,9 @@ CREATE TABLE central.Users (
     phone TEXT
 );
 
-CREATE TABLE central.Types (
-    typeId SERIAL PRIMARY KEY,
-    name TEXT NOT NULL
-);
+CREATE TABLE central.Types (typeId SERIAL PRIMARY KEY, name TEXT NOT NULL);
 
-CREATE TABLE central.Genres (
-    genreId SERIAL PRIMARY KEY,
-    name TEXT NOT NULL
-);
+CREATE TABLE central.Genres (genreId SERIAL PRIMARY KEY, name TEXT NOT NULL);
 
 CREATE TABLE central.Books (
     bookId UUID DEFAULT uuid_generate_v4 () PRIMARY KEY,
@@ -52,6 +46,7 @@ CREATE TABLE central.Books (
     title TEXT NOT NULL,
     author TEXT NOT NULL,
     year INT,
+    weight NUMERIC,
     typeId INT REFERENCES central.Types (typeId),
     genreId INT REFERENCES central.Genres (genreId)
 );
@@ -62,7 +57,6 @@ CREATE TABLE central.Copies (
     sellerId TEXT REFERENCES central.Sellers (sellerId),
     status bookStatus NOT NULL DEFAULT 'available',
     price NUMERIC,
-    weight NUMERIC,
     buyInPrice NUMERIC,
     soldDate TIMESTAMPTZ
 );
@@ -83,25 +77,28 @@ CREATE TABLE central.OrderItems (
     PRIMARY KEY (orderId, copyId)
 );
 
+CREATE TABLE central.ShippingCosts (weight NUMERIC PRIMARY KEY, cost NUMERIC NOT NULL);
+
 -- Example of creating a seller schema and its tables
 CREATE SCHEMA D1;
 
 CREATE TABLE D1.Books (
-    isbn TEXT PRIMARY KEY,
+    bookId UUID DEFAULT uuid_generate_v4 () PRIMARY KEY,
+    isbn TEXT UNIQUE, -- can be null
     title TEXT NOT NULL,
     author TEXT NOT NULL,
     year INT,
-    type TEXT,
-    genre TEXT
+    weight NUMERIC,
+    typeId INT REFERENCES central.Types (typeId),
+    genreId INT REFERENCES central.Genres (genreId)
 );
 
 CREATE TABLE D1.Copies (
     copyId UUID DEFAULT uuid_generate_v4 () PRIMARY KEY,
-    isbn TEXT NOT NULL REFERENCES D1.Books (isbn),
+    bookId UUID NOT NULL REFERENCES D1.Books (bookId),
     sellerId TEXT NOT NULL DEFAULT 'lasse@lassenlehti.fi',
     status bookStatus NOT NULL DEFAULT 'available',
     price NUMERIC,
-    weight NUMERIC,
     buyInPrice NUMERIC,
     soldDate TIMESTAMPTZ
 );
@@ -143,7 +140,6 @@ VALUES
         'Helsinki',
         '0507654321'
     );
-
 
 INSERT INTO
     central.Sellers (sellerId, schemaName, independent, name, address, zip, city, phone)
@@ -196,3 +192,11 @@ VALUES
     ('trilleri'),
     ('draama'),
     ('huumori');
+
+INSERT INTO
+    central.ShippingCosts (weight, cost)
+VALUES
+    (50, 2.50),
+    (250, 5.00),
+    (1000, 10.00),
+    (2000, 15.00);
