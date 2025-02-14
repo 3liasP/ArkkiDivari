@@ -5,10 +5,12 @@ const createDemoData = async (numItems) => {
     const books = generateBooks(numItems);
     for (const book of books) {
         const result = await api.createBook(book);
+        console.log('Created book:', result);
         if (result) {
             const copies = generateCopies(result);
             for (const copy of copies) {
                 await api.createCopy(copy);
+                console.log('Created copy:', copy);
             }
         }
     }

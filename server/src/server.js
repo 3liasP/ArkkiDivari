@@ -4,6 +4,7 @@ import db from './db/database.js';
 import bookRoutes from './routes/book.routes.js';
 import copyRoutes from './routes/copy.routes.js';
 import schemaRoutes from './routes/schema.routes.js';
+import searchRoutes from './routes/search.routes.js';
 import { accessLogMiddleware, errorLogMiddleware } from './utils/logger.js';
 
 const init = () => {
@@ -20,6 +21,7 @@ const init = () => {
     app.use('/api/book', bookRoutes);
     app.use('/api/copy', copyRoutes);
     app.use('/api/schema', schemaRoutes);
+    app.use('/api/search', searchRoutes);
 
     app.get('/api', (req, res) => {
         res.send({ message: 'Server running', time: new Date() });

@@ -1,28 +1,28 @@
-export const SCHEMA = {
+export const SCHEMA = Object.freeze({
     books: {
         bookid: {
-            type: 'string',
+            type: 'id',
             label: 'Teos ID',
             required: false,
             editable: false,
             automatic: true,
         },
         isbn: {
-            type: 'string',
+            type: 'text',
             label: 'ISBN',
             required: false,
             editable: true,
             automatic: false,
         },
         title: {
-            type: 'string',
+            type: 'text',
             label: 'Nimi',
             required: true,
             editable: true,
             automatic: false,
         },
         author: {
-            type: 'string',
+            type: 'text',
             label: 'Kirjailija',
             required: true,
             editable: true,
@@ -59,7 +59,7 @@ export const SCHEMA = {
     },
     copies: {
         copyid: {
-            type: 'string',
+            type: 'id',
             label: 'Myyntikappale ID',
             required: false,
             editable: false,
@@ -121,7 +121,7 @@ export const SCHEMA = {
         username: '',
         group: '',
     },
-};
+});
 
 export const ADMIN_SCHEMA = {
     copies: {
