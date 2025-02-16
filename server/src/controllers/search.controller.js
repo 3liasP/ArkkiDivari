@@ -1,14 +1,8 @@
-import { SCHEMA } from '../constants/schema.constants.js';
 import db from '../db/database.js';
-
-const getQueriableProperties = () =>
-    Object.keys(SCHEMA.books).filter(
-        (key) => SCHEMA.books[key].type === 'text',
-    );
 
 const search = async (req, res) => {
     try {
-        const { criteria, args } = req.body;
+        const { query, criteria, args } = req.body;
 
         // Checking all wanted fields of request exist
         if (!criteria || !args) {
@@ -17,7 +11,6 @@ const search = async (req, res) => {
             });
         }
 
-        const { books, copies, query } = criteria;
         const {
             sort = 'asc',
             limit = 1000,
@@ -31,20 +24,16 @@ const search = async (req, res) => {
         const booksValues = [];
         let valueIndex = 1;
 
-        // Adding query conditions for books
+        // Adding query conditions for books using tsvector
         if (query) {
-            const queriableProperties = getQueriableProperties();
-            const queryConditions = queriableProperties.map(
-                (prop) => `${prop} ILIKE $${valueIndex++}`,
+            booksConditions.push(
+                `tsv @@ plainto_tsquery('english', $${valueIndex++})`,
             );
-            booksConditions.push(`(${queryConditions.join(' OR ')})`);
-            booksValues.push(
-                ...Array(queriableProperties.length).fill(`%${query}%`),
-            );
+            booksValues.push(query);
         }
 
-        for (const column in books) {
-            const values = books[column];
+        for (const column in criteria) {
+            const values = criteria[column];
             booksConditions.push(
                 `${column} IN (${values.map(() => `$${valueIndex++}`).join(', ')})`,
             );
@@ -63,10 +52,16 @@ const search = async (req, res) => {
         const result = {};
 
         for (const book of booksResult.rows) {
+            // eslint-disable-next-line no-unused-vars
+            const { tsv, ...rest } = book;
             result[book.bookid] = {
-                ...book,
+                ...rest,
                 copies: [],
             };
+        }
+
+        if (booksResult.rows.length === 0) {
+            return res.status(200).send([]);
         }
 
         // If copies are to be included, construct the SQL query for copies
@@ -77,20 +72,6 @@ const search = async (req, res) => {
                 .join(', ');
             copiesQuery += ')';
             const copiesValues = booksResult.rows.map((book) => book.bookid);
-
-            // Adding criteria for copies
-            const copiesConditions = [];
-            for (const column in copies) {
-                const values = copies[column];
-                copiesConditions.push(
-                    `${column} IN (${values.map(() => `$${valueIndex++}`).join(', ')})`,
-                );
-                copiesValues.push(...values);
-            }
-
-            if (copiesConditions.length > 0) {
-                copiesQuery += ' AND ' + copiesConditions.join(' AND ');
-            }
 
             // Execute the copies query
             const copiesResult = await db.query(copiesQuery, copiesValues);

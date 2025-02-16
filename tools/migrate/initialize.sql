@@ -48,7 +48,9 @@ CREATE TABLE central.Books (
     year INT,
     weight NUMERIC,
     typeId INT REFERENCES central.Types (typeId),
-    genreId INT REFERENCES central.Genres (genreId)
+    genreId INT REFERENCES central.Genres (genreId),
+    createdAt TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE central.Copies (
@@ -58,7 +60,9 @@ CREATE TABLE central.Copies (
     status bookStatus NOT NULL DEFAULT 'available',
     price NUMERIC,
     buyInPrice NUMERIC,
-    soldDate TIMESTAMPTZ
+    soldDate TIMESTAMPTZ,
+    createdAt TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE central.Orders (
@@ -168,30 +172,30 @@ VALUES
 INSERT INTO
     central.Types (name)
 VALUES
-    ('romaani'),
-    ('sarjakuva'),
-    ('tietokirja'),
-    ('novellikokoelma'),
-    ('lastenkirja'),
-    ('runokokoelma'),
-    ('oppikirja'),
-    ('elämäkerta'),
-    ('keittokirja'),
-    ('matkaopas');
+    ('Romaani'),
+    ('Sarjakuva'),
+    ('Tietokirja'),
+    ('Novellikokoelma'),
+    ('Lastenkirja'),
+    ('Runokokoelma'),
+    ('Oppikirja'),
+    ('Elämäkerta'),
+    ('Keittokirja'),
+    ('Matkaopas');
 
 INSERT INTO
     central.Genres (name)
 VALUES
-    ('fantasia'),
-    ('scifi'),
-    ('dekkari'),
-    ('kauhu'),
-    ('romantiikka'),
-    ('historia'),
-    ('seikkailu'),
-    ('trilleri'),
-    ('draama'),
-    ('huumori');
+    ('Fantasia'),
+    ('Scifi'),
+    ('Dekkari'),
+    ('Kauhu'),
+    ('Romantiikka'),
+    ('Historia'),
+    ('Seikkailu'),
+    ('Trilleri'),
+    ('Draama'),
+    ('Huumori');
 
 INSERT INTO
     central.ShippingCosts (weight, cost)
@@ -200,3 +204,24 @@ VALUES
     (250, 5.00),
     (1000, 10.00),
     (2000, 15.00);
+
+-- tsvector, experimental
+ALTER TABLE central.Books
+ADD COLUMN tsv tsvector;
+
+CREATE INDEX books_tsv_idx ON central.Books USING gin (tsv);
+
+CREATE OR REPLACE FUNCTION update_tsv () RETURNS trigger AS $$
+BEGIN
+  NEW.tsv :=
+    setweight(to_tsvector('english', coalesce(NEW.title, '')), 'A') ||
+    setweight(to_tsvector('english', coalesce(NEW.author, '')), 'B') ||
+    setweight(to_tsvector('english', coalesce(NEW.isbn, '')), 'C');
+  RETURN NEW;
+END
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER tsvectorupdate BEFORE INSERT
+OR
+UPDATE ON central.Books FOR EACH ROW
+EXECUTE FUNCTION update_tsv ();
