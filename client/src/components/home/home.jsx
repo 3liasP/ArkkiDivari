@@ -9,7 +9,7 @@ const Home = ({ ctx, username }) => {
         args: {
             limit: 10,
             sort: 'desc',
-            orderBy: 'createdat',
+            orderby: 'createdat',
         },
     };
 

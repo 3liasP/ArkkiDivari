@@ -41,6 +41,19 @@ const BookCopies = ({ ctx, params, schema, results, search }) => {
         console.log('Add to favorites:', copy);
     };
 
+    if (!bookCopies.length) {
+        return (
+            <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                sx={{ height: '100vh' }}
+            >
+                <Typography variant="h6">Ei myyntikappaleita</Typography>
+            </Box>
+        );
+    }
+
     return (
         <Box
             maxWidth="false"
@@ -118,6 +131,7 @@ const BookCopies = ({ ctx, params, schema, results, search }) => {
                                 color="info"
                                 startIcon={<AddShoppingCartIcon />}
                                 onClick={() => handleAddToCart(copy)}
+                                disabled={copy.status !== 'available'}
                                 sx={{ mb: 2 }}
                             >
                                 Lisää ostoskoriin

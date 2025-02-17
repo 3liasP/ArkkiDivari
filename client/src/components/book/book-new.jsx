@@ -22,7 +22,7 @@ const BookNew = ({ ctx, schema, editing, userGroup }) => {
                     </Typography>
                     <Typography variant="subtitle1" component="p">
                         Näyttää siltä, että sinulla ei ole oikeuksia luoda uusia
-                        irtaimia. Ota yhteyttä ylläpitoon, mikäli tarvitset
+                        teoksia. Ota yhteyttä ylläpitoon, mikäli tarvitset
                         lisätietoja.
                     </Typography>
                     <Button>

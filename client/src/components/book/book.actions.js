@@ -32,7 +32,11 @@ export const createBook =
             const newBook = { ...state.contexts[ctx].editedBook };
             newBook.userId = state.user.userId;
             if (
-                !validateBook(newBook, state.schema.data.properties, requireId)
+                !validateBook(
+                    newBook,
+                    state.schema.data.books.properties,
+                    requireId,
+                )
             ) {
                 dispatch(
                     showToaster({

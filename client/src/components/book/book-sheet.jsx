@@ -290,31 +290,28 @@ const BookSheet = ({
                     </Grid2>
                     <Divider orientation="vertical" flexItem />
                     <Grid2 size={isWindowed ? 12 : 'grow'}>
-                        {USER_ROLES[userGroup]?.privilege >= 2 ? (
-                            <>
-                                <Tabs
-                                    value={state.selectedTab}
-                                    onChange={handleTabChange}
-                                    variant={
-                                        isMobile ? 'fullWidth' : 'standard'
+                        <>
+                            <Tabs
+                                value={state.selectedTab}
+                                onChange={handleTabChange}
+                                variant={isMobile ? 'fullWidth' : 'standard'}
+                            >
+                                <Tab label="Myynnissä" />
+                                <Tab
+                                    label={
+                                        USER_ROLES[userGroup]?.privilege >= 2
+                                            ? 'Muokkaa'
+                                            : 'Lisätiedot'
                                     }
-                                >
-                                    <Tab label="Myyntikappaleet" />
-                                    <Tab label="Muokkaa" />
-                                </Tabs>
-                                {state.selectedTab === 0 && (
-                                    <BookCopies
-                                        ctx={ctx}
-                                        params={searchParams}
-                                    />
-                                )}
-                                {state.selectedTab === 1 && (
-                                    <BookControls ctx={ctx} />
-                                )}
-                            </>
-                        ) : (
-                            <BookControls ctx={ctx} />
-                        )}
+                                />
+                            </Tabs>
+                            {state.selectedTab === 0 && (
+                                <BookCopies ctx={ctx} params={searchParams} />
+                            )}
+                            {state.selectedTab === 1 && (
+                                <BookControls ctx={ctx} />
+                            )}
+                        </>
                     </Grid2>
                 </Grid2>
                 <Dialog open={state.dialogOpen} onClose={handleDialogClose}>

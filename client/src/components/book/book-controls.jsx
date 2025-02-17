@@ -218,7 +218,7 @@ const BookControls = ({
                                                 {idModes[localIdMode].icon}
                                             </InputAdornment>
                                         ),
-                                        readOnly: localIdMode === 'barcode', // Make the input read-only in 'barcode' mode
+                                        readOnly: localIdMode === 'barcode',
                                     },
                                 }}
                                 helperText={idModes[localIdMode].helperText}
@@ -262,7 +262,6 @@ const BookControls = ({
                                     editing &&
                                     !localBook[key]
                                 }
-                                // disabled={USER_ROLES[userGroup]?.privilege < 2}
                                 slotProps={{
                                     input: {
                                         readOnly:
@@ -288,7 +287,6 @@ const BookControls = ({
                                     editing &&
                                     !localBook[key]
                                 }
-                                // disabled={USER_ROLES[userGroup]?.privilege < 2}
                                 slotProps={{
                                     input: {
                                         readOnly:
@@ -357,7 +355,6 @@ const BookControls = ({
                                         }
                                     />
                                 )}
-                                // disabled={USER_ROLES[userGroup]?.privilege < 2}
                                 readOnly={USER_ROLES[userGroup]?.privilege < 2}
                             />
                         );
