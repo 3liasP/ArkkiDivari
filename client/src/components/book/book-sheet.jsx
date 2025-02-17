@@ -1,5 +1,6 @@
 import { useTheme } from '@emotion/react';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -42,9 +43,11 @@ import NoMatch from '../../routes/no-match';
 import SummaryButtons from '../summary/summary-buttons';
 import { USER_ROLES } from '../user/user.constants';
 import BookControls from './book-controls';
-import BookCopies from './book-copies';
 import BookTitle from './book-title';
 import { cloneBook, deleteBook, fetchBook } from './book.actions';
+import CopyGrid from '../copy/copy-grid';
+import CopyNew from '../copy/copy-new'; // Import CopyNew component
+import { prepareCopy } from '../copy/copy.actions';
 
 const BookSheet = ({
     ctx,
@@ -56,6 +59,7 @@ const BookSheet = ({
     fetchBook,
     cloneBook,
     deleteBook,
+    prepareCopy,
     notFound,
 }) => {
     useEffect(() => {
@@ -68,6 +72,7 @@ const BookSheet = ({
         anchorEl: null,
         selectedTab: 0,
         dialogOpen: false,
+        copyModalOpen: false, // State to manage CopyNew modal
     });
 
     const handleMenuClick = (event) => {
@@ -93,7 +98,7 @@ const BookSheet = ({
 
     const handleMenuItemClick = (event) => {
         switch (event.currentTarget.id) {
-            case 'copy': {
+            case 'clone': {
                 const callBack = () => {
                     navigate(
                         paramsToUrl({
@@ -104,7 +109,14 @@ const BookSheet = ({
                 cloneBook(ctx, 'book-new', callBack);
                 break;
             }
-
+            case 'copy': {
+                prepareCopy(ctx);
+                setState((prevState) => ({
+                    ...prevState,
+                    copyModalOpen: true,
+                }));
+                break;
+            }
             case 'delete': {
                 setState((prevState) => ({
                     ...prevState,
@@ -123,6 +135,13 @@ const BookSheet = ({
         setState((prevState) => ({
             ...prevState,
             dialogOpen: false,
+        }));
+    };
+
+    const handleCopyModalClose = () => {
+        setState((prevState) => ({
+            ...prevState,
+            copyModalOpen: false, // Close the CopyNew modal
         }));
     };
 
@@ -214,7 +233,7 @@ const BookSheet = ({
                                         >
                                             <MenuList>
                                                 <MenuItem
-                                                    id="copy"
+                                                    id="clone"
                                                     onClick={
                                                         handleMenuItemClick
                                                     }
@@ -224,6 +243,20 @@ const BookSheet = ({
                                                     </ListItemIcon>
                                                     <ListItemText>
                                                         Luo uusi kopio
+                                                    </ListItemText>
+                                                </MenuItem>
+                                                <Divider />
+                                                <MenuItem
+                                                    id="copy"
+                                                    onClick={
+                                                        handleMenuItemClick
+                                                    }
+                                                >
+                                                    <ListItemIcon>
+                                                        <LibraryAddIcon fontSize="small" />
+                                                    </ListItemIcon>
+                                                    <ListItemText>
+                                                        Luo uusi myyntikappale
                                                     </ListItemText>
                                                 </MenuItem>
                                                 {USER_ROLES[userGroup]
@@ -306,7 +339,7 @@ const BookSheet = ({
                                 />
                             </Tabs>
                             {state.selectedTab === 0 && (
-                                <BookCopies ctx={ctx} params={searchParams} />
+                                <CopyGrid ctx={ctx} params={searchParams} />
                             )}
                             {state.selectedTab === 1 && (
                                 <BookControls ctx={ctx} />
@@ -315,7 +348,7 @@ const BookSheet = ({
                     </Grid2>
                 </Grid2>
                 <Dialog open={state.dialogOpen} onClose={handleDialogClose}>
-                    <DialogTitle>Poista irtain</DialogTitle>
+                    <DialogTitle>Poista teos</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
                             {`Haluatko varmasti poistaa teoksen ${currentBook?.bookid || ''} pysyvästi?`}
@@ -335,6 +368,14 @@ const BookSheet = ({
                         </Button>
                     </DialogActions>
                 </Dialog>
+                <CopyNew
+                    ctx={ctx}
+                    schema={schema}
+                    editing={editing}
+                    userGroup={userGroup}
+                    open={state.copyModalOpen}
+                    onClose={handleCopyModalClose}
+                />
                 {editing && <SummaryButtons ctx={ctx} />}
             </Container>
         );
@@ -382,6 +423,7 @@ const mapDispatchToProps = (dispatch) => ({
     cloneBook: (ctx, newCtx, callBack) =>
         dispatch(cloneBook(ctx, newCtx, callBack)),
     deleteBook: (ctx, callBack) => dispatch(deleteBook(ctx, callBack)),
+    prepareCopy: (ctx) => dispatch(prepareCopy(ctx)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BookSheet);

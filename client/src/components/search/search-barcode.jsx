@@ -26,7 +26,7 @@ const SearchBarcode = () => {
                     Hae viivakoodilla
                 </Typography>
                 <Typography variant="body1" mt={2} mb={2}>
-                    {`Sovellus lukee viivakoodin ja hakee siihen liittyvän irtaimen tiedot.`}
+                    {`Sovellus lukee viivakoodin ja hakee siihen liittyvän teoksen tiedot.`}
                 </Typography>
                 <BookBarcodeScanner onScan={handleBarcodeScan} />
             </Box>

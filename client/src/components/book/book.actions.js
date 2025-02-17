@@ -30,7 +30,6 @@ export const createBook =
         const requireId = state.contexts[ctx].idMode !== 'auto';
         try {
             const newBook = { ...state.contexts[ctx].editedBook };
-            newBook.userId = state.user.userId;
             if (
                 !validateBook(
                     newBook,
@@ -67,7 +66,6 @@ export const updateBook = (ctx) => async (dispatch, getState) => {
 
     try {
         const updatedBook = { ...state.contexts[ctx].editedBook };
-        updatedBook.userId = state.user.userId;
         if (!validateBook(updatedBook, state.schema.data.books.properties)) {
             dispatch(
                 showToaster({
@@ -121,7 +119,7 @@ export const cloneBook =
             dispatch(setEditing({ ctx: newCtx, editing: true }));
             dispatch(
                 showToaster({
-                    message: 'Teos kopioitu!',
+                    message: 'Teoksen tiedot kopioitu!',
                     variant: 'info',
                 }),
             );

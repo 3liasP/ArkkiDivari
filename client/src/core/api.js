@@ -65,6 +65,27 @@ class Api {
         }
     }
 
+    async createCopy(copy) {
+        try {
+            const response = await fetch(`${this.baseURL}/copy`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(copy),
+            });
+            if (!response.ok) {
+                const errMsg = await getErrMsg(response);
+                throw new Error(errMsg);
+            }
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error creating copy:', error);
+            throw error;
+        }
+    }
+
     async updateBook(book) {
         try {
             const response = await fetch(
