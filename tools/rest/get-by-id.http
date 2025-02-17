@@ -1,0 +1,2 @@
+### Get book by ID Request
+GET http://localhost:8081/api/book/2a7addd1-6db1-4ecb-9560-37c66dc82ddb
