@@ -21,6 +21,7 @@ import { useMemo } from 'react';
 import { useTheme } from '@emotion/react';
 
 const ShoppingCart = ({
+    schema,
     shoppingCart,
     removeFromShoppingCart,
     clearShoppingCart,
@@ -79,6 +80,13 @@ const ShoppingCart = ({
                                         ))}
                                         <Typography
                                             variant="subtitle2"
+                                            component="span"
+                                            sx={{ display: 'block' }}
+                                        >
+                                            {`Myyjä: ${schema.associations.seller[copy.sellerid]}`}
+                                        </Typography>
+                                        <Typography
+                                            variant="h6"
                                             component="span"
                                             sx={{ display: 'block', mt: 2 }}
                                         >
@@ -151,6 +159,7 @@ const ShoppingCart = ({
 };
 
 const mapStateToProps = (state) => ({
+    schema: state.schema.data,
     shoppingCart: state.user.shoppingCart,
 });
 

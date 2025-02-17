@@ -44,8 +44,8 @@ const BookCopies = ({
     const subHeaders = ['author', 'year'];
 
     const handleAddToCart = (copy) => {
-        toggleShoppingCartOpen();
         addToShoppingCart(copy);
+        toggleShoppingCartOpen();
     };
 
     const handleAddToFavorites = (copy) => {
