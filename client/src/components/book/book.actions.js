@@ -48,7 +48,7 @@ export const createBook =
             dispatch(setEditedBook({ ctx, book: null }));
             dispatch(
                 showToaster({
-                    message: 'Uusi irtain luotu!',
+                    message: 'Uusi teos luotu!',
                     variant: 'success',
                 }),
             );
@@ -64,7 +64,7 @@ export const updateBook = (ctx) => async (dispatch, getState) => {
     try {
         const updatedBook = { ...state.contexts[ctx].editedBook };
         updatedBook.userId = state.user.userId;
-        if (!validateBook(updatedBook, state.schema.data.properties)) {
+        if (!validateBook(updatedBook, state.schema.data.books.properties)) {
             dispatch(
                 showToaster({
                     message: 'Täytä kaikki pakolliset kentät!',
@@ -79,7 +79,7 @@ export const updateBook = (ctx) => async (dispatch, getState) => {
         dispatch(setEditedBook({ ctx, book: null }));
         dispatch(
             showToaster({
-                message: 'Irtain päivitetty!',
+                message: 'Teos päivitetty!',
                 variant: 'success',
             }),
         );
@@ -101,7 +101,7 @@ export const cloneBook =
             if (
                 !validateBook(
                     clonedBook,
-                    state.schema.data.properties,
+                    state.schema.data.books.properties,
                     requireId,
                 )
             ) {
@@ -117,7 +117,7 @@ export const cloneBook =
             dispatch(setEditing({ ctx: newCtx, editing: true }));
             dispatch(
                 showToaster({
-                    message: 'Irtain kopioitu!',
+                    message: 'Teos kopioitu!',
                     variant: 'info',
                 }),
             );
@@ -135,7 +135,7 @@ export const deleteBook = (ctx, callBack) => async (dispatch, getState) => {
         dispatch(setCurrentBook({ ctx: ctx, book: null }));
         dispatch(
             showToaster({
-                message: 'Irtain poistettu!',
+                message: 'Teos poistettu!',
                 variant: 'info',
             }),
         );

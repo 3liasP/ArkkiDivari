@@ -67,13 +67,16 @@ class Api {
 
     async updateBook(book) {
         try {
-            const response = await fetch(`${this.baseURL}/book`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
+            const response = await fetch(
+                `${this.baseURL}/book/${book.bookid}`,
+                {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(book),
                 },
-                body: JSON.stringify(book),
-            });
+            );
             if (!response.ok) {
                 const errMsg = await getErrMsg(response);
                 throw new Error(errMsg);

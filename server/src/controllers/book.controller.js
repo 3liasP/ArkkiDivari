@@ -48,14 +48,16 @@ const update = async (req, res) => {
                 title = $2,
                 author = $3,
                 year = $4,
-                typeid = $5,
-                genreid = $6
-            WHERE bookid = $7 RETURNING *`,
+                weight = $5,
+                typeid = $6,
+                genreid = $7
+            WHERE bookid = $8 RETURNING *`,
             [
                 req.body.isbn,
                 req.body.title,
                 req.body.author,
                 req.body.year,
+                req.body.weight,
                 req.body.typeid,
                 req.body.genreid,
                 req.params.id,

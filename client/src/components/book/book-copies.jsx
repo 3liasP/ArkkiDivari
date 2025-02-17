@@ -5,6 +5,7 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { connect } from 'react-redux';
 import { search } from '../search/search.actions';
+import { dayjsFormatTimeStamp } from '../../helpers/dayjs.helpers';
 
 const BookCopies = ({ ctx, params, schema, results, search }) => {
     useEffect(() => {
@@ -102,6 +103,9 @@ const BookCopies = ({ ctx, params, schema, results, search }) => {
                                 </Typography>
                                 <Typography variant="subtitle2">
                                     {`Myyjä: ${schema.associations.seller[copy.sellerid]}`}
+                                </Typography>
+                                <Typography variant="subtitle2">
+                                    {`Lisätty: ${dayjsFormatTimeStamp(copy.createdat)}`}
                                 </Typography>
                             </Box>
                             <Typography variant="h6">
