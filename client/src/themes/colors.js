@@ -1,0 +1,15 @@
+export const colors = {
+    sand: '#f5d8bc',
+    tacao: '#e6b17e',
+    earth: '#995e4D',
+    dune: '#402e32',
+    night: '#0f0b0c',
+    gondola: '#1f1618',
+    paleTeal: '#fbbc23',
+    tealGreen: '#007561',
+    darkBurgundy: '#790500',
+    pearl: '#dfe0df',
+    darkerBg: '#21181a',
+    lightText: '#ffffff',
+    darkText: '#dfe0df',
+};
