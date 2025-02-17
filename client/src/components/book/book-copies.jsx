@@ -6,8 +6,20 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { connect } from 'react-redux';
 import { search } from '../search/search.actions';
 import { dayjsFormatTimeStamp } from '../../helpers/dayjs.helpers';
+import {
+    addToShoppingCart,
+    toggleShoppingCartOpen,
+} from '../../reducers/user.slice';
 
-const BookCopies = ({ ctx, params, schema, results, search }) => {
+const BookCopies = ({
+    ctx,
+    params,
+    schema,
+    results,
+    search,
+    addToShoppingCart,
+    toggleShoppingCartOpen,
+}) => {
     useEffect(() => {
         search(ctx, params);
     }, [ctx, params, search]);
@@ -32,8 +44,8 @@ const BookCopies = ({ ctx, params, schema, results, search }) => {
     const subHeaders = ['author', 'year'];
 
     const handleAddToCart = (copy) => {
-        // Implement add to cart functionality
-        console.log('Add to cart:', copy);
+        toggleShoppingCartOpen();
+        addToShoppingCart(copy);
     };
 
     const handleAddToFavorites = (copy) => {
@@ -159,6 +171,8 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     search: (ctx, params) => dispatch(search(ctx, params)),
+    addToShoppingCart: (item) => dispatch(addToShoppingCart(item)),
+    toggleShoppingCartOpen: () => dispatch(toggleShoppingCartOpen()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BookCopies);

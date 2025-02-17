@@ -8,6 +8,8 @@ const initialState = {
     darkMode: getLocalStorage('darkMode', false),
     loading: false,
     error: null,
+    shoppingCart: [],
+    shoppingCartOpen: false,
 };
 
 const userSlice = createSlice({
@@ -28,9 +30,31 @@ const userSlice = createSlice({
             state.group = null;
             state.darkMode = false;
         },
+        toggleShoppingCartOpen: (state) => {
+            state.shoppingCartOpen = !state.shoppingCartOpen;
+        },
+        addToShoppingCart: (state, action) => {
+            state.shoppingCart.push(action.payload);
+        },
+        removeFromShoppingCart: (state, action) => {
+            state.shoppingCart = state.shoppingCart.filter(
+                ({ copyid }) => copyid !== action.payload,
+            );
+        },
+        clearShoppingCart: (state) => {
+            state.shoppingCart = [];
+        },
     },
 });
 
-export const { setDarkMode, setUser, logout } = userSlice.actions;
+export const {
+    setDarkMode,
+    setUser,
+    logout,
+    toggleShoppingCartOpen,
+    addToShoppingCart,
+    removeFromShoppingCart,
+    clearShoppingCart,
+} = userSlice.actions;
 
 export default userSlice.reducer;

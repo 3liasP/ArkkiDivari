@@ -1,5 +1,7 @@
 import MenuIcon from '@mui/icons-material/Menu';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import {
+    Badge,
     Button,
     Drawer,
     styled,
@@ -11,15 +13,16 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
-import * as React from 'react';
+import { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import textLogo from '../../assets/svg/logo-no-background.svg';
 import { paramsToUrl } from '../../helpers/url.helpers';
+import { toggleShoppingCartOpen } from '../../reducers/user.slice';
+import { initSimpleSearch } from '../search/search.actions';
 import MenuDrawer from './menu-drawer';
 import SearchBox from './search-box';
-import { initSimpleSearch } from '../search/search.actions';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ShoppingCart from './shopping-cart';
 
 const StyledLogo = styled('img')(({ theme }) => ({
     width: '80px',
@@ -32,9 +35,15 @@ const StyledLogo = styled('img')(({ theme }) => ({
     },
 }));
 
-const TopBar = ({ darkMode, initSimpleSearch }) => {
-    const [searchQuery, setSearchQuery] = React.useState('');
-    const [drawerOpen, setDrawerOpen] = React.useState(false);
+const TopBar = ({
+    darkMode,
+    shoppingCart,
+    shoppingCartOpen,
+    toggleShoppingCartOpen,
+    initSimpleSearch,
+}) => {
+    const [searchQuery, setSearchQuery] = useState('');
+    const [drawerOpen, setDrawerOpen] = useState(false);
 
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -46,6 +55,10 @@ const TopBar = ({ darkMode, initSimpleSearch }) => {
 
     const toggleDrawer = () => () => {
         setDrawerOpen(!drawerOpen);
+    };
+
+    const toggleShoppingCart = () => () => {
+        toggleShoppingCartOpen();
     };
 
     const handleSearchSubmit = async (event) => {
@@ -85,12 +98,16 @@ const TopBar = ({ darkMode, initSimpleSearch }) => {
                             size="large"
                             edge="start"
                             color="inherit"
-                            aria-label="drawerOpen drawer"
+                            aria-label="menu"
                             onClick={toggleDrawer()}
                         >
                             <MenuIcon />
                         </IconButton>
-                        <Drawer open={drawerOpen} onClose={toggleDrawer()}>
+                        <Drawer
+                            open={drawerOpen}
+                            onClose={toggleDrawer()}
+                            anchor="left"
+                        >
                             <MenuDrawer toggleDrawer={toggleDrawer()} />
                         </Drawer>
                         {isMobile ? (
@@ -123,11 +140,25 @@ const TopBar = ({ darkMode, initSimpleSearch }) => {
                     <IconButton
                         edge="end"
                         color="inherit"
-                        aria-label="menu"
-                        onClick={() => navigate('/shopping-cart')}
+                        aria-label="shopping cart"
+                        onClick={toggleShoppingCart()}
                     >
-                        <ShoppingCartIcon />
+                        <Badge
+                            badgeContent={shoppingCart.length}
+                            color="secondary"
+                        >
+                            <ShoppingCartIcon />
+                        </Badge>
                     </IconButton>
+                    <Drawer
+                        open={shoppingCartOpen}
+                        onClose={toggleShoppingCart()}
+                        anchor="right"
+                    >
+                        <ShoppingCart
+                            toggleShoppingCart={toggleShoppingCart()}
+                        />
+                    </Drawer>
                 </Toolbar>
             </AppBar>
         </Box>
@@ -136,11 +167,14 @@ const TopBar = ({ darkMode, initSimpleSearch }) => {
 
 const mapStateToProps = (state) => ({
     darkMode: state.user.darkMode,
+    shoppingCart: state.user.shoppingCart,
+    shoppingCartOpen: state.user.shoppingCartOpen,
 });
 
 const mapDispatchToProps = (dispatch) => ({
     initSimpleSearch: (query, newCtx, callBack) =>
         dispatch(initSimpleSearch(query, newCtx, callBack)),
+    toggleShoppingCartOpen: () => dispatch(toggleShoppingCartOpen()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TopBar);
