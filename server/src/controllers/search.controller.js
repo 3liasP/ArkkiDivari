@@ -11,12 +11,8 @@ const search = async (req, res) => {
             });
         }
 
-        const {
-            sort = 'asc',
-            limit = 1000,
-            orderby = 'title',
-            copies: includeCopies = true,
-        } = args;
+        let { sort = 'asc', orderby } = args;
+        const { limit = 1000, copies: includeCopies = true } = args;
 
         // Constructing the SQL query for books
         let booksQuery = 'SELECT * FROM central.Books WHERE ';
@@ -26,10 +22,20 @@ const search = async (req, res) => {
 
         // Adding query conditions for books using tsvector
         if (query) {
+            booksQuery =
+                "SELECT *, ts_rank(tsv, plainto_tsquery('english', $1)) AS rank FROM central.Books WHERE ";
+            booksValues.push(query);
+            valueIndex++;
+
             booksConditions.push(
                 `tsv @@ plainto_tsquery('english', $${valueIndex++})`,
             );
             booksValues.push(query);
+
+            if (!orderby) {
+                orderby = 'rank';
+                sort = 'desc';
+            }
         }
 
         for (const column in criteria) {
@@ -43,7 +49,7 @@ const search = async (req, res) => {
         if (booksConditions.length === 0) booksConditions.push('TRUE');
 
         booksQuery += booksConditions.join(' AND ');
-        booksQuery += ` ORDER BY ${orderby} ${sort} LIMIT $${valueIndex}`;
+        booksQuery += ` ORDER BY ${orderby ?? 'title'} ${sort} LIMIT $${valueIndex}`;
         booksValues.push(limit);
 
         // Execute the books query
@@ -53,7 +59,7 @@ const search = async (req, res) => {
 
         for (const book of booksResult.rows) {
             // eslint-disable-next-line no-unused-vars
-            const { tsv, ...rest } = book;
+            const { tsv, rank, ...rest } = book;
             result[book.bookid] = {
                 ...rest,
                 copies: [],
