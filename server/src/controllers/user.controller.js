@@ -1,6 +1,7 @@
 import db from '../database.js';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import bcrypt from 'bcrypt';
 
 dotenv.config();
 
@@ -25,17 +26,21 @@ const authMiddleware = async (req, res, next) => {
 const login = async (req, res) => {
     try {
 
-        const {username, password} = req.body;
+        const {userid, password} = req.body;
 
-        if (!username || !password) {
+        if (!userid || !password) {
             return res.status(400).send({
                 message: 'Invalid request!',
             });
         }
 
+        // hashing the password
+        // bcrypt.hash returns a promise, so we use bcrypt.hashSync
+        const hashedPassword = bcrypt.hashSync(password, 10);
+
         const result = await db.query(
-            'SELECT * FROM central.Users WHERE username = $1 AND password = $2',
-            [username, password],
+            'SELECT * FROM central.Users WHERE userid = $1 AND password = $2',
+            [userid, hashedPassword],
         );
 
         if (!result.rows.length) {
@@ -67,13 +72,15 @@ const register = async (req, res) => {
 
     try {
         const findExisting = await db.query(
-            `SELECT * FROM central.Users WHERE username = $1`,
+            `SELECT * FROM central.Users WHERE userid = $1`,
             [userid],
         );
 
         if (findExisting.rows.length) {
             return res.status(400).send({ message: 'User already exists' });
         };
+
+        const hashedPassword = bcrypt.hashSync(password, 10);
 
         const result = await db.query (
             `INSERT INTO central.Users (userid, sellerid, role, password, name, address, zip, city, phone)
@@ -82,7 +89,7 @@ const register = async (req, res) => {
                 userid,
                 sellerid || null,
                 role,
-                password,
+                hashedPassword,
                 name,
                 address || null,
                 zip || null,
