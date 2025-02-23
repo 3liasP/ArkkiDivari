@@ -128,6 +128,9 @@ const CopyControls = ({
                                     readOnly:
                                         USER_ROLES[userGroup]?.privilege < 2,
                                 },
+                                htmlInput: {
+                                    min: 1,
+                                },
                             }}
                         />
                     );

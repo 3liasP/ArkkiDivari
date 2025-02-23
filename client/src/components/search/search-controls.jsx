@@ -157,6 +157,11 @@ const SearchControls = ({
                             onChange={(event) => {
                                 handleChange(key, event.target.value);
                             }}
+                            slotProps={{
+                                htmlInput: {
+                                    min: 1,
+                                },
+                            }}
                         />
                     );
                 } else if (
