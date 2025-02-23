@@ -2,7 +2,7 @@ export const SCHEMA = Object.freeze({
     books: {
         properties: {
             bookid: {
-                type: 'id',
+                type: 'text',
                 label: 'Teos ID',
                 required: false,
                 editable: false,
@@ -88,7 +88,7 @@ export const SCHEMA = Object.freeze({
     copies: {
         properties: {
             copyid: {
-                type: 'id',
+                type: 'text',
                 label: 'Myyntikappale ID',
                 required: false,
                 editable: false,
