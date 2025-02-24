@@ -2,24 +2,6 @@ import db from '../db/database.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
-export const authMiddleware = async (req, res, next) => {
-    const cookies = req.cookies;
-
-    if (!cookies || !cookies.authToken) {
-        return res.status(401).send({ message: 'Unauthorized' });
-    }
-
-    const token = cookies.authToken;
-
-    try {
-        const decoded = jwt.verify(token, process.env.SECRET_KEY);
-        req.user = decoded;
-        next();
-    } catch (error) {
-        res.status(401).send({ message: error.message || 'Invalid token' });
-    }
-};
-
 const login = async (req, res) => {
     try {
         const { userid, password } = req.body;
@@ -113,10 +95,13 @@ const register = async (req, res) => {
             ],
         );
 
-        res.status(201).send(
-            { message: 'User created succesfully' },
-            result.rows[0],
-        );
+        // Deleting user password before sending data back
+        const { password, ...userData } = result.rows[0];
+
+        res.status(201).send({
+            message: 'User created succesfully',
+            userData: userData,
+        });
     } catch (error) {
         res.status(400).send({ message: error.message });
     }
@@ -154,4 +139,4 @@ const remove = async (req, res) => {
     }
 };
 
-export default { authMiddleware, login, register, logout, remove };
+export default { login, register, logout, remove };

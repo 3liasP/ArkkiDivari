@@ -7,6 +7,7 @@ import schemaRoutes from './routes/schema.routes.js';
 import searchRoutes from './routes/search.routes.js';
 import userRoutes from './routes/user.routes.js';
 import { accessLogMiddleware, errorLogMiddleware } from './utils/logger.js';
+import authMiddleware from './auth/auth.middleware.js';
 
 const init = () => {
     db.connect();
@@ -19,10 +20,10 @@ const init = () => {
     app.use(accessLogMiddleware);
     app.use(errorLogMiddleware);
 
-    app.use('/api/book', bookRoutes);
-    app.use('/api/copy', copyRoutes);
-    app.use('/api/schema', schemaRoutes);
-    app.use('/api/search', searchRoutes);
+    app.use('/api/book', authMiddleware, bookRoutes);
+    app.use('/api/copy', authMiddleware, copyRoutes);
+    app.use('/api/schema', authMiddleware, schemaRoutes);
+    app.use('/api/search', authMiddleware, searchRoutes);
     // User routes are protected directly in user.routes.js
     app.use('/api/user', userRoutes);
 
