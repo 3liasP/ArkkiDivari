@@ -5,6 +5,7 @@ import bookRoutes from './routes/book.routes.js';
 import copyRoutes from './routes/copy.routes.js';
 import schemaRoutes from './routes/schema.routes.js';
 import searchRoutes from './routes/search.routes.js';
+import userRoutes from './routes/user.routes.js';
 import { accessLogMiddleware, errorLogMiddleware } from './utils/logger.js';
 
 const init = () => {
@@ -22,6 +23,7 @@ const init = () => {
     app.use('/api/copy', copyRoutes);
     app.use('/api/schema', schemaRoutes);
     app.use('/api/search', searchRoutes);
+    app.use('/api/user', userRoutes);
 
     app.get('/api', (req, res) => {
         res.send({ message: 'Server running', time: new Date() });

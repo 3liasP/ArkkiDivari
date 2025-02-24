@@ -1,4 +1,4 @@
-import db from '../database.js';
+import db from '../db/database.js';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
@@ -34,27 +34,28 @@ const login = async (req, res) => {
             });
         }
 
-        // hashing the password
-        // bcrypt.hash returns a promise, so we use bcrypt.hashSync
-        const hashedPassword = bcrypt.hashSync(password, 10);
-
         const result = await db.query(
-            'SELECT * FROM central.Users WHERE userid = $1 AND password = $2',
-            [userid, hashedPassword],
+            'SELECT * FROM central.Users WHERE userid = $1',
+            [userid],
         );
 
         if (!result.rows.length) {
-            return res.status(401).send({ message: 'Invalid username or password' });
-        }
+            return res.status(401).send({ message: 'Invalid username' });
+        };
 
         const user = result.rows[0];
+
+        if (!bcrypt.compareSync(password, user.password)) {
+            return res.status(401).send({ message: 'Invalid password' });
+        };
+
         // For now, token is valid for 1 hour. Change if you will.
         const token = jwt.sign({userId: user.userid }, SECRET_KEY, { expiresIn: '1h' });
 
         //Another way would be to use the cookie-parser library
         // --> res.cookie('authToken', token, { httpOnly: true, maxAge: 60 * 60 * 1000 });
         res.setHeader('Set-Cookie', `authToken=${token}; HttpOnly; Max-Age=${60 * 60}`);
-        res.json({ message: 'Login succesful' });
+        res.status(200).send({ message: 'Login succesful' });
 
     } catch (error) {
         res.status(400).send({ message: error.message });
@@ -98,11 +99,18 @@ const register = async (req, res) => {
             ],
         );
 
-        res.status(201).json({ message: 'User created succesfully' }, result.rows[0]);
+        res.status(201).send({ message: 'User created succesfully' }, result.rows[0]);
 
     } catch (error) {
         res.status(400).send({ message: error.message });
     }
 };
 
-export default { authMiddleware, login, register };
+
+const logout = async (req, res) => {
+    res.clearCookie('authToken');
+    res.send({ message: 'Logged out' });
+}
+
+
+export default { authMiddleware, login, register, logout };
