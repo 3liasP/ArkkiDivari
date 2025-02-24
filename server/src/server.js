@@ -23,6 +23,7 @@ const init = () => {
     app.use('/api/copy', copyRoutes);
     app.use('/api/schema', schemaRoutes);
     app.use('/api/search', searchRoutes);
+    // User routes are protected directly in user.routes.js
     app.use('/api/user', userRoutes);
 
     app.get('/api', (req, res) => {

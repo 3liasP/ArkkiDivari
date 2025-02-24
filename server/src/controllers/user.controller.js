@@ -7,11 +7,14 @@ dotenv.config();
 
 const SECRET_KEY = process.env.SECRET_KEY;
 
-const authMiddleware = async (req, res, next) => {
-    const token = req.cookies.authToken;
-    if (!token) {
+export const authMiddleware = async (req, res, next) => {
+    const cookies = req.cookies;
+
+    if (!cookies || !cookies.authToken) {
         return res.status(401).send({ message: 'Unauthorized' });
     }
+
+    const token = cookies.authToken;
 
     try {
         const decoded = jwt.verify(token, SECRET_KEY);
@@ -110,7 +113,37 @@ const register = async (req, res) => {
 const logout = async (req, res) => {
     res.clearCookie('authToken');
     res.send({ message: 'Logged out' });
-}
+};
 
 
-export default { authMiddleware, login, register, logout };
+const remove = async (req, res) => {
+    const { userid } = req.body;
+
+    if (!userid) {
+        return res.status(400).send({ message: 'Invalid request' });
+    }
+
+    try {
+        // first check if user exists
+        const result = await db.query(
+            'SELECT * FROM central.Users WHERE userid = $1',
+            [userid],
+        );
+
+        if (!result.rows.length) {
+            return res.status(403).send({ message: 'User not found' });
+        }
+
+        // then delete user
+        await db.query('DELETE FROM central.Users WHERE userid = $1', [userid]);
+
+        res.status(200).send({ message: 'User deleted' });
+
+    } catch (error) {
+        res.status(400).send({ message: error.message });
+    }
+};
+
+
+
+export default { authMiddleware, login, register, logout, remove };
