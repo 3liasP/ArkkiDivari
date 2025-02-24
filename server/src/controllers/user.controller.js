@@ -1,11 +1,6 @@
 import db from '../db/database.js';
 import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
-
-dotenv.config();
-
-const SECRET_KEY = process.env.SECRET_KEY;
 
 export const authMiddleware = async (req, res, next) => {
     const cookies = req.cookies;
@@ -17,19 +12,17 @@ export const authMiddleware = async (req, res, next) => {
     const token = cookies.authToken;
 
     try {
-        const decoded = jwt.verify(token, SECRET_KEY);
+        const decoded = jwt.verify(token, process.env.SECRET_KEY);
         req.user = decoded;
         next();
     } catch (error) {
-        res.status(401).send({ message: 'Invalid token' });
+        res.status(401).send({ message: error.message || 'Invalid token' });
     }
 };
 
-
 const login = async (req, res) => {
     try {
-
-        const {userid, password} = req.body;
+        const { userid, password } = req.body;
 
         if (!userid || !password) {
             return res.status(400).send({
@@ -44,29 +37,47 @@ const login = async (req, res) => {
 
         if (!result.rows.length) {
             return res.status(401).send({ message: 'Invalid username' });
-        };
+        }
 
         const user = result.rows[0];
 
-        if (!bcrypt.compareSync(password, user.password)) {
+        if (!(await bcrypt.compare(password, user.password))) {
             return res.status(401).send({ message: 'Invalid password' });
-        };
+        }
 
         // For now, token is valid for 1 hour. Change if you will.
-        const token = jwt.sign({userId: user.userid }, SECRET_KEY, { expiresIn: '1h' });
+        const token = jwt.sign(
+            { userId: user.userid },
+            process.env.SECRET_KEY,
+            {
+                expiresIn: '1h',
+            },
+        );
 
         //Another way would be to use the cookie-parser library
         // --> res.cookie('authToken', token, { httpOnly: true, maxAge: 60 * 60 * 1000 });
-        res.setHeader('Set-Cookie', `authToken=${token}; HttpOnly; Max-Age=${60 * 60}`);
+        res.setHeader(
+            'Set-Cookie',
+            `authToken=${token}; HttpOnly; Max-Age=${60 * 60}`,
+        );
         res.status(200).send({ message: 'Login succesful' });
-
     } catch (error) {
         res.status(400).send({ message: error.message });
     }
 };
 
 const register = async (req, res) => {
-    const { userid, sellerid, role, password, name, address, zip, city, phone } = req.body;
+    const {
+        userid,
+        sellerid,
+        role,
+        password,
+        name,
+        address,
+        zip,
+        city,
+        phone,
+    } = req.body;
 
     if (!userid || !password || !role || !name) {
         return res.status(400).send({
@@ -82,11 +93,11 @@ const register = async (req, res) => {
 
         if (findExisting.rows.length) {
             return res.status(400).send({ message: 'User already exists' });
-        };
+        }
 
-        const hashedPassword = bcrypt.hashSync(password, 10);
+        const hashedPassword = await bcrypt.hash(password, 10);
 
-        const result = await db.query (
+        const result = await db.query(
             `INSERT INTO central.Users (userid, sellerid, role, password, name, address, zip, city, phone)
              VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`,
             [
@@ -98,23 +109,23 @@ const register = async (req, res) => {
                 address || null,
                 zip || null,
                 city || null,
-                phone || null
+                phone || null,
             ],
         );
 
-        res.status(201).send({ message: 'User created succesfully' }, result.rows[0]);
-
+        res.status(201).send(
+            { message: 'User created succesfully' },
+            result.rows[0],
+        );
     } catch (error) {
         res.status(400).send({ message: error.message });
     }
 };
 
-
 const logout = async (req, res) => {
     res.clearCookie('authToken');
     res.send({ message: 'Logged out' });
 };
-
 
 const remove = async (req, res) => {
     const { userid } = req.body;
@@ -138,12 +149,9 @@ const remove = async (req, res) => {
         await db.query('DELETE FROM central.Users WHERE userid = $1', [userid]);
 
         res.status(200).send({ message: 'User deleted' });
-
     } catch (error) {
         res.status(400).send({ message: error.message });
     }
 };
-
-
 
 export default { authMiddleware, login, register, logout, remove };

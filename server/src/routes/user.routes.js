@@ -16,6 +16,6 @@ router.delete('/delete', userController.authMiddleware, userController.remove);
 
 router.use((req, res) => {
     res.status(405).send({ message: 'Method not allowed' });
-})
+});
 
 export default router;
