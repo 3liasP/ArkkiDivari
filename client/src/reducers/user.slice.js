@@ -2,12 +2,18 @@ import { createSlice } from '@reduxjs/toolkit';
 import { getLocalStorage, setLocalStorage } from '../helpers/storage.helpers';
 
 const initialState = {
-    userid: null,
-    username: null,
-    group: null,
+    loggedIn: false,
+    userInfo: {
+        userid: null,
+        username: null,
+        role: null,
+        sellerid: null,
+        address: null,
+        zip: null,
+        city: null,
+        phone: null,
+    },
     darkMode: getLocalStorage('darkMode', false),
-    loading: false,
-    error: null,
     shoppingCart: [],
     shoppingCartOpen: false,
 };
@@ -17,18 +23,21 @@ const userSlice = createSlice({
     initialState,
     reducers: {
         setUser: (state, action) => {
-            state.userid = action.payload.userid;
-            state.name = action.payload.name;
-            state.group = action.payload.group;
+            state.userInfo.userid = action.payload.userid;
+            state.userInfo.name = action.payload.name;
+            state.userInfo.role = action.payload.role;
+            state.userInfo.sellerid = action.payload.sellerid;
+            state.userInfo.address = action.payload.address;
+            state.userInfo.zip = action.payload.zip;
+            state.userInfo.city = action.payload.city;
+            state.userInfo.phone = action.payload.phone;
         },
         setDarkMode: (state, action) => {
             state.darkMode = action.payload;
             setLocalStorage('darkMode', action.payload);
         },
-        logout: (state) => {
-            state.userid = null;
-            state.group = null;
-            state.darkMode = false;
+        setLoggedIn: (state, action) => {
+            state.loggedIn = action.payload;
         },
         toggleShoppingCartOpen: (state) => {
             state.shoppingCartOpen = !state.shoppingCartOpen;
@@ -49,6 +58,7 @@ const userSlice = createSlice({
 
 export const {
     setDarkMode,
+    setLoggedIn,
     setUser,
     logout,
     toggleShoppingCartOpen,

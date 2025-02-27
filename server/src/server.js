@@ -1,5 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 import db from './db/database.js';
 import bookRoutes from './routes/book.routes.js';
 import copyRoutes from './routes/copy.routes.js';
@@ -16,6 +17,7 @@ const init = () => {
 
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
+    app.use(cookieParser());
 
     app.use(accessLogMiddleware);
     app.use(errorLogMiddleware);

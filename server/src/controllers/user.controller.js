@@ -40,9 +40,13 @@ const login = async (req, res) => {
         // --> res.cookie('authToken', token, { httpOnly: true, maxAge: 60 * 60 * 1000 });
         res.setHeader(
             'Set-Cookie',
-            `authToken=${token}; HttpOnly; Max-Age=${60 * 60}`,
+            `authToken=${token}; HttpOnly; Max-Age=${60 * 60}; Path=/`,
         );
-        res.status(200).send({ message: 'Login succesful' });
+
+        const userData = { ...user };
+        delete userData.password;
+
+        res.status(200).send({ message: 'Logged in', userData });
     } catch (error) {
         res.status(400).send({ message: error.message });
     }
@@ -51,17 +55,17 @@ const login = async (req, res) => {
 const register = async (req, res) => {
     const {
         userid,
-        sellerid,
-        role,
         password,
         name,
-        address,
-        zip,
-        city,
-        phone,
+        role = 'customer',
+        sellerid = null,
+        address = null,
+        zip = null,
+        city = null,
+        phone = null,
     } = req.body;
 
-    if (!userid || !password || !role || !name) {
+    if (![userid, password, name].every(Boolean)) {
         return res.status(400).send({
             message: 'Invalid request!',
         });
@@ -84,23 +88,23 @@ const register = async (req, res) => {
              VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`,
             [
                 userid,
-                sellerid || null,
+                sellerid,
                 role,
                 hashedPassword,
                 name,
-                address || null,
-                zip || null,
-                city || null,
-                phone || null,
+                address,
+                zip,
+                city,
+                phone,
             ],
         );
 
-        // Deleting user password before sending data back
-        const { password, ...userData } = result.rows[0];
+        const userData = result.rows[0];
+        delete userData.password;
 
         res.status(201).send({
             message: 'User created succesfully',
-            userData: userData,
+            userData,
         });
     } catch (error) {
         res.status(400).send({ message: error.message });

@@ -3,6 +3,64 @@ class Api {
         this.baseURL = '/api';
     }
 
+    async login(userid, password) {
+        try {
+            const response = await fetch(`${this.baseURL}/user/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ userid, password }),
+            });
+            if (!response.ok) {
+                const errMsg = await getErrMsg(response);
+                throw new Error(errMsg);
+            }
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error logging in:', error);
+            throw error;
+        }
+    }
+
+    async register(userInfo) {
+        try {
+            const response = await fetch(`${this.baseURL}/user/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userInfo),
+            });
+            if (!response.ok) {
+                const errMsg = await getErrMsg(response);
+                throw new Error(errMsg);
+            }
+        } catch (error) {
+            console.error('Error registering:', error);
+            throw error;
+        }
+    }
+
+    async logout() {
+        try {
+            const response = await fetch(`${this.baseURL}/user/logout`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            if (!response.ok) {
+                const errMsg = await getErrMsg(response);
+                throw new Error(errMsg);
+            }
+        } catch (error) {
+            console.error('Error logging out:', error);
+            throw error;
+        }
+    }
+
     async search(params) {
         try {
             const response = await fetch(`${this.baseURL}/search`, {
@@ -132,8 +190,7 @@ class Api {
 
 const getErrMsg = async (response) => {
     const data = await response.json();
-    if (data?.genericErrMsg) return data.genericErrMsg;
-    if (data?.actualErrMsg) return data.actualErrMsg;
+    if (data?.message) return data.message;
 
     return `HTTP virhe! status: ${response.status}`;
 };

@@ -18,9 +18,12 @@ import { useMediaQuery } from '@mui/material';
 import UserSettings from '../user/user-settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { USER_ROLES } from './user.constants';
-import { logout } from '../../reducers/user.slice';
+import { logout } from './user.actions';
+import { useNavigate } from 'react-router-dom';
 
 const User = ({ username, userId, userGroup, logout }) => {
+    const navigate = useNavigate();
+
     const theme = useTheme();
     const isWindowed = useMediaQuery(theme.breakpoints.down('lg'));
 
@@ -40,8 +43,8 @@ const User = ({ username, userId, userGroup, logout }) => {
     ];
 
     const handleLogout = () => {
-        logout();
-        window.location.href = '/auth/logout';
+        const callback = () => navigate('/');
+        logout(callback);
     };
 
     return (
@@ -94,7 +97,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    logout: () => dispatch(logout()),
+    logout: (callback) => dispatch(logout(callback)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(User);
