@@ -3,7 +3,7 @@ import { getLocalStorage, setLocalStorage } from '../helpers/storage.helpers';
 
 const initialState = {
     loggedIn: false,
-    userInfo: {
+    info: {
         userid: null,
         username: null,
         role: null,
@@ -25,14 +25,14 @@ const userSlice = createSlice({
     initialState,
     reducers: {
         setUser: (state, action) => {
-            state.userInfo.userid = action.payload.userid;
-            state.userInfo.name = action.payload.name;
-            state.userInfo.role = action.payload.role;
-            state.userInfo.sellerid = action.payload.sellerid;
-            state.userInfo.address = action.payload.address;
-            state.userInfo.zip = action.payload.zip;
-            state.userInfo.city = action.payload.city;
-            state.userInfo.phone = action.payload.phone;
+            state.info.userid = action.payload.userid;
+            state.info.name = action.payload.name;
+            state.info.role = action.payload.role;
+            state.info.sellerid = action.payload.sellerid;
+            state.info.address = action.payload.address;
+            state.info.zip = action.payload.zip;
+            state.info.city = action.payload.city;
+            state.info.phone = action.payload.phone;
         },
         setDarkMode: (state, action) => {
             state.darkMode = action.payload;

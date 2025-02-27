@@ -21,7 +21,7 @@ import { USER_ROLES } from './user.constants';
 import { logout } from './user.actions';
 import { useNavigate } from 'react-router-dom';
 
-const User = ({ username, userId, userGroup, logout }) => {
+const User = ({ username, userId, userRole, logout }) => {
     const navigate = useNavigate();
 
     const theme = useTheme();
@@ -38,7 +38,7 @@ const User = ({ username, userId, userGroup, logout }) => {
         },
         {
             label: 'Käyttäjäryhmä',
-            value: USER_ROLES[userGroup]?.label || 'Tuntematon',
+            value: USER_ROLES[userRole]?.label || 'Tuntematon',
         },
     ];
 
@@ -91,9 +91,9 @@ const User = ({ username, userId, userGroup, logout }) => {
 };
 
 const mapStateToProps = (state) => ({
-    username: state.user.name,
-    userId: state.user.userid,
-    userGroup: state.user.group,
+    username: state.user.info.name,
+    userId: state.user.info.userid,
+    userRole: state.user.info.role,
 });
 
 const mapDispatchToProps = (dispatch) => ({

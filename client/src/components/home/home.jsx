@@ -32,8 +32,8 @@ const Home = ({ ctx, username }) => {
 };
 
 const mapStateToProps = (state) => ({
-    userId: state.user.userId,
-    username: state.user.name,
+    userId: state.user.info.userId,
+    username: state.user.info.name,
 });
 
 export default connect(mapStateToProps, null)(Home);

@@ -12,8 +12,8 @@ import BookControls from './book-controls';
 import { USER_ROLES } from '../user/user.constants';
 import { Link } from 'react-router-dom';
 
-const BookNew = ({ ctx, schema, editing, userGroup }) => {
-    if (USER_ROLES[userGroup]?.privilege < 2) {
+const BookNew = ({ ctx, schema, editing, userRole }) => {
+    if (USER_ROLES[userRole]?.privilege < 2) {
         return (
             <Container>
                 <Box textAlign="center" mt={5}>
@@ -70,7 +70,7 @@ const BookNew = ({ ctx, schema, editing, userGroup }) => {
 const mapStateToProps = (state, ownProps) => ({
     schema: state.schema.data,
     editing: state.contexts[ownProps.ctx].editing,
-    userGroup: state.user.group,
+    userRole: state.user.info.role,
 });
 
 export default connect(mapStateToProps, null)(BookNew);

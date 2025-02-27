@@ -55,7 +55,7 @@ const BookSheet = ({
     pageParam,
     editing,
     schema,
-    userGroup,
+    userRole,
     fetchBook,
     cloneBook,
     deleteBook,
@@ -210,7 +210,7 @@ const BookSheet = ({
                                         </Typography>
                                     ))}
                                 </Box>
-                                {USER_ROLES[userGroup]?.privilege >= 2 ? (
+                                {USER_ROLES[userRole]?.privilege >= 2 ? (
                                     <>
                                         <IconButton
                                             aria-controls={
@@ -259,7 +259,7 @@ const BookSheet = ({
                                                         Luo uusi myyntikappale
                                                     </ListItemText>
                                                 </MenuItem>
-                                                {USER_ROLES[userGroup]
+                                                {USER_ROLES[userRole]
                                                     ?.privilege >= 3 && [
                                                     <Divider key="divider" />,
                                                     <MenuItem
@@ -332,7 +332,7 @@ const BookSheet = ({
                                 <Tab label="Myynnissä" />
                                 <Tab
                                     label={
-                                        USER_ROLES[userGroup]?.privilege >= 2
+                                        USER_ROLES[userRole]?.privilege >= 2
                                             ? 'Muokkaa'
                                             : 'Lisätiedot'
                                     }
@@ -372,7 +372,7 @@ const BookSheet = ({
                     ctx={ctx}
                     schema={schema}
                     editing={editing}
-                    userGroup={userGroup}
+                    userRole={userRole}
                     open={state.copyModalOpen}
                     onClose={handleCopyModalClose}
                 />
@@ -415,7 +415,7 @@ const mapStateToProps = (state, ownProps) => ({
     editing: state.contexts[ownProps.ctx].editing,
     schema: state.schema.data,
     notFound: state.contexts[ownProps.ctx].notFound,
-    userGroup: state.user.group,
+    userRole: state.user.info.role,
 });
 
 const mapDispatchToProps = (dispatch) => ({

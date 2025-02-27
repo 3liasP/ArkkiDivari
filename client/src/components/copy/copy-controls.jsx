@@ -16,7 +16,7 @@ const CopyControls = ({
     ctx,
     editedCopy,
     schema,
-    userGroup,
+    userRole,
     setEditedCopy,
     setEditedCopyProperty,
 }) => {
@@ -105,7 +105,7 @@ const CopyControls = ({
                             slotProps={{
                                 input: {
                                     readOnly:
-                                        USER_ROLES[userGroup]?.privilege < 2,
+                                        USER_ROLES[userRole]?.privilege < 2,
                                 },
                             }}
                         />
@@ -126,7 +126,7 @@ const CopyControls = ({
                             slotProps={{
                                 input: {
                                     readOnly:
-                                        USER_ROLES[userGroup]?.privilege < 2,
+                                        USER_ROLES[userRole]?.privilege < 2,
                                 },
                                 htmlInput: {
                                     min: 1,
@@ -163,7 +163,7 @@ const CopyControls = ({
                                             !localCopy[key],
                                     },
                                 }}
-                                readOnly={USER_ROLES[userGroup]?.privilege < 2}
+                                readOnly={USER_ROLES[userRole]?.privilege < 2}
                                 disabled={!property?.editable}
                             />
                         </LocalizationProvider>
@@ -190,7 +190,7 @@ const CopyControls = ({
                                     }
                                 />
                             )}
-                            readOnly={USER_ROLES[userGroup]?.privilege < 2}
+                            readOnly={USER_ROLES[userRole]?.privilege < 2}
                         />
                     );
                 }
@@ -202,7 +202,7 @@ const CopyControls = ({
 const mapStateToProps = (state, ownProps) => ({
     editedCopy: state.contexts[ownProps.ctx].editedCopy,
     schema: state.schema.data,
-    userGroup: state.user.group,
+    userRole: state.user.info.role,
 });
 
 const mapDispatchToProps = (dispatch) => ({

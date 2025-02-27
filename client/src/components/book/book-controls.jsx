@@ -38,7 +38,7 @@ const BookControls = ({
     editedBook,
     editing,
     schema,
-    userGroup,
+    userRole,
     setEditedBook,
     setEditing,
     setEditedBookProperty,
@@ -265,8 +265,7 @@ const BookControls = ({
                                 slotProps={{
                                     input: {
                                         readOnly:
-                                            USER_ROLES[userGroup]?.privilege <
-                                            2,
+                                            USER_ROLES[userRole]?.privilege < 2,
                                     },
                                 }}
                             />
@@ -290,8 +289,7 @@ const BookControls = ({
                                 slotProps={{
                                     input: {
                                         readOnly:
-                                            USER_ROLES[userGroup]?.privilege <
-                                            2,
+                                            USER_ROLES[userRole]?.privilege < 2,
                                     },
                                     htmlInput: {
                                         min: 1,
@@ -330,7 +328,7 @@ const BookControls = ({
                                         },
                                     }}
                                     readOnly={
-                                        USER_ROLES[userGroup]?.privilege < 2
+                                        USER_ROLES[userRole]?.privilege < 2
                                     }
                                 />
                             </LocalizationProvider>
@@ -358,7 +356,7 @@ const BookControls = ({
                                         }
                                     />
                                 )}
-                                readOnly={USER_ROLES[userGroup]?.privilege < 2}
+                                readOnly={USER_ROLES[userRole]?.privilege < 2}
                             />
                         );
                     }
@@ -374,7 +372,7 @@ const mapStateToProps = (state, ownProps) => ({
     editedBook: state.contexts[ownProps.ctx].editedBook,
     editing: state.contexts[ownProps.ctx].editing,
     schema: state.schema.data,
-    userGroup: state.user.group,
+    userRole: state.user.info.role,
 });
 
 const mapDispatchToProps = (dispatch) => ({

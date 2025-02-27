@@ -17,7 +17,7 @@ import { paramsToUrl } from '../../helpers/url.helpers';
 import { USER_ROLES } from '../user/user.constants';
 import { connect } from 'react-redux';
 
-export const MenuDrawer = ({ toggleDrawer, userGroup }) => {
+export const MenuDrawer = ({ toggleDrawer, userRole }) => {
     const navigate = useNavigate();
 
     const options = [
@@ -27,7 +27,7 @@ export const MenuDrawer = ({ toggleDrawer, userGroup }) => {
             icon: <FavoriteIcon />,
             onClick: () => navigate('/favorites'),
         },
-        USER_ROLES[userGroup]?.privilege >= 2 && {
+        USER_ROLES[userRole]?.privilege >= 2 && {
             text: 'Uusi teos',
             icon: <AddIcon />,
             onClick: () => navigate(paramsToUrl({ page: 'book-new' })),
@@ -75,7 +75,7 @@ export const MenuDrawer = ({ toggleDrawer, userGroup }) => {
 };
 
 const mapStateToProps = (state) => ({
-    userGroup: state.user.group,
+    userRole: state.user.info.role,
 });
 
 export default connect(mapStateToProps, null)(MenuDrawer);

@@ -17,7 +17,7 @@ import { USER_ROLES } from '../user/user.constants';
 import CopyControls from './copy-controls';
 import { createCopy } from './copy.actions';
 
-const CopyNew = ({ ctx, schema, userGroup, open, onClose, createCopy }) => {
+const CopyNew = ({ ctx, schema, userRole, open, onClose, createCopy }) => {
     const handleSubmit = () => {
         createCopy(ctx, onClose);
     };
@@ -25,7 +25,7 @@ const CopyNew = ({ ctx, schema, userGroup, open, onClose, createCopy }) => {
         onClose();
     };
 
-    if (USER_ROLES[userGroup]?.privilege < 2) {
+    if (USER_ROLES[userRole]?.privilege < 2) {
         return (
             <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
                 <DialogTitle>Ei oikeuksia</DialogTitle>
@@ -100,7 +100,7 @@ const CopyNew = ({ ctx, schema, userGroup, open, onClose, createCopy }) => {
 
 const mapStateToProps = (state) => ({
     schema: state.schema.data,
-    userGroup: state.user.group,
+    userRole: state.user.info.role,
 });
 
 const mapDispatchToProps = (dispatch) => ({
