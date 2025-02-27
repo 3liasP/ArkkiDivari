@@ -2,7 +2,7 @@ export const SCHEMA = Object.freeze({
     books: {
         properties: {
             bookid: {
-                type: 'id',
+                type: 'text',
                 label: 'Teos ID',
                 required: false,
                 editable: false,
@@ -88,17 +88,17 @@ export const SCHEMA = Object.freeze({
     copies: {
         properties: {
             copyid: {
-                type: 'id',
+                type: 'text',
                 label: 'Myyntikappale ID',
                 required: false,
                 editable: false,
                 automatic: true,
             },
             bookid: {
-                type: 'book',
+                type: 'text',
                 label: 'Teos ID',
                 required: true,
-                editable: true,
+                editable: false,
                 automatic: false,
             },
             sellerid: {
@@ -116,9 +116,16 @@ export const SCHEMA = Object.freeze({
                 automatic: false,
             },
             price: {
-                type: 'money',
+                type: 'number',
                 label: 'Hinta (€)',
                 required: true,
+                editable: true,
+                automatic: false,
+            },
+            buyinprice: {
+                type: 'number',
+                label: 'Sisäänostohinta (€)',
+                required: false,
                 editable: true,
                 automatic: false,
             },
@@ -137,7 +144,7 @@ export const SCHEMA = Object.freeze({
                 automatic: true,
             },
         },
-        order: ['bookid', 'sellerid', 'status', 'price'],
+        order: ['bookid', 'sellerid', 'price', 'buyinprice'],
     },
     associations: {
         seller: {

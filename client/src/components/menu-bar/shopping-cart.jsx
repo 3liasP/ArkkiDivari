@@ -140,7 +140,7 @@ const ShoppingCart = ({
                         color="error"
                         startIcon={<RemoveShoppingCartIcon />}
                         onClick={clearShoppingCart}
-                        sx={{ mb: isMobile ? 2 : 0 }}
+                        sx={{ mb: 2 }}
                     >
                         Tyhjennä ostoskori
                     </Button>
@@ -149,6 +149,7 @@ const ShoppingCart = ({
                         color="success"
                         startIcon={<ShoppingCartCheckoutIcon />}
                         disabled={shoppingCart.length === 0}
+                        sx={{ mb: 2 }}
                     >
                         Siirry kassalle
                     </Button>

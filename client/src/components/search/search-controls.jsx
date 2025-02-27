@@ -38,7 +38,7 @@ const SearchControls = ({
             if (!editedBook) setEditedBook({ ctx, book: {} });
 
             const value = association
-                ? newValue.map((book) => book.id)
+                ? newValue.map((val) => val.id)
                 : newValue;
 
             setEditedBookProperty({
@@ -78,24 +78,28 @@ const SearchControls = ({
     }, [editedBook]);
 
     const getAssociationValue = useMemo(
-        () => (key) => {
+        () => (type, key) => {
             if (!localBook[key]) return [];
-            return localBook[key].map((id) => ({
-                label: schema.associations[key][id],
+            const value = localBook[key].map((id, index) => ({
+                label: schema.associations[type][localBook[key][index]],
                 id,
             }));
+            return value;
         },
         [localBook, schema.associations],
     );
 
     const getAssociationOptions = useMemo(
-        () => (key) => {
+        () => (type, key) => {
             const selectedIds = localBook[key] || [];
-            const options = Object.entries(schema.associations[key])
-                .map(([id, name]) => ({
-                    label: name,
-                    id: Number(id),
-                }))
+            console.log('selectedIds', selectedIds);
+            const options = Object.entries(schema.associations[type])
+                .map(([id, label]) => {
+                    return {
+                        label,
+                        id: Number(id),
+                    };
+                })
                 .filter((option) => !selectedIds.includes(option.id));
             return options;
         },
@@ -127,13 +131,13 @@ const SearchControls = ({
             <Typography variant="body1" mt={2}>
                 {`Suodattimet`}
             </Typography>
-            {schema.order.map((key) => {
-                const property = schema.properties[key];
-                if (key === 'bookid' || key === 'userId') {
+            {schema.books.order.map((key) => {
+                const property = schema.books.properties[key];
+                if (property?.type === 'text') {
                     return (
                         <TextField
                             multiline
-                            label={property?.title || key}
+                            label={property?.label || key}
                             key={key}
                             value={localBook[key] || ''}
                             onChange={(event) => {
@@ -143,62 +147,67 @@ const SearchControls = ({
                         />
                     );
                 }
-                if (key !== 'bookKey') {
-                    if (property?.type === 'string') {
-                        return (
-                            <TextField
-                                label={property?.title || key}
+                if (property?.type === 'number') {
+                    return (
+                        <TextField
+                            label={property?.label || key}
+                            key={key}
+                            value={localBook[key] || ''}
+                            type="number"
+                            onChange={(event) => {
+                                handleChange(key, event.target.value);
+                            }}
+                            slotProps={{
+                                htmlInput: {
+                                    min: 1,
+                                },
+                            }}
+                        />
+                    );
+                } else if (
+                    property?.type === 'date' ||
+                    property?.type === 'timestamp'
+                ) {
+                    return (
+                        <LocalizationProvider
+                            dateAdapter={AdapterDayjs}
+                            adapterLocale={selectedLocale}
+                            key={key}
+                        >
+                            <DatePicker
                                 key={key}
-                                value={localBook[key] || ''}
-                                multiline={key === 'text'}
-                                onChange={(event) => {
-                                    handleChange(key, event.target.value);
+                                label={property?.label || key}
+                                value={
+                                    localBook[key]
+                                        ? dayjs(localBook[key])
+                                        : null
+                                }
+                                onChange={(date) => {
+                                    handleChange(key, date.toISOString());
                                 }}
                             />
-                        );
-                    } else if (['timestamp', 'date'].includes(property?.type)) {
-                        return (
-                            <LocalizationProvider
-                                dateAdapter={AdapterDayjs}
-                                adapterLocale={selectedLocale}
-                                key={key}
-                            >
-                                <DatePicker
-                                    key={key}
-                                    label={property?.title || key}
-                                    value={
-                                        localBook[key]
-                                            ? dayjs(localBook[key])
-                                            : null
-                                    }
-                                    onChange={(date) => {
-                                        handleChange(key, date.toISOString());
-                                    }}
+                        </LocalizationProvider>
+                    );
+                } else {
+                    return (
+                        <Autocomplete
+                            multiple
+                            key={key}
+                            mt={2}
+                            value={getAssociationValue(property?.type, key)}
+                            onChange={(event, newValue) => {
+                                handleChange(key, newValue, property?.type);
+                            }}
+                            options={getAssociationOptions(property?.type, key)}
+                            renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    label={property?.label || key}
                                 />
-                            </LocalizationProvider>
-                        );
-                    } else {
-                        return (
-                            <Autocomplete
-                                multiple
-                                key={key}
-                                mt={2}
-                                value={getAssociationValue(key)}
-                                onChange={(event, newValue) => {
-                                    handleChange(key, newValue, property?.type);
-                                }}
-                                options={getAssociationOptions(key)}
-                                renderInput={(params) => (
-                                    <TextField
-                                        {...params}
-                                        label={property?.title || key}
-                                    />
-                                )}
-                            />
-                        );
-                    }
+                            )}
+                        />
+                    );
                 }
-                return null;
             })}
             <Typography variant="body1" mt={2}>
                 {`Järjestys`}
@@ -206,18 +215,18 @@ const SearchControls = ({
             <Box sx={{ width: 1 }}>
                 <Select
                     sx={{ mr: 2 }}
-                    value={localBook['orderBy'] || 'updatedAt'}
+                    value={localBook['orderby'] || 'createdat'}
                     onChange={(event) => {
-                        handleChange('orderBy', event.target.value);
+                        handleChange('orderby', event.target.value);
                     }}
                     displayEmpty
                 >
                     <MenuItem value="" disabled>
                         Valitse kenttä
                     </MenuItem>
-                    {schema.order.map((key) => (
+                    {schema.books.order.map((key) => (
                         <MenuItem key={key} value={key}>
-                            {schema.properties[key]?.title || key}
+                            {schema.books.properties[key]?.label || key}
                         </MenuItem>
                     ))}
                 </Select>

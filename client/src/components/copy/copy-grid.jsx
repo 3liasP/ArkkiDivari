@@ -2,6 +2,7 @@ import { Box, Card, CardContent, Typography, Button } from '@mui/material';
 import { useEffect, useMemo } from 'react';
 import bookIcon from '../../assets/svg/book.svg';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { connect } from 'react-redux';
 import { search } from '../search/search.actions';
@@ -10,8 +11,9 @@ import {
     addToShoppingCart,
     toggleShoppingCartOpen,
 } from '../../reducers/user.slice';
+import { COPY_STATUSES } from './copy.constants';
 
-const BookCopies = ({
+const CopyGrid = ({
     ctx,
     params,
     schema,
@@ -26,20 +28,19 @@ const BookCopies = ({
 
     const bookCopies = useMemo(() => {
         if (!results || !schema) return [];
-        return results.reduce((acc, result) => {
+        const copies = results.reduce((acc, result) => {
             const { copies, ...book } = result;
             copies.forEach((copy) => {
                 acc.push({ ...copy, book });
             });
             return acc;
         }, []);
+        return copies.sort((a, b) => {
+            if (a.status === 'available' && b.status !== 'available') return -1;
+            if (a.status !== 'available' && b.status === 'available') return 1;
+            return a.price - b.price;
+        });
     }, [results, schema]);
-
-    const statuses = {
-        available: 'Saatavilla',
-        reserved: 'Varattu',
-        sold: 'Myyty',
-    };
 
     const subHeaders = ['author', 'year'];
 
@@ -57,11 +58,22 @@ const BookCopies = ({
         return (
             <Box
                 display="flex"
+                flexDirection="column"
                 justifyContent="center"
                 alignItems="center"
-                sx={{ height: '100vh' }}
+                height="100%"
             >
-                <Typography variant="h6">Ei myyntikappaleita</Typography>
+                <Typography variant="h6" mb={2}>
+                    Ei myyntikappaleita
+                </Typography>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    startIcon={<LibraryAddIcon />}
+                    onClick={() => {}} // Add onClick handler for the button
+                >
+                    Luo uusi myyntikappale
+                </Button>
             </Box>
         );
     }
@@ -124,7 +136,7 @@ const BookCopies = ({
                                             : 'error'
                                     }
                                 >
-                                    {statuses[copy.status]}
+                                    {COPY_STATUSES[copy.status]}
                                 </Typography>
                                 <Typography variant="subtitle2">
                                     {`Myyjä: ${schema.associations.seller[copy.sellerid]}`}
@@ -153,6 +165,7 @@ const BookCopies = ({
                                 color="primary"
                                 startIcon={<FavoriteIcon />}
                                 onClick={() => handleAddToFavorites(copy)}
+                                disabled={copy.status !== 'available'}
                             >
                                 Lisää suosikiksi
                             </Button>
@@ -175,4 +188,4 @@ const mapDispatchToProps = (dispatch) => ({
     toggleShoppingCartOpen: () => dispatch(toggleShoppingCartOpen()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(BookCopies);
+export default connect(mapStateToProps, mapDispatchToProps)(CopyGrid);

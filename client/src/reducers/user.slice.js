@@ -14,7 +14,9 @@ const initialState = {
         phone: null,
     },
     darkMode: getLocalStorage('darkMode', false),
-    shoppingCart: [],
+    loading: false,
+    error: null,
+    shoppingCart: getLocalStorage('shoppingCart', []),
     shoppingCartOpen: false,
 };
 
@@ -44,14 +46,17 @@ const userSlice = createSlice({
         },
         addToShoppingCart: (state, action) => {
             state.shoppingCart.push(action.payload);
+            setLocalStorage('shoppingCart', state.shoppingCart);
         },
         removeFromShoppingCart: (state, action) => {
             state.shoppingCart = state.shoppingCart.filter(
                 ({ copyid }) => copyid !== action.payload,
             );
+            setLocalStorage('shoppingCart', state.shoppingCart);
         },
         clearShoppingCart: (state) => {
             state.shoppingCart = [];
+            setLocalStorage('shoppingCart', []);
         },
     },
 });

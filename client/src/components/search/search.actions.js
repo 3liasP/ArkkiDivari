@@ -64,7 +64,9 @@ const bookToSearchParams = (book) => {
             } else if (Array.isArray(book[key])) {
                 params.criteria[key] = book[key];
             } else {
-                params.criteria[key] = [book[key]];
+                params.criteria[key] = book[key]
+                    .split(',')
+                    .map((value) => value.trim());
             }
         }
     }

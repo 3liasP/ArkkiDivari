@@ -6,6 +6,3 @@ export const DEFAULT_SEARCH_PARAMS = {
         sort: 'desc',
     },
 };
-
-// Local storage key
-export const COLUMN_CONFIG_KEY = 'searchGridColumnConfig';
