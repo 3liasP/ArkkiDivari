@@ -2,6 +2,35 @@ import db from '../db/database.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
+const me = async (req, res) => {
+    try {
+        const token = req.cookies.authToken;
+
+        if (!token) {
+            return res.status(401).send({ message: 'No token provided' });
+        }
+
+        const decoded = jwt.verify(token, process.env.SECRET_KEY);
+        const { userid } = decoded;
+
+        const result = await db.query(
+            'SELECT * FROM central.Users WHERE userid = $1',
+            [userid],
+        );
+
+        if (!result.rows.length) {
+            return res.status(404).send({ message: 'User not found' });
+        }
+
+        const userData = result.rows[0];
+        delete userData.password;
+
+        res.status(200).send({ userData });
+    } catch (error) {
+        res.status(400).send({ message: error.message });
+    }
+};
+
 const login = async (req, res) => {
     try {
         const { userid, password } = req.body;
@@ -29,7 +58,7 @@ const login = async (req, res) => {
 
         // For now, token is valid for 1 hour. Change if you will.
         const token = jwt.sign(
-            { userId: user.userid },
+            { userid: user.userid },
             process.env.SECRET_KEY,
             {
                 expiresIn: '1h',
@@ -143,4 +172,4 @@ const remove = async (req, res) => {
     }
 };
 
-export default { login, register, logout, remove };
+export default { me, login, register, logout, remove };

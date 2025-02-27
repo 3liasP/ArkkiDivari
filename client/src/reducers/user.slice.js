@@ -3,9 +3,9 @@ import { getLocalStorage, setLocalStorage } from '../helpers/storage.helpers';
 
 const initialState = {
     loggedIn: false,
+    loading: false,
     info: {
         userid: null,
-        username: null,
         role: null,
         sellerid: null,
         address: null,
@@ -14,8 +14,6 @@ const initialState = {
         phone: null,
     },
     darkMode: getLocalStorage('darkMode', false),
-    loading: false,
-    error: null,
     shoppingCart: getLocalStorage('shoppingCart', []),
     shoppingCartOpen: false,
 };
@@ -33,6 +31,9 @@ const userSlice = createSlice({
             state.info.zip = action.payload.zip;
             state.info.city = action.payload.city;
             state.info.phone = action.payload.phone;
+        },
+        setLoading(state, action) {
+            state.loading = action.payload;
         },
         setDarkMode: (state, action) => {
             state.darkMode = action.payload;
@@ -70,6 +71,7 @@ export const {
     addToShoppingCart,
     removeFromShoppingCart,
     clearShoppingCart,
+    setLoading,
 } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -7,6 +7,7 @@ const router = express.Router();
 router.post('/login', userController.login);
 router.post('/register', userController.register);
 router.get('/logout', userController.logout);
+router.get('/me', authMiddleware, userController.me);
 // This is to be added later
 // router.put('/update', authMiddleware, userController.update);
 

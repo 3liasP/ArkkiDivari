@@ -92,7 +92,6 @@ const SearchControls = ({
     const getAssociationOptions = useMemo(
         () => (type, key) => {
             const selectedIds = localBook[key] || [];
-            console.log('selectedIds', selectedIds);
             const options = Object.entries(schema.associations[type])
                 .map(([id, label]) => {
                     return {

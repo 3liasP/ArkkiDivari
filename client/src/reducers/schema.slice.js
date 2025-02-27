@@ -1,13 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import api from '../core/api';
-import { setUser } from './user.slice';
-
-export const fetchSchemaAndSetUser = () => async (dispatch) => {
-    const result = await dispatch(fetchSchema());
-    if (fetchSchema.fulfilled.match(result)) {
-        dispatch(setUser(result.payload.user));
-    }
-};
 
 // Async thunk to fetch book model
 export const fetchSchema = createAsyncThunk(

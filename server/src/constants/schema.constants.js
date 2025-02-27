@@ -168,11 +168,6 @@ export const SCHEMA = Object.freeze({
             name: 'bookstatus',
         },
     },
-    user: {
-        userid: 'admin@arkkidivari.com',
-        name: 'Järjestelmänvalvoja',
-        group: 'admin',
-    },
 });
 
 export const ADMIN_SCHEMA = {

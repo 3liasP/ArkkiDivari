@@ -1,11 +1,35 @@
+import { logout } from '../components/user/user.actions';
+import store from './store';
+
 class Api {
     constructor() {
         this.baseURL = '/api';
     }
 
+    async request(url, options = {}) {
+        const response = await fetch(url, options);
+        if (response.status === 401) store.dispatch(logout());
+        return response;
+    }
+
+    async me() {
+        const response = await this.request(`${this.baseURL}/user/me`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        if (!response.ok) {
+            const errMsg = await getErrMsg(response);
+            throw new Error(errMsg);
+        }
+        const data = await response.json();
+        return data;
+    }
+
     async login(userid, password) {
         try {
-            const response = await fetch(`${this.baseURL}/user/login`, {
+            const response = await this.request(`${this.baseURL}/user/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -26,13 +50,16 @@ class Api {
 
     async register(userInfo) {
         try {
-            const response = await fetch(`${this.baseURL}/user/register`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
+            const response = await this.request(
+                `${this.baseURL}/user/register`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(userInfo),
                 },
-                body: JSON.stringify(userInfo),
-            });
+            );
             if (!response.ok) {
                 const errMsg = await getErrMsg(response);
                 throw new Error(errMsg);
@@ -45,7 +72,7 @@ class Api {
 
     async logout() {
         try {
-            const response = await fetch(`${this.baseURL}/user/logout`, {
+            const response = await this.request(`${this.baseURL}/user/logout`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -63,7 +90,7 @@ class Api {
 
     async search(params) {
         try {
-            const response = await fetch(`${this.baseURL}/search`, {
+            const response = await this.request(`${this.baseURL}/search`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -84,7 +111,7 @@ class Api {
 
     async getBookById(id) {
         try {
-            const response = await fetch(`${this.baseURL}/book/${id}`, {
+            const response = await this.request(`${this.baseURL}/book/${id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -104,7 +131,7 @@ class Api {
 
     async createBook(book) {
         try {
-            const response = await fetch(`${this.baseURL}/book`, {
+            const response = await this.request(`${this.baseURL}/book`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -125,7 +152,7 @@ class Api {
 
     async createCopy(copy) {
         try {
-            const response = await fetch(`${this.baseURL}/copy`, {
+            const response = await this.request(`${this.baseURL}/copy`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -146,7 +173,7 @@ class Api {
 
     async updateBook(book) {
         try {
-            const response = await fetch(
+            const response = await this.request(
                 `${this.baseURL}/book/${book.bookid}`,
                 {
                     method: 'PUT',
@@ -170,7 +197,7 @@ class Api {
 
     async deleteBook(id) {
         try {
-            const response = await fetch(`${this.baseURL}/book/${id}`, {
+            const response = await this.request(`${this.baseURL}/book/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -190,7 +217,7 @@ class Api {
 
     async getSchema() {
         try {
-            const response = await fetch(`${this.baseURL}/schema`, {
+            const response = await this.request(`${this.baseURL}/schema`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

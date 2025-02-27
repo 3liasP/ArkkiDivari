@@ -10,11 +10,17 @@ import Toaster from './components/toaster/toaster';
 import { dayjsSetup } from './helpers/dayjs.helpers';
 import ErrorBoundary from './routes/error-boundary';
 import { darkTheme, lightTheme } from './themes/theme';
+import { me } from './components/user/user.actions';
 
-const App = ({ ready, initApp, darkMode, loggedIn }) => {
+const App = ({ ready, initApp, me, darkMode, loggedIn }) => {
     useEffect(() => {
-        if (loggedIn) initApp();
-    }, [initApp, loggedIn]);
+        if (loggedIn) {
+            initApp();
+        } else {
+            console.log('Not logged in');
+            me();
+        }
+    }, [initApp, me, loggedIn]);
 
     dayjsSetup();
 
@@ -52,6 +58,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     initApp: () => dispatch(initApp()),
+    me: () => dispatch(me()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
