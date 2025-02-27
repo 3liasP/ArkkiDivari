@@ -10,10 +10,15 @@ import { connect } from 'react-redux';
 import SearchAdvanced from '../search/search-advanced';
 import SearchResults from '../search/search-results';
 import SearchBarcode from '../search/search-barcode';
+import Login from '../login/login';
 
-const ComponentSelector = ({ setCtx }) => {
+const ComponentSelector = ({ loggedIn, setCtx }) => {
     const [page, pageParam] = useLocationParams();
     const { search, pathname } = useLocation();
+
+    if (!loggedIn) {
+        return <Login />;
+    }
 
     switch (page) {
         case 'home': {
@@ -64,8 +69,12 @@ const ComponentSelector = ({ setCtx }) => {
     }
 };
 
+const mapStateToProps = (state) => ({
+    loggedIn: state.user.loggedIn,
+});
+
 const mapDispatchToProps = (dispatch) => ({
     setCtx: (payload) => dispatch(setCtx(payload)),
 });
 
-export default connect(null, mapDispatchToProps)(ComponentSelector);
+export default connect(mapStateToProps, mapDispatchToProps)(ComponentSelector);

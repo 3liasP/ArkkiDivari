@@ -1,27 +1,20 @@
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { initApp } from './app.actions';
 import ComponentsSelector from './components/canvas/component-selector';
-import LoadingOverlay from './components/canvas/loading-overlay';
 import TopBar from './components/menu-bar/top-bar';
-import ErrorBoundary from './routes/error-boundary';
-import { lightTheme, darkTheme } from './themes/theme';
 import Toaster from './components/toaster/toaster';
 import { dayjsSetup } from './helpers/dayjs.helpers';
+import ErrorBoundary from './routes/error-boundary';
+import { darkTheme, lightTheme } from './themes/theme';
 
-const App = ({ ready, initApp, darkMode }) => {
-    const [loading, setLoading] = useState(true);
-
+const App = ({ ready, initApp, darkMode, loggedIn }) => {
     useEffect(() => {
-        initApp().then(() => setLoading(false));
-    }, [initApp]);
-
-    if (loading) {
-        return <LoadingOverlay />;
-    }
+        if (loggedIn) initApp();
+    }, [initApp, loggedIn]);
 
     dayjsSetup();
 
@@ -37,7 +30,7 @@ const App = ({ ready, initApp, darkMode }) => {
                     <CssBaseline />
                     <div>
                         <Toaster />
-                        <TopBar />
+                        {loggedIn && <TopBar />}
                         <Routes>
                             <Route
                                 path="*"
@@ -54,6 +47,7 @@ const App = ({ ready, initApp, darkMode }) => {
 const mapStateToProps = (state) => ({
     ready: state.app?.ready,
     darkMode: state.user.darkMode,
+    loggedIn: state.user.loggedIn,
 });
 
 const mapDispatchToProps = (dispatch) => ({
