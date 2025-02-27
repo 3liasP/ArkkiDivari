@@ -3,6 +3,27 @@ class Api {
         this.baseURL = process.env.BASE_URL || 'http://localhost:8010/api';
     }
 
+    registerUser = async (user) => {
+        try {
+            const response = await fetch(`${this.baseURL}/user/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(user),
+            });
+
+            if (!response.ok) {
+                const errMsg = await getErrMsg(response);
+                throw new Error(errMsg);
+            }
+
+            return await response.json();
+        } catch (error) {
+            console.error('Error registering user:', error.message);
+        }
+    };
+
     createBook = async (book) => {
         try {
             const response = await fetch(`${this.baseURL}/book`, {
@@ -14,7 +35,8 @@ class Api {
             });
 
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                const errMsg = await getErrMsg(response);
+                throw new Error(errMsg);
             }
 
             return await response.json();
@@ -34,7 +56,8 @@ class Api {
             });
 
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                const errMsg = await getErrMsg(response);
+                throw new Error(errMsg);
             }
 
             return await response.json();
@@ -43,5 +66,12 @@ class Api {
         }
     };
 }
+
+const getErrMsg = async (response) => {
+    const data = await response.json();
+    if (data?.message) return data.message;
+
+    return `HTTP error! status: ${response.status}`;
+};
 
 export default new Api();
