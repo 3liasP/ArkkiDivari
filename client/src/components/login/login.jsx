@@ -1,24 +1,22 @@
+import LoginIcon from '@mui/icons-material/Login';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import {
     Box,
     Button,
     Card,
-    Checkbox,
+    Divider,
     FormControl,
-    FormControlLabel,
     FormLabel,
     Stack,
-    Typography,
     TextField,
-    Divider,
+    Typography,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useState } from 'react';
-import textLogo from '../../assets/svg/logo-no-background.svg';
-import LoginIcon from '@mui/icons-material/Login';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import { login } from '../user/user.actions';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import textLogo from '../../assets/svg/logo-no-background.svg';
+import { login, register } from '../user/user.actions';
 
 const StyledLogo = styled('img')(() => ({
     alignSelf: 'center',
@@ -64,12 +62,17 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
     },
 }));
 
-const SignIn = ({ login }) => {
+const SignIn = ({ login, register }) => {
     const [signingUp, setSigningUp] = useState(false);
     const [emailError, setEmailError] = useState(false);
     const [emailErrorMessage, setEmailErrorMessage] = useState('');
     const [passwordError, setPasswordError] = useState(false);
     const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
+    const [verifyPasswordError, setVerifyPasswordError] = useState(false);
+    const [verifyPasswordErrorMessage, setVerifyPasswordErrorMessage] =
+        useState('');
+    const [nameError, setNameError] = useState(false);
+    const [nameErrorMessage, setNameErrorMessage] = useState('');
 
     const navigate = useNavigate();
 
@@ -82,12 +85,21 @@ const SignIn = ({ login }) => {
 
         const callBack = () => navigate('/');
         const data = new FormData(event.currentTarget);
-        login(data.get('email'), data.get('password'), callBack);
+        const userData = {
+            name: data.get('name'),
+            userid: data.get('email'),
+            password: data.get('password'),
+        };
+
+        signingUp
+            ? register(userData, callBack)
+            : login(userData.userid, userData.password, callBack);
     };
 
     const validateInputs = () => {
         const email = document.getElementById('email');
         const password = document.getElementById('password');
+        const name = document.getElementById('name');
 
         let isValid = true;
 
@@ -111,6 +123,27 @@ const SignIn = ({ login }) => {
             setPasswordErrorMessage('');
         }
 
+        if (signingUp) {
+            const verifyPassword = document.getElementById('verifyPassword');
+            if (password.value !== verifyPassword.value) {
+                setVerifyPasswordError(true);
+                setVerifyPasswordErrorMessage('Salasanat eivät täsmää');
+                isValid = false;
+            } else {
+                setVerifyPasswordError(false);
+                setVerifyPasswordErrorMessage('');
+            }
+
+            if (!name.value || name.value.length < 1) {
+                setNameError(true);
+                setNameErrorMessage('Nimi on pakollinen');
+                isValid = false;
+            } else {
+                setNameError(false);
+                setNameErrorMessage('');
+            }
+        }
+
         return isValid;
     };
 
@@ -129,6 +162,22 @@ const SignIn = ({ login }) => {
                         gap: 2,
                     }}
                 >
+                    {signingUp && (
+                        <FormControl>
+                            <FormLabel htmlFor="name">Nimi</FormLabel>
+                            <TextField
+                                autoComplete="name"
+                                name="name"
+                                required
+                                fullWidth
+                                id="name"
+                                placeholder="Etunimi Sukunimi"
+                                error={nameError}
+                                helperText={nameErrorMessage}
+                                color={nameError ? 'error' : 'primary'}
+                            />
+                        </FormControl>
+                    )}
                     <FormControl>
                         <FormLabel htmlFor="email">Sähköposti</FormLabel>
                         <TextField
@@ -163,11 +212,30 @@ const SignIn = ({ login }) => {
                             color={passwordError ? 'error' : 'primary'}
                         />
                     </FormControl>
-                    <FormControlLabel
-                        control={<Checkbox value="remember" color="primary" />}
-                        label="Muista minut"
-                    />
+                    {signingUp && (
+                        <FormControl>
+                            <FormLabel htmlFor="password">
+                                Salasana uudelleen
+                            </FormLabel>
+                            <TextField
+                                error={verifyPasswordError}
+                                helperText={verifyPasswordErrorMessage}
+                                name="verifyPassword"
+                                placeholder="••••••"
+                                type="password"
+                                id="verifyPassword"
+                                autoFocus
+                                required
+                                fullWidth
+                                variant="outlined"
+                                color={
+                                    verifyPasswordError ? 'error' : 'primary'
+                                }
+                            />
+                        </FormControl>
+                    )}
                     <Button
+                        sx={{ mt: 2 }}
                         type="submit"
                         fullWidth
                         variant="contained"
@@ -197,6 +265,7 @@ const SignIn = ({ login }) => {
 const mapDispatchToProps = (dispatch) => ({
     login: (username, password, callBack) =>
         dispatch(login(username, password, callBack)),
+    register: (userInfo, callBack) => dispatch(register(userInfo, callBack)),
 });
 
 export default connect(null, mapDispatchToProps)(SignIn);

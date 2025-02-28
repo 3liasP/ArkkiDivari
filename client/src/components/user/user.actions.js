@@ -35,7 +35,21 @@ export const me = () => async (dispatch) => {
         dispatch(setLoading(false));
     } catch (error) {
         console.warn('Error getting user info:', error.message);
-        dispatch(logout());
         dispatch(setLoading(false));
+    }
+};
+
+export const register = (userInfo, callBack) => async (dispatch) => {
+    try {
+        await api.register(userInfo);
+        dispatch(
+            showToaster({
+                message: 'Käyttäjä luotu onnistuneesti!',
+                variant: 'success',
+            }),
+        );
+        dispatch(login(userInfo.userid, userInfo.password, callBack));
+    } catch (error) {
+        dispatch(showToaster({ message: error.message, variant: 'error' }));
     }
 };
