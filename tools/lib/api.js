@@ -3,15 +3,25 @@ class Api {
         this.baseURL = process.env.BASE_URL || 'http://localhost:8010/api';
     }
 
+    async request(url, options = {}) {
+        const response = await fetch(url, options);
+        if (response.status === 401)
+            console.log('Unauthorized! Do you have server set up in dev mode?');
+        return response;
+    }
+
     registerUser = async (user) => {
         try {
-            const response = await fetch(`${this.baseURL}/user/register`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
+            const response = await this.request(
+                `${this.baseURL}/user/register`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(user),
                 },
-                body: JSON.stringify(user),
-            });
+            );
 
             if (!response.ok) {
                 const errMsg = await getErrMsg(response);
@@ -26,7 +36,7 @@ class Api {
 
     createBook = async (book) => {
         try {
-            const response = await fetch(`${this.baseURL}/book`, {
+            const response = await this.request(`${this.baseURL}/book`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -47,7 +57,7 @@ class Api {
 
     createCopy = async (copy) => {
         try {
-            const response = await fetch(`${this.baseURL}/copy`, {
+            const response = await this.request(`${this.baseURL}/copy`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

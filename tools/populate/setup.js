@@ -12,17 +12,15 @@ const createDemoData = async (numItems) => {
                 password: user.password,
             });
     }
-    // not working as of now...
-    // we need to simulate login and then add books & copies
     const books = generateBooks(numItems);
     for (const book of books) {
         const result = await api.createBook(book);
-        console.log('Created book:', result);
         if (result) {
+            console.log('Created book:', result);
             const copies = generateCopies(result);
             for (const copy of copies) {
-                await api.createCopy(copy);
-                console.log('Created copy:', copy);
+                const result = await api.createCopy(copy);
+                if (result) console.log('Created copy:', result);
             }
         }
     }
@@ -118,5 +116,10 @@ const generateCopies = (book) => {
     return copies;
 };
 
-// Create 10 demo items
-createDemoData(process.env.LOAD_AMOUNT || 10);
+const main = async () => {
+    const numUsers = process.argv[2] || 10;
+    const numBooks = process.argv[3] || 10;
+    await createDemoData(numUsers, numBooks);
+};
+
+main();
