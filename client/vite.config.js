@@ -1,7 +1,6 @@
 import { dependencies } from './package.json';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import mkcert from 'vite-plugin-mkcert';
 
 function renderChunks(deps) {
     const chunks = {};
@@ -14,7 +13,7 @@ function renderChunks(deps) {
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    plugins: [react(), mkcert()],
+    plugins: [react()],
     build: {
         sourcemap: false,
         rollupOptions: {

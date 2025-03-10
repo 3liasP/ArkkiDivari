@@ -237,10 +237,13 @@ class Api {
 }
 
 const getErrMsg = async (response) => {
-    const data = await response.json();
-    if (data?.message) return data.message;
-
-    return `HTTP virhe! status: ${response.status}`;
+    try {
+        const data = await response.json();
+        if (data?.message) return data.message;
+    } catch (error) {
+        console.error('Error getting error message:', error);
+        return `HTTP virhe! status: ${response.status}`;
+    }
 };
 
 const api = new Api();
