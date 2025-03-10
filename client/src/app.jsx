@@ -17,7 +17,6 @@ const App = ({ ready, initApp, me, darkMode, loggedIn }) => {
         if (loggedIn) {
             initApp();
         } else {
-            console.log('Not logged in');
             me();
         }
     }, [initApp, me, loggedIn]);

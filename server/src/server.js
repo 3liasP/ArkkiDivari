@@ -8,9 +8,16 @@ import schemaRoutes from './routes/schema.routes.js';
 import searchRoutes from './routes/search.routes.js';
 import userRoutes from './routes/user.routes.js';
 import { accessLogMiddleware, errorLogMiddleware } from './utils/logger.js';
-import authMiddleware from './auth/auth.middleware.js';
+import {
+    authMiddleware,
+    mockAuthMiddleware,
+    unless,
+} from './auth/auth.middleware.js';
 
 const init = () => {
+    const PORT = process.env.NODE_PORT || 8010;
+    const MODE = process.env.NODE_ENV || 'prod';
+
     db.connect();
 
     const app = express();
@@ -22,10 +29,22 @@ const init = () => {
     app.use(accessLogMiddleware);
     app.use(errorLogMiddleware);
 
-    app.use('/api/book', authMiddleware, bookRoutes);
-    app.use('/api/copy', authMiddleware, copyRoutes);
-    app.use('/api/schema', authMiddleware, schemaRoutes);
-    app.use('/api/search', authMiddleware, searchRoutes);
+    if (MODE === 'dev') {
+        app.use(mockAuthMiddleware);
+    } else {
+        const excludePaths = [
+            '/api/user/login',
+            '/api/user/register',
+            '/api/user/logout',
+            '/api',
+        ];
+        app.use(unless(excludePaths, authMiddleware));
+    }
+
+    app.use('/api/book', bookRoutes);
+    app.use('/api/copy', copyRoutes);
+    app.use('/api/schema', schemaRoutes);
+    app.use('/api/search', searchRoutes);
     // User routes are protected directly in user.routes.js
     app.use('/api/user', userRoutes);
 
@@ -33,9 +52,8 @@ const init = () => {
         res.send({ message: 'Server running', time: new Date() });
     });
 
-    const PORT = process.env.NODE_PORT || 8010;
     app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}.`);
+        console.log(`Server is running in ${MODE} mode on port ${PORT}.`);
     });
 };
 

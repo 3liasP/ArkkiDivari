@@ -4,14 +4,7 @@ import bcrypt from 'bcrypt';
 
 const me = async (req, res) => {
     try {
-        const token = req.cookies.authToken;
-
-        if (!token) {
-            return res.status(401).send({ message: 'No token provided' });
-        }
-
-        const decoded = jwt.verify(token, process.env.SECRET_KEY);
-        const { userid } = decoded;
+        const { userid } = req.user;
 
         const result = await db.query(
             'SELECT * FROM central.Users WHERE userid = $1',
