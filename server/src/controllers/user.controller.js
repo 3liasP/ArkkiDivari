@@ -138,6 +138,27 @@ const logout = async (req, res) => {
     res.send({ message: 'Logged out' });
 };
 
+const update = async (req, res) => {
+    const { userid } = req.user;
+    const { name, address, zip, city, phone } = req.body;
+
+    try {
+        const updatedUser = await db.query(
+            `UPDATE central.Users
+             SET name = $1, address = $2, zip = $3, city = $4, phone = $5
+             WHERE userid = $6 RETURNING *`,
+            [name, address, zip, city, phone, userid],
+        );
+
+        const userData = updatedUser.rows[0];
+        delete userData.password;
+
+        res.status(200).send({ message: 'User updated', userData });
+    } catch (error) {
+        res.status(400).send({ message: error.message });
+    }
+};
+
 const remove = async (req, res) => {
     const { userid } = req.body;
 
@@ -165,4 +186,4 @@ const remove = async (req, res) => {
     }
 };
 
-export default { me, login, register, logout, remove };
+export default { me, login, register, logout, remove, update };

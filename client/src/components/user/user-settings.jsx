@@ -1,7 +1,5 @@
-import LaunchIcon from '@mui/icons-material/Launch';
 import {
     Box,
-    Button,
     ListItem,
     ListItemText,
     Stack,
@@ -10,7 +8,6 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { setDarkMode } from '../../reducers/user.slice';
 
 const UserSettings = ({ darkMode, setDarkMode }) => {
@@ -41,18 +38,6 @@ const UserSettings = ({ darkMode, setDarkMode }) => {
                     />
                 </ListItem>
             </Stack>
-
-            <Box mt={4}>
-                <Link to="/api/docs" target="_blank" rel="noopener noreferrer">
-                    <Button
-                        variant="text"
-                        color="primary"
-                        endIcon={<LaunchIcon />}
-                    >
-                        API-Dokumentaatio
-                    </Button>
-                </Link>
-            </Box>
         </Box>
     );
 };

@@ -1,4 +1,5 @@
 import api from '../../core/api';
+import { setEditedUser, setEditing } from '../../reducers/contexts.slice';
 import { showToaster } from '../../reducers/toaster.slice';
 import { setLoading, setLoggedIn, setUser } from '../../reducers/user.slice';
 
@@ -49,6 +50,26 @@ export const register = (userInfo, callBack) => async (dispatch) => {
             }),
         );
         dispatch(login(userInfo.userid, userInfo.password, callBack));
+    } catch (error) {
+        dispatch(showToaster({ message: error.message, variant: 'error' }));
+    }
+};
+
+export const updateUser = (ctx, callBack) => async (dispatch, getState) => {
+    const state = getState();
+    try {
+        const userInfo = state.contexts[ctx].editedUser;
+        const { userData } = await api.updateUser(userInfo);
+        dispatch(
+            showToaster({
+                message: 'Käyttäjätiedot päivitetty!',
+                variant: 'success',
+            }),
+        );
+        dispatch(setEditing({ ctx, editing: false }));
+        dispatch(setEditedUser({ ctx, user: null }));
+        dispatch(setUser(userData));
+        if (callBack) callBack();
     } catch (error) {
         dispatch(showToaster({ message: error.message, variant: 'error' }));
     }

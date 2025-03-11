@@ -88,6 +88,27 @@ class Api {
         }
     }
 
+    async updateUser(userInfo) {
+        try {
+            const response = await this.request(`${this.baseURL}/user/update`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userInfo),
+            });
+            if (!response.ok) {
+                const errMsg = await getErrMsg(response);
+                throw new Error(errMsg);
+            }
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error updating user:', error);
+            throw error;
+        }
+    }
+
     async search(params) {
         try {
             const response = await this.request(`${this.baseURL}/search`, {

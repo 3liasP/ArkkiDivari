@@ -34,6 +34,14 @@ const contextSlice = createSlice({
             const { ctx, key, value } = action.payload;
             state[ctx]['editedCopy'][key] = value;
         },
+        setEditedUser: (state, action) => {
+            const { ctx, user } = action.payload;
+            state[ctx]['editedUser'] = user;
+        },
+        setEditedUserProperty: (state, action) => {
+            const { ctx, key, value } = action.payload;
+            state[ctx]['editedUser'][key] = value;
+        },
         setEditing: (state, action) => {
             const { ctx, editing } = action.payload;
             state[ctx]['editing'] = editing;
@@ -63,6 +71,8 @@ export const {
     setEditedBookProperty,
     setEditedCopy,
     setEditedCopyProperty,
+    setEditedUser,
+    setEditedUserProperty,
     setEditing,
     setIdMode,
     setNotFound,

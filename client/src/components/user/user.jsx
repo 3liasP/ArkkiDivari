@@ -20,8 +20,10 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { USER_ROLES } from './user.constants';
 import { logout } from './user.actions';
 import { useNavigate } from 'react-router-dom';
+import UserControls from './user-controls';
+import SummaryButtons from '../summary/summary-buttons';
 
-const User = ({ username, userId, userRole, logout }) => {
+const User = ({ ctx, userName, userId, userRole, editing, logout }) => {
     const navigate = useNavigate();
 
     const theme = useTheme();
@@ -30,7 +32,7 @@ const User = ({ username, userId, userRole, logout }) => {
     const userData = [
         {
             label: 'Nimi',
-            value: username,
+            value: userName,
         },
         {
             label: 'Käyttäjätunnus',
@@ -84,16 +86,19 @@ const User = ({ username, userId, userRole, logout }) => {
                 <Divider orientation="vertical" flexItem />
                 <Grid2 size={isWindowed ? 12 : 'grow'}>
                     <UserSettings />
+                    <UserControls ctx={ctx} />
                 </Grid2>
             </Grid2>
+            {editing && <SummaryButtons ctx={ctx} />}
         </Container>
     );
 };
 
-const mapStateToProps = (state) => ({
-    username: state.user.info.name,
+const mapStateToProps = (state, ownProps) => ({
+    userName: state.user.info.name,
     userId: state.user.info.userid,
     userRole: state.user.info.role,
+    editing: state.contexts[ownProps.ctx].editing,
 });
 
 const mapDispatchToProps = (dispatch) => ({
