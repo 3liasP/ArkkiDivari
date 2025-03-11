@@ -7,6 +7,7 @@ import copyRoutes from './routes/copy.routes.js';
 import schemaRoutes from './routes/schema.routes.js';
 import searchRoutes from './routes/search.routes.js';
 import userRoutes from './routes/user.routes.js';
+import orderRoutes from './routes/order.routes.js';
 import { accessLogMiddleware, errorLogMiddleware } from './utils/logger.js';
 import {
     authMiddleware,
@@ -45,8 +46,8 @@ const init = () => {
     app.use('/api/copy', copyRoutes);
     app.use('/api/schema', schemaRoutes);
     app.use('/api/search', searchRoutes);
-    // User routes are protected directly in user.routes.js
     app.use('/api/user', userRoutes);
+    app.use('/api/order', orderRoutes);
 
     app.get('/api', (req, res) => {
         res.send({ message: 'Server running', time: new Date() });

@@ -1,0 +1,7 @@
+### Get all orders
+POST http://localhost:8010/api/order/complete
+Content-Type: application/json
+
+{
+    "orderid": 2
+}

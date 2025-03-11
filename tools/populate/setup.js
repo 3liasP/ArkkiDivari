@@ -96,11 +96,7 @@ const generateCopies = (book) => {
     const copies = [];
     for (let i = 0; i < numCopies; i++) {
         const price = faker.commerce.price({ max: 100 });
-        const status = faker.helpers.arrayElement([
-            'available',
-            'sold',
-            'reserved',
-        ]);
+        const status = faker.helpers.arrayElement(['available', 'sold']);
         copies.push({
             bookid: book.bookid,
             sellerid: faker.helpers.arrayElement([
