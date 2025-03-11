@@ -18,6 +18,7 @@ const CopyGrid = ({
     params,
     schema,
     results,
+    shoppingCart,
     search,
     addToShoppingCart,
     toggleShoppingCartOpen,
@@ -53,6 +54,9 @@ const CopyGrid = ({
         // Implement add to favorites functionality
         console.log('Add to favorites:', copy);
     };
+
+    const inCart = (copy) =>
+        shoppingCart.some((item) => item.copyid === copy.copyid);
 
     if (!bookCopies.length) {
         return (
@@ -132,7 +136,7 @@ const CopyGrid = ({
                                     variant="subtitle2"
                                     color={
                                         copy.status === 'available'
-                                            ? 'info'
+                                            ? 'success'
                                             : 'error'
                                     }
                                 >
@@ -152,10 +156,12 @@ const CopyGrid = ({
                         <Box display="block" sx={{ mt: 2 }}>
                             <Button
                                 variant="contained"
-                                color="info"
+                                color="secondary"
                                 startIcon={<AddShoppingCartIcon />}
                                 onClick={() => handleAddToCart(copy)}
-                                disabled={copy.status !== 'available'}
+                                disabled={
+                                    copy.status !== 'available' || inCart(copy)
+                                }
                                 sx={{ mb: 2 }}
                             >
                                 Lisää ostoskoriin
@@ -180,6 +186,7 @@ const CopyGrid = ({
 const mapStateToProps = (state, ownProps) => ({
     schema: state.schema.data,
     results: state.contexts[ownProps.ctx].searchResults,
+    shoppingCart: state.user.shoppingCart,
 });
 
 const mapDispatchToProps = (dispatch) => ({
