@@ -8,6 +8,7 @@ const initialState = {
     'search-advanced': {},
     user: {},
     support: {},
+    checkout: {},
 };
 
 const contextSlice = createSlice({

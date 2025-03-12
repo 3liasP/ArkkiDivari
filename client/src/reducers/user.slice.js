@@ -16,6 +16,7 @@ const initialState = {
     darkMode: getLocalStorage('darkMode', false),
     shoppingCart: getLocalStorage('shoppingCart', []),
     shoppingCartOpen: false,
+    order: null,
 };
 
 const userSlice = createSlice({
@@ -59,6 +60,9 @@ const userSlice = createSlice({
             state.shoppingCart = [];
             setLocalStorage('shoppingCart', []);
         },
+        setOrder: (state, action) => {
+            state.order = action.payload;
+        },
     },
 });
 
@@ -72,6 +76,7 @@ export const {
     removeFromShoppingCart,
     clearShoppingCart,
     setLoading,
+    setOrder,
 } = userSlice.actions;
 
 export default userSlice.reducer;

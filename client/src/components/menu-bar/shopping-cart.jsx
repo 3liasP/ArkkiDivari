@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import {
     clearShoppingCart,
     removeFromShoppingCart,
+    toggleShoppingCartOpen,
 } from '../../reducers/user.slice';
 import {
     Box,
@@ -19,13 +20,32 @@ import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import { useMemo } from 'react';
 import { useTheme } from '@emotion/react';
+import { useNavigate } from 'react-router-dom';
+import { paramsToUrl } from '../../helpers/url.helpers';
+import { createOrder } from '../checkout/checkout.actions';
 
 const ShoppingCart = ({
     schema,
     shoppingCart,
     removeFromShoppingCart,
     clearShoppingCart,
+    toggleShoppingCartOpen,
+    createOrder,
 }) => {
+    const navigate = useNavigate();
+
+    const handleCheckout = () => {
+        const callBack = () => {
+            toggleShoppingCartOpen();
+            navigate(
+                paramsToUrl({
+                    page: 'checkout',
+                }),
+            );
+        };
+        createOrder(callBack);
+    };
+
     const total = useMemo(
         () =>
             parseFloat(
@@ -149,6 +169,7 @@ const ShoppingCart = ({
                         color="success"
                         startIcon={<ShoppingCartCheckoutIcon />}
                         disabled={shoppingCart.length === 0}
+                        onClick={handleCheckout}
                         sx={{ mb: 2 }}
                     >
                         Siirry kassalle
@@ -168,6 +189,8 @@ const mapDispatchToProps = (dispatch) => ({
     removeFromShoppingCart: (copyid) =>
         dispatch(removeFromShoppingCart(copyid)),
     clearShoppingCart: () => dispatch(clearShoppingCart()),
+    toggleShoppingCartOpen: () => dispatch(toggleShoppingCartOpen()),
+    createOrder: (callBack) => dispatch(createOrder(callBack)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShoppingCart);

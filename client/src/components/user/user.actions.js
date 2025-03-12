@@ -59,6 +59,7 @@ export const updateUser = (ctx, callBack) => async (dispatch, getState) => {
     const state = getState();
     try {
         const userInfo = state.contexts[ctx].editedUser;
+        if (!userInfo) return;
         const { userData } = await api.updateUser(userInfo);
         dispatch(
             showToaster({

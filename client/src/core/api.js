@@ -255,6 +255,78 @@ class Api {
             throw error;
         }
     }
+
+    async createOrder(copyids) {
+        try {
+            const response = await this.request(
+                `${this.baseURL}/order/create`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ copyids }),
+                },
+            );
+            if (!response.ok) {
+                const errMsg = await getErrMsg(response);
+                throw new Error(errMsg);
+            }
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error creating order:', error);
+            throw error;
+        }
+    }
+
+    async cancelOrder(orderid) {
+        try {
+            const response = await this.request(
+                `${this.baseURL}/order/cancel`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ orderid }),
+                },
+            );
+            if (!response.ok) {
+                const errMsg = await getErrMsg(response);
+                throw new Error(errMsg);
+            }
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error canceling order:', error);
+            throw error;
+        }
+    }
+
+    async completeOrder(orderid) {
+        try {
+            const response = await this.request(
+                `${this.baseURL}/order/complete`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ orderid }),
+                },
+            );
+            if (!response.ok) {
+                const errMsg = await getErrMsg(response);
+                throw new Error(errMsg);
+            }
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error completing order:', error);
+            throw error;
+        }
+    }
 }
 
 const getErrMsg = async (response) => {
