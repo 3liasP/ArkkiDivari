@@ -359,6 +359,38 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+-- views
+-- report R2
+CREATE OR REPLACE VIEW central.GenreSalesSummary AS
+SELECT
+    g.name AS genre,
+    SUM(c.price) AS total_sales_price,
+    AVG(c.price) AS average_price
+FROM
+    central.Copies c
+    JOIN central.Books b ON c.bookId = b.bookId
+    JOIN central.Genres g ON b.genreId = g.genreId
+WHERE
+    c.status = 'available'
+GROUP BY
+    g.name;
+
+-- report R3
+CREATE OR REPLACE VIEW central.CustomerPurchasesLastYear AS
+SELECT
+    u.userId,
+    u.name,
+    COUNT(oi.copyId) AS copies_purchased
+FROM
+    central.Users u
+    JOIN central.Orders o ON u.userId = o.userId
+    JOIN central.OrderItems oi ON o.orderId = oi.orderId
+WHERE
+    o.status = 'completed'
+    AND o.time >= (CURRENT_DATE - INTERVAL '1 year')
+GROUP BY
+    u.userId, u.name;
+
 -- tsvector, experimental
 ALTER TABLE central.Books
 ADD COLUMN tsv tsvector;
