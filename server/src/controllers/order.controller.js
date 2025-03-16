@@ -88,9 +88,41 @@ const get = async (req, res) => {
     }
 };
 
+const getAllWithCopies = async (req, res) => {
+    const { userid } = req.user;
+
+    try {
+        const orders = await db.query(
+            'SELECT orderid, time, status, subtotal, shipping, total FROM central.Orders WHERE userid = $1',
+            [userid],
+        );
+        if (orders.rowCount === 0) {
+            return res.status(200).send({ message: 'No orders found' });
+        }
+
+        const ordersWithCopies = await Promise.all(
+            orders.rows.map(async (order) => {
+                const copies = await db.query(
+                    'SELECT Copies.copyid, Copies.sellerid, Copies.price, Books.title, Books.author, Books.year ' +
+                        'FROM central.OrderItems JOIN central.Copies ON OrderItems.copyid = Copies.copyid ' +
+                        'JOIN central.Books ON Copies.bookid = Books.bookid ' +
+                        'WHERE OrderItems.orderid = $1',
+                    [order.orderid],
+                );
+                return { ...order, copies: copies.rows };
+            }),
+        );
+
+        res.send({ orders: ordersWithCopies });
+    } catch (error) {
+        res.status(500).send({ message: 'Error fetching orders', error });
+    }
+};
+
 export default {
     create,
     cancel,
     complete,
     get,
+    getAllWithCopies,
 };
