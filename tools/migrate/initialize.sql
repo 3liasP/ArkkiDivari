@@ -239,8 +239,6 @@ BEGIN
         WHERE isbn = NEW.isbn AND title = NEW.title AND author = NEW.author;
     END IF;
 
-    INSERT INTO central.Copies (bookId, sellerId, status, price, buyInPrice)
-    VALUES (NEW.bookId, NEW.sellerId, 'available', NEW.price, NEW.buyInPrice); -- Can change to reserved or new.status
     RETURN NEW;
 END
 $$ LANGUAGE plpgsql;
@@ -249,9 +247,29 @@ CREATE TRIGGER sync_d3_books AFTER
 INSERT OR UPDATE ON D3.Books FOR EACH ROW
 EXECUTE FUNCTION sync_d3_books ();
 
-CREATE TRIGGER sync_d3_books AFTER
+CREATE OR REPLACE FUNCTION sync_d3_copies () RETURNS TRIGGER AS $$
+DECLARE
+    central_bookId UUID;
+BEGIN
+    -- Fetch the corresponding bookId from central.Books
+    SELECT bookId INTO central_bookId
+    FROM central.Books
+    WHERE isbn = (SELECT isbn FROM D3.Books WHERE bookId = NEW.bookId);
+
+    -- Ensure the bookId exists in central.Books
+    IF central_bookId IS NULL THEN
+        RAISE EXCEPTION 'Book ID % does not exist in central.Books', NEW.bookId;
+    END IF;
+
+    INSERT INTO central.Copies (bookId, sellerId, status, price, buyInPrice)
+    VALUES (central_bookId, NEW.sellerId, NEW.status, NEW.price, NEW.buyInPrice);
+    RETURN NEW;
+END
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER sync_d3_copies AFTER
 INSERT OR UPDATE ON D3.Copies FOR EACH ROW
-EXECUTE FUNCTION sync_d3_books ();
+EXECUTE FUNCTION sync_d3_copies ();
 
 -- shop functions
 CREATE OR REPLACE FUNCTION calculate_subtotal (copyids UUID[]) RETURNS NUMERIC AS $$
