@@ -165,7 +165,7 @@ VALUES
         'Mannerheimintie 10',
         '00100',
         'Helsinki',
-        '094321'
+        '094321',
         'https://kirjakammio.fi'
     );
 
