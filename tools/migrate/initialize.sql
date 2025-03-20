@@ -222,6 +222,37 @@ CREATE TRIGGER update_updated_at BEFORE
 UPDATE ON central.Copies FOR EACH ROW
 EXECUTE FUNCTION update_updated_at ();
 
+CREATE OR REPLACE FUNCTION sync_d3_books () RETURNS TRIGGER AS $$
+BEGIN
+    PERFORM 1 FROM central.Books
+    WHERE isbn = NEW.isbn AND title = NEW.title AND author = NEW.author;
+    
+    IF NOT FOUND THEN
+        INSERT INTO central.Books (isbn, title, author, year, weight, typeId, genreId)
+        VALUES (NEW.isbn, NEW.title, NEW.author, NEW.year, NEW.weight, NEW.typeId, NEW.genreId);
+        SELECT bookId INTO NEW.bookId
+        FROM central.Books
+        WHERE isbn = NEW.isbn AND title = NEW.title AND author = NEW.author;
+    ELSE
+        SELECT bookId INTO NEW.bookId
+        FROM central.Books
+        WHERE isbn = NEW.isbn AND title = NEW.title AND author = NEW.author;
+    END IF;
+
+    INSERT INTO central.Copies (bookId, sellerId, status, price, buyInPrice)
+    VALUES (NEW.bookId, NEW.sellerId, 'available', NEW.price, NEW.buyInPrice); -- Can change to reserved or new.status
+    RETURN NEW;
+END
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER sync_d3_books AFTER
+INSERT OR UPDATE ON D3.Books FOR EACH ROW
+EXECUTE FUNCTION sync_d3_books ();
+
+CREATE TRIGGER sync_d3_books AFTER
+INSERT OR UPDATE ON D3.Copies FOR EACH ROW
+EXECUTE FUNCTION sync_d3_books ();
+
 -- shop functions
 CREATE OR REPLACE FUNCTION calculate_subtotal (copyids UUID[]) RETURNS NUMERIC AS $$
 DECLARE
