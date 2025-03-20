@@ -108,6 +108,30 @@ CREATE TABLE D1.Copies (
     soldDate TIMESTAMPTZ
 );
 
+-- Schema for seller D3
+CREATE SCHEMA D3;
+
+CREATE TABLE D3.Books (
+    bookId UUID DEFAULT uuid_generate_v4 () PRIMARY KEY,
+    isbn TEXT UNIQUE, -- can be null
+    title TEXT NOT NULL,
+    author TEXT NOT NULL,
+    year INT,
+    weight NUMERIC,
+    typeId INT REFERENCES central.Types (typeId),
+    genreId INT REFERENCES central.Genres (genreId)
+);
+
+CREATE TABLE D3.Copies (
+    copyId UUID DEFAULT uuid_generate_v4 () PRIMARY KEY,
+    bookId UUID NOT NULL REFERENCES D3.Books (bookId),
+    sellerId TEXT NOT NULL DEFAULT 'kimmo@kirjakammio.fi',
+    status bookStatus NOT NULL DEFAULT 'available',
+    price NUMERIC,
+    buyInPrice NUMERIC,
+    soldDate TIMESTAMPTZ
+);
+
 INSERT INTO
     central.Sellers (sellerId, schemaName, independent, name, address, zip, city, phone, website)
 VALUES
@@ -132,6 +156,17 @@ VALUES
         'Helsinki',
         '0507654321',
         'https://galeinngalle.fi'
+    ),
+    (
+        'kimmo@kirjakammio.fi',
+        'D3',
+        TRUE,
+        'Kirjakammio',
+        'Mannerheimintie 10',
+        '00100',
+        'Helsinki',
+        '094321'
+        'https://kirjakammio.fi'
     );
 
 INSERT INTO
