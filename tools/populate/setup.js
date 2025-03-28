@@ -59,6 +59,16 @@ const generateUsers = (numUsers = 10) => {
             city: 'Helsinki',
             phone: '0507654321',
         },
+        {
+            userid: 'kimmo@kirjakammio.fi',
+            role: 'seller',
+            password: 'kimmoEiKestäKakaroitaan',
+            name: 'Kimmo Kammio',
+            address: 'Mannerheimintie 10',
+            zip: '00100',
+            city: 'Helsinki',
+            phone: '094321',
+        },
     ];
 
     for (let i = 0; i < numUsers; i++) {
@@ -102,6 +112,7 @@ const generateCopies = (book) => {
             sellerid: faker.helpers.arrayElement([
                 'lasse@lassenlehti.fi',
                 'galle@galeinngalle.fi',
+                'kimmo@kirjakammio.fi',
             ]),
             status,
             price,
