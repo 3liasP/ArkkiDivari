@@ -271,6 +271,28 @@ CREATE TRIGGER sync_d3_copies AFTER
 INSERT OR UPDATE ON D3.Copies FOR EACH ROW
 EXECUTE FUNCTION sync_d3_copies ();
 
+-- halutaanko me tää koko paska menemään johonki update tauluun eikä suoraan centraliin tai jotain?
+-- vai oonko mä nyt ihan väärillä jäljillä koko toteutuksesta?
+CREATE OR REPLACE FUNCTION add_missing_d1_books_to_central () RETURNS TRIGGER AS $$
+BEGIN
+    -- check if the book already exists
+    PERFORM 1 FROM central.Books
+    WHERE isbn = NEW.isbn AND title = NEW.title AND author = NEW.author;
+
+    -- book does not exist in central, insert it
+    IF NOT FOUND THEN
+        INSERT INTO central.Books (isbn, title, author, year, weight, typeId, genreId)
+        VALUES (NEW.isbn, NEW.title, NEW.author, NEW.year, NEW.weight, NEW.typeId, NEW.genreId);
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER add_missing_d1_books_to_central AFTER
+INSERT OR UPDATE ON D1.Books FOR EACH ROW --for illustrative purposes, i guess?
+EXECUTE FUNCTION add_missing_d1_books_to_central ();
+
 -- shop functions
 CREATE OR REPLACE FUNCTION calculate_subtotal (copyids UUID[]) RETURNS NUMERIC AS $$
 DECLARE
