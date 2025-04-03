@@ -12,6 +12,7 @@ import SearchResults from '../search/search-results';
 import SearchBarcode from '../search/search-barcode';
 import Login from '../login/login';
 import Checkout from '../checkout/checkout';
+import Reports from '../reports/reports';
 
 const ComponentSelector = ({ loggedIn, setCtx }) => {
     const [page, pageParam] = useLocationParams();
@@ -67,6 +68,10 @@ const ComponentSelector = ({ loggedIn, setCtx }) => {
         case 'checkout': {
             setCtx({ ctx: page });
             return <Checkout ctx="checkout" pageParam={pageParam} />;
+        }
+        case 'reports': {
+            setCtx({ ctx: page });
+            return <Reports ctx="reports" pageParam={pageParam} />;
         }
         default: {
             return <NoMatch />;

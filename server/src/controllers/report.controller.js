@@ -7,10 +7,21 @@ const get = async (req, res) => {
     let query;
     switch (id) {
         case 'R2':
-            query = 'SELECT * FROM central.GenreSalesSummary';
+            query = `SELECT
+                    genre as "Genre",
+                    total_sales_price as "Kokonaismyyntihinta",
+                    average_price as "Keskihinta"
+                FROM
+                    central.GenreSalesSummary;
+                `;
             break;
         case 'R3':
-            query = 'SELECT * FROM central.CustomerPurchasesLastYear';
+            query = `SELECT
+                        userid as "Käyttäjätunnus",
+                        name as "Nimi",
+                        copies_purchased as "Ostetut myyntikappaleet"
+                    FROM
+                        central.CustomerPurchasesLastYear;`;
             break;
         default:
             res.status(404).send({ message: 'Report not found' });

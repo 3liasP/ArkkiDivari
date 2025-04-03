@@ -327,6 +327,36 @@ class Api {
             throw error;
         }
     }
+    async downloadReport(reportId) {
+        try {
+            const response = await this.request(
+                `${this.baseURL}/report/${reportId}`,
+                {
+                    method: 'GET',
+                },
+            );
+
+            if (!response.ok) {
+                const errMsg = await getErrMsg(response);
+                throw new Error(errMsg);
+            }
+
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', `${reportId}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            window.URL.revokeObjectURL(url);
+
+            return true;
+        } catch (error) {
+            console.error(`Error downloading report ${reportId}:`, error);
+            throw error;
+        }
+    }
 }
 
 const getErrMsg = async (response) => {

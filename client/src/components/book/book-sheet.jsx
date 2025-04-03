@@ -1,8 +1,8 @@
 import { useTheme } from '@emotion/react';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {
     Box,
@@ -39,16 +39,17 @@ import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { dayjsFormatTimeStamp } from '../../helpers/dayjs.helpers';
 import { paramsToUrl } from '../../helpers/url.helpers';
+import useSearchParams from '../../hooks/search-params';
+import { setCopyModalOpen } from '../../reducers/contexts.slice';
 import NoMatch from '../../routes/no-match';
+import CopyGrid from '../copy/copy-grid';
+import CopyNew from '../copy/copy-new'; // Import CopyNew component
+import { prepareCopy } from '../copy/copy.actions';
 import SummaryButtons from '../summary/summary-buttons';
 import { USER_ROLES } from '../user/user.constants';
 import BookControls from './book-controls';
 import BookTitle from './book-title';
 import { cloneBook, deleteBook, fetchBook } from './book.actions';
-import CopyGrid from '../copy/copy-grid';
-import CopyNew from '../copy/copy-new'; // Import CopyNew component
-import { prepareCopy } from '../copy/copy.actions';
-import { setCopyModalOpen } from '../../reducers/contexts.slice';
 
 const BookSheet = ({
     ctx,
@@ -64,6 +65,7 @@ const BookSheet = ({
     prepareCopy,
     notFound,
     setCopyModalOpen,
+    searchResults,
 }) => {
     useEffect(() => {
         fetchBook(ctx, pageParam);
@@ -157,23 +159,14 @@ const BookSheet = ({
     const isWindowed = useMediaQuery(theme.breakpoints.down('lg'));
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-    const searchParams = {
-        criteria: {
-            bookid: [currentBook?.bookid],
-        },
-        args: {
-            limit: 100,
-            offset: 0,
-            orderBy: 'createdat',
-            sort: 'asc',
-        },
-    };
+    const searchParams = useSearchParams(currentBook?.bookid);
 
     if (notFound) {
         return <NoMatch />;
     }
 
     const subHeaders = ['title', 'author', 'year'];
+    const hasCopies = searchResults?.[0]?.copies.length > 0;
 
     if (currentBook && schema) {
         return (
@@ -252,7 +245,7 @@ const BookSheet = ({
                                                         <LibraryAddIcon fontSize="small" />
                                                     </ListItemIcon>
                                                     <ListItemText>
-                                                        Luo uusi myyntikappale
+                                                        Lisää uusi myyntikappale
                                                     </ListItemText>
                                                 </MenuItem>
                                                 {USER_ROLES[userRole]
@@ -264,6 +257,7 @@ const BookSheet = ({
                                                         onClick={
                                                             handleMenuItemClick
                                                         }
+                                                        disabled={hasCopies}
                                                     >
                                                         <ListItemIcon>
                                                             <DeleteForeverIcon fontSize="small" />
@@ -413,6 +407,7 @@ const mapStateToProps = (state, ownProps) => ({
     notFound: state.contexts[ownProps.ctx].notFound,
     userRole: state.user.info.role,
     copyModalOpen: state.contexts[ownProps.ctx].copyModalOpen || false,
+    searchResults: state.contexts[ownProps.ctx].searchResults,
 });
 
 const mapDispatchToProps = (dispatch) => ({

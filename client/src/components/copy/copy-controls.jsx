@@ -86,7 +86,7 @@ const CopyControls = ({
             }
             return options;
         },
-        [schema.associations],
+        [schema.associations, userRole, userId],
     );
 
     return (
