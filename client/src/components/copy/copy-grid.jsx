@@ -12,6 +12,8 @@ import {
     toggleShoppingCartOpen,
 } from '../../reducers/user.slice';
 import { COPY_STATUSES } from './copy.constants';
+import { setCopyModalOpen } from '../../reducers/contexts.slice';
+import { prepareCopy } from './copy.actions';
 
 const CopyGrid = ({
     ctx,
@@ -22,6 +24,8 @@ const CopyGrid = ({
     search,
     addToShoppingCart,
     toggleShoppingCartOpen,
+    prepareCopy,
+    setCopyModalOpen,
 }) => {
     useEffect(() => {
         search(ctx, params);
@@ -58,6 +62,11 @@ const CopyGrid = ({
     const inCart = (copy) =>
         shoppingCart.some((item) => item.copyid === copy.copyid);
 
+    const handleCopyModalOpen = () => {
+        prepareCopy(ctx);
+        setCopyModalOpen({ ctx, open: true });
+    };
+
     if (!bookCopies.length) {
         return (
             <Box
@@ -74,7 +83,7 @@ const CopyGrid = ({
                     variant="contained"
                     color="primary"
                     startIcon={<LibraryAddIcon />}
-                    onClick={() => {}} // Add onClick handler for the button
+                    onClick={handleCopyModalOpen} // Add onClick handler for the button
                 >
                     Luo uusi myyntikappale
                 </Button>
@@ -193,6 +202,8 @@ const mapDispatchToProps = (dispatch) => ({
     search: (ctx, params) => dispatch(search(ctx, params)),
     addToShoppingCart: (item) => dispatch(addToShoppingCart(item)),
     toggleShoppingCartOpen: () => dispatch(toggleShoppingCartOpen()),
+    prepareCopy: (ctx) => dispatch(prepareCopy(ctx)),
+    setCopyModalOpen: (paylaod) => dispatch(setCopyModalOpen(paylaod)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CopyGrid);

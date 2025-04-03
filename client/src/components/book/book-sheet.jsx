@@ -48,6 +48,7 @@ import { cloneBook, deleteBook, fetchBook } from './book.actions';
 import CopyGrid from '../copy/copy-grid';
 import CopyNew from '../copy/copy-new'; // Import CopyNew component
 import { prepareCopy } from '../copy/copy.actions';
+import { setCopyModalOpen } from '../../reducers/contexts.slice';
 
 const BookSheet = ({
     ctx,
@@ -56,11 +57,13 @@ const BookSheet = ({
     editing,
     schema,
     userRole,
+    copyModalOpen,
     fetchBook,
     cloneBook,
     deleteBook,
     prepareCopy,
     notFound,
+    setCopyModalOpen,
 }) => {
     useEffect(() => {
         fetchBook(ctx, pageParam);
@@ -72,7 +75,6 @@ const BookSheet = ({
         anchorEl: null,
         selectedTab: 0,
         dialogOpen: false,
-        copyModalOpen: false, // State to manage CopyNew modal
     });
 
     const handleMenuClick = (event) => {
@@ -111,10 +113,7 @@ const BookSheet = ({
             }
             case 'copy': {
                 prepareCopy(ctx);
-                setState((prevState) => ({
-                    ...prevState,
-                    copyModalOpen: true,
-                }));
+                setCopyModalOpen({ ctx, open: true }); // Open the CopyNew modal
                 break;
             }
             case 'delete': {
@@ -139,10 +138,7 @@ const BookSheet = ({
     };
 
     const handleCopyModalClose = () => {
-        setState((prevState) => ({
-            ...prevState,
-            copyModalOpen: false, // Close the CopyNew modal
-        }));
+        setCopyModalOpen({ ctx, open: false });
     };
 
     const handleConfirmDelete = () => {
@@ -373,7 +369,7 @@ const BookSheet = ({
                     schema={schema}
                     editing={editing}
                     userRole={userRole}
-                    open={state.copyModalOpen}
+                    open={copyModalOpen}
                     onClose={handleCopyModalClose}
                 />
                 {editing && <SummaryButtons ctx={ctx} />}
@@ -416,6 +412,7 @@ const mapStateToProps = (state, ownProps) => ({
     schema: state.schema.data,
     notFound: state.contexts[ownProps.ctx].notFound,
     userRole: state.user.info.role,
+    copyModalOpen: state.contexts[ownProps.ctx].copyModalOpen || false,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -424,6 +421,7 @@ const mapDispatchToProps = (dispatch) => ({
         dispatch(cloneBook(ctx, newCtx, callBack)),
     deleteBook: (ctx, callBack) => dispatch(deleteBook(ctx, callBack)),
     prepareCopy: (ctx) => dispatch(prepareCopy(ctx)),
+    setCopyModalOpen: (paylaod) => dispatch(setCopyModalOpen(paylaod)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BookSheet);
