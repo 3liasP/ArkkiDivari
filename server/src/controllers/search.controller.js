@@ -40,6 +40,7 @@ const search = async (req, res) => {
 
         for (const column in criteria) {
             const values = criteria[column];
+            if (!values || values.length === 0) continue;
             booksConditions.push(
                 `${column} IN (${values.map(() => `$${valueIndex++}`).join(', ')})`,
             );

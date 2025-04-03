@@ -195,7 +195,8 @@ VALUES
     ('Seikkailu'),
     ('Trilleri'),
     ('Draama'),
-    ('Huumori');
+    ('Huumori'),
+    ('Opas');
 
 INSERT INTO
     central.ShippingCosts (weight, cost)
