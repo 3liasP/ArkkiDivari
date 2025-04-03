@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import React from 'react';
 import OrderGrid from './order-grid';
 
-const Orders = () => {
+const Orders = ({ ctx }) => {
     return (
         <Container maxWidth="false">
             <Box mt={3}>
@@ -11,7 +11,7 @@ const Orders = () => {
                     Tilaushistoria
                 </Typography>
             </Box>
-            <OrderGrid />
+            <OrderGrid ctx={ctx} />
         </Container>
     );
 };

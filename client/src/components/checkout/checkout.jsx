@@ -283,6 +283,13 @@ const CheckOut = ({ ctx, order, updateUser, cancelOrder, completeOrder }) => {
                                         alignSelf: 'start',
                                         width: { xs: '100%', sm: 'auto' },
                                     }}
+                                    onClick={() =>
+                                        navigate(
+                                            paramsToUrl({
+                                                page: 'orders',
+                                            }),
+                                        )
+                                    }
                                 >
                                     Siirry omiin tilauksiin
                                 </Button>

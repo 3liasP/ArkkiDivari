@@ -327,6 +327,27 @@ class Api {
             throw error;
         }
     }
+
+    async getOrderHistory() {
+        try {
+            const response = await this.request(`${this.baseURL}/order/`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) {
+                const errMsg = await getErrMsg(response);
+                throw new Error(errMsg);
+            }
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error fetching orders:', error);
+            throw error;
+        }
+    }
 }
 
 const getErrMsg = async (response) => {

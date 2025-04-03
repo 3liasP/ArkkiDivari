@@ -7,7 +7,6 @@ router.post('/create', orderController.create);
 router.post('/cancel', orderController.cancel);
 router.post('/complete', orderController.complete);
 router.get('/', orderController.get);
-router.get('/all', orderController.getAllWithCopies);
 
 router.use((req, res) => {
     res.status(405).send({ message: 'Method not allowed' });

@@ -7,6 +7,10 @@ const initialState = {
     'search-results': {},
     'search-advanced': {},
     user: {},
+    orders: {
+        orderHistory: [],
+        loading: false,
+    },
     support: {},
     checkout: {},
 };
@@ -63,6 +67,14 @@ const contextSlice = createSlice({
             const { ctx, results } = action.payload;
             state[ctx]['searchResults'] = results;
         },
+        setOrderHistory: (state, action) => {
+            const { ctx, orders } = action.payload;
+            state[ctx]['orderHistory'] = orders;
+        },
+        setLoading: (state, action) => {
+            const { ctx, loading } = action.payload;
+            state[ctx]['loading'] = loading;
+        },
     },
 });
 
@@ -79,6 +91,8 @@ export const {
     setNotFound,
     setSearchParams,
     setSearchResults,
+    setOrderHistory,
+    setLoading,
 } = contextSlice.actions;
 
 export default contextSlice.reducer;

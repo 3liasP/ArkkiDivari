@@ -82,22 +82,8 @@ const get = async (req, res) => {
             'SELECT orderid, time, status, subtotal, shipping, total FROM central.Orders WHERE userid = $1',
             [userid],
         );
-        res.send({ orders: orders.rows });
-    } catch (error) {
-        res.status(500).send({ message: 'Error fetching orders', error });
-    }
-};
-
-const getAllWithCopies = async (req, res) => {
-    const { userid } = req.user;
-
-    try {
-        const orders = await db.query(
-            'SELECT orderid, time, status, subtotal, shipping, total FROM central.Orders WHERE userid = $1',
-            [userid],
-        );
         if (orders.rowCount === 0) {
-            return res.status(200).send({ message: 'No orders found' });
+            return res.status(200).send([]);
         }
 
         const ordersWithCopies = await Promise.all(
@@ -113,7 +99,7 @@ const getAllWithCopies = async (req, res) => {
             }),
         );
 
-        res.send({ orders: ordersWithCopies });
+        res.status(200).send(ordersWithCopies);
     } catch (error) {
         res.status(500).send({ message: 'Error fetching orders', error });
     }
@@ -124,5 +110,4 @@ export default {
     cancel,
     complete,
     get,
-    getAllWithCopies,
 };
