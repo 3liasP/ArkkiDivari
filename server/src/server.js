@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
+import cron from 'node-cron';
 import db from './db/database.js';
 import bookRoutes from './routes/book.routes.js';
 import copyRoutes from './routes/copy.routes.js';
@@ -15,6 +16,18 @@ import {
     mockAuthMiddleware,
     unless,
 } from './auth/auth.middleware.js';
+
+const runProcedure = async (procedureName) => {
+    try {
+        const result = await db.query(`SELECT ${procedureName}();`);
+        const count = result.rows[0][procedureName];
+        console.log(
+            `Procedure ${procedureName} executed at ${new Date().toISOString()}. Added ${count} records.`,
+        );
+    } catch (e) {
+        console.error(`Error executing procedure ${procedureName}:`, e);
+    }
+};
 
 const init = () => {
     const PORT = process.env.NODE_PORT || 8010;
@@ -57,6 +70,12 @@ const init = () => {
 
     app.listen(PORT, () => {
         console.log(`Server is running in ${MODE} mode on port ${PORT}.`);
+    });
+
+    // default is every 10 minutes
+    cron.schedule(process.env.CRON_SCHEDULE || '*/10 * * * *', async () => {
+        await runProcedure('add_missing_d1_books_to_central');
+        await runProcedure('add_missing_d1_copies_to_central');
     });
 };
 
