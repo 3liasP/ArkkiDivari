@@ -14,8 +14,10 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import api from '../../core/api';
 import { showToaster } from '../../reducers/toaster.slice';
+import { USER_ROLES } from '../user/user.constants';
+import { Link } from 'react-router-dom';
 
-const Reports = ({ showToaster }) => {
+const Reports = ({ userRole, showToaster }) => {
     const [loading, setLoading] = useState({});
 
     const availableReports = [
@@ -42,6 +44,27 @@ const Reports = ({ showToaster }) => {
         }
     };
 
+    const userPrivilege = USER_ROLES[userRole]?.privilege || 0;
+    if (userPrivilege < 2) {
+        return (
+            <Container>
+                <Box textAlign="center" mt={5}>
+                    <Typography variant="h2" component="h1" gutterBottom>
+                        Ei oikeuksia
+                    </Typography>
+                    <Typography variant="subtitle1" component="p">
+                        Näyttää siltä, että sinulla ei ole oikeuksia tarkastella
+                        raportteja. Ota yhteyttä ylläpitoon, mikäli tarvitset
+                        lisätietoja.
+                    </Typography>
+                    <Button>
+                        <Link to="/">Palaa etusivulle</Link>
+                    </Button>
+                </Box>
+            </Container>
+        );
+    }
+
     return (
         <Container maxWidth="false">
             <Box display="block" mt={3}>
@@ -65,7 +88,7 @@ const Reports = ({ showToaster }) => {
                                     spacing={2}
                                     sx={{ width: '100%' }}
                                 >
-                                    <Grid2 item xs>
+                                    <Grid2>
                                         <Typography
                                             variant="subtitle1"
                                             fontWeight="bold"
@@ -79,7 +102,7 @@ const Reports = ({ showToaster }) => {
                                             {report.description}
                                         </Typography>
                                     </Grid2>
-                                    <Grid2 item>
+                                    <Grid2>
                                         <Button
                                             variant="contained"
                                             color="primary"
@@ -104,8 +127,12 @@ const Reports = ({ showToaster }) => {
     );
 };
 
+const mapStateToProps = (state) => ({
+    userRole: state.user.info.role,
+});
+
 const mapDispatchToProps = (dispatch) => ({
     showToaster: (payload) => dispatch(showToaster(payload)),
 });
 
-export default connect(null, mapDispatchToProps)(Reports);
+export default connect(mapStateToProps, mapDispatchToProps)(Reports);

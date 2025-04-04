@@ -22,6 +22,7 @@ import { connect } from 'react-redux';
 export const MenuDrawer = ({ toggleDrawer, userRole }) => {
     const navigate = useNavigate();
 
+    const userPrivilege = USER_ROLES[userRole]?.privilege || 0;
     const options = [
         { text: 'Koti', icon: <HomeIcon />, onClick: () => navigate('/') },
         {
@@ -29,7 +30,7 @@ export const MenuDrawer = ({ toggleDrawer, userRole }) => {
             icon: <FavoriteIcon />,
             onClick: () => navigate('/favorites'),
         },
-        USER_ROLES[userRole]?.privilege >= 2 && {
+        userPrivilege >= 2 && {
             text: 'Uusi teos',
             icon: <AddIcon />,
             onClick: () => navigate(paramsToUrl({ page: 'book-new' })),
@@ -49,7 +50,7 @@ export const MenuDrawer = ({ toggleDrawer, userRole }) => {
             icon: <InventoryIcon />,
             onClick: () => navigate(paramsToUrl({ page: 'orders' })),
         },
-        {
+        userPrivilege >= 2 && {
             text: 'Raportit',
             icon: <QueryStatsIcon />,
             onClick: () => navigate(paramsToUrl({ page: 'reports' })),
