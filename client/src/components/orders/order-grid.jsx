@@ -12,14 +12,22 @@ import {
     useTheme,
     useMediaQuery,
     Skeleton,
+    Button,
 } from '@mui/material';
 import { connect } from 'react-redux';
-import { fetchOrderHistory } from './orders.actions';
+import { cancelOrder, fetchOrderHistory } from './orders.actions';
 import { useEffect, useState } from 'react';
 import bookIcon from '../../assets/svg/book.svg';
 import { dayjsFormatTimeStamp } from '../../helpers/dayjs.helpers';
+import CancelIcon from '@mui/icons-material/Cancel';
 
-const OrderGrid = ({ ctx, loading, orderHistory, fetchOrderHistory }) => {
+const OrderGrid = ({
+    ctx,
+    loading,
+    orderHistory,
+    fetchOrderHistory,
+    cancelOrder,
+}) => {
     const theme = useTheme();
     const isWindowed = useMediaQuery(theme.breakpoints.down('lg'));
 
@@ -27,6 +35,12 @@ const OrderGrid = ({ ctx, loading, orderHistory, fetchOrderHistory }) => {
 
     const handleCardClick = (orderId) => {
         setOpenCard(openCard === orderId ? null : orderId);
+    };
+
+    // Placeholder for cancel order functionality
+    const handleCancelOrder = (e, orderId) => {
+        e.stopPropagation(); // Prevent card from toggling when clicking the button
+        cancelOrder(ctx, orderId);
     };
 
     useEffect(() => {
@@ -91,19 +105,54 @@ const OrderGrid = ({ ctx, loading, orderHistory, fetchOrderHistory }) => {
                                 onClick={() => handleCardClick(order.orderid)}
                             >
                                 <CardContent>
-                                    {order.status === 'cancelled' ? (
-                                        <Typography
-                                            variant="h6"
-                                            gutterBottom
-                                            sx={{ color: 'warning.main' }}
-                                        >
-                                            {`Tilaus #${order.orderid} (peruutettu)`}
-                                        </Typography>
-                                    ) : (
-                                        <Typography variant="h6" gutterBottom>
-                                            {`Tilaus #${order.orderid}`}
-                                        </Typography>
-                                    )}
+                                    <Box
+                                        display="flex"
+                                        justifyContent="space-between"
+                                        alignItems="center"
+                                    >
+                                        {order.status === 'cancelled' ? (
+                                            <Typography
+                                                variant="h6"
+                                                gutterBottom
+                                                sx={{ color: 'error.main' }}
+                                            >
+                                                {`Tilaus #${order.orderid} (peruutettu)`}
+                                            </Typography>
+                                        ) : order.status === 'pending' ? (
+                                            <Typography
+                                                variant="h6"
+                                                gutterBottom
+                                                sx={{ color: 'warning.main' }}
+                                            >
+                                                {`Tilaus #${order.orderid} (käsittelyssä)`}
+                                            </Typography>
+                                        ) : (
+                                            <Typography
+                                                variant="h6"
+                                                gutterBottom
+                                                sx={{ color: 'success.main' }}
+                                            >
+                                                {`Tilaus #${order.orderid}`}
+                                            </Typography>
+                                        )}
+
+                                        {order.status === 'pending' && (
+                                            <Button
+                                                variant="contained"
+                                                color="error"
+                                                startIcon={<CancelIcon />}
+                                                onClick={(e) =>
+                                                    handleCancelOrder(
+                                                        e,
+                                                        order.orderid,
+                                                    )
+                                                }
+                                                sx={{ marginLeft: 2 }}
+                                            >
+                                                Peru tilaus
+                                            </Button>
+                                        )}
+                                    </Box>
 
                                     <Typography
                                         variant="subtitle1"
@@ -221,6 +270,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     fetchOrderHistory: (ctx) => dispatch(fetchOrderHistory(ctx)),
+    cancelOrder: (ctx, orderId) => dispatch(cancelOrder(ctx, orderId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderGrid);

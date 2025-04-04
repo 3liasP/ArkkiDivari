@@ -79,7 +79,7 @@ const get = async (req, res) => {
 
     try {
         const orders = await db.query(
-            'SELECT orderid, time, status, subtotal, shipping, total FROM central.Orders WHERE userid = $1',
+            'SELECT orderid, time, status, subtotal, shipping, total FROM central.Orders WHERE userid = $1 ORDER BY orderid ASC',
             [userid],
         );
         if (orders.rowCount === 0) {

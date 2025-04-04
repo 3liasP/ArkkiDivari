@@ -186,7 +186,7 @@ const BookSheet = ({
                                     {subHeaders.map((key, index) => (
                                         <Typography
                                             key={key}
-                                            variant="subtitle2"
+                                            variant="subtitle1"
                                         >
                                             {currentBook[key]}
                                             {index < subHeaders.length - 1 && (
