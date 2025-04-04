@@ -49,6 +49,7 @@ export const MenuDrawer = ({ toggleDrawer, userRole }) => {
             icon: <InventoryIcon />,
             onClick: () => navigate(paramsToUrl({ page: 'orders' })),
         },
+        {
             text: 'Raportit',
             icon: <QueryStatsIcon />,
             onClick: () => navigate(paramsToUrl({ page: 'reports' })),
