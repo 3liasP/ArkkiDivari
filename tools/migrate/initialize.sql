@@ -288,7 +288,7 @@ BEGIN
     FROM D1.Copies d1c
     JOIN D1.Books d1b ON d1c.bookId = d1b.bookId
     JOIN central.Books cb ON d1b.isbn = cb.isbn AND d1b.title = cb.title AND d1b.author = cb.author
-    LEFT JOIN central.Copies cc ON d1c.bookId = cc.bookId AND d1c.sellerId = cc.sellerId AND cc.price = d1c.price
+    LEFT JOIN central.Copies cc ON cc.bookId = cb.bookId AND d1c.sellerId = cc.sellerId AND dc1.price = cc.price
     WHERE cc.copyId IS NULL;
 END;
 $$ LANGUAGE plpgsql;
