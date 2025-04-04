@@ -271,27 +271,27 @@ CREATE TRIGGER sync_d3_copies AFTER
 INSERT OR UPDATE ON D3.Copies FOR EACH ROW
 EXECUTE FUNCTION sync_d3_copies ();
 
--- halutaanko me tää koko paska menemään johonki update tauluun eikä suoraan centraliin tai jotain?
--- vai oonko mä nyt ihan väärillä jäljillä koko toteutuksesta?
-CREATE OR REPLACE FUNCTION add_missing_d1_books_to_central () RETURNS TRIGGER AS $$
+CREATE OR REPLACE FUNCTION add_missing_d1_books_to_central () RETURNS void AS $$
 BEGIN
-    -- check if the book already exists
-    PERFORM 1 FROM central.Books
-    WHERE isbn = NEW.isbn AND title = NEW.title AND author = NEW.author;
-
-    -- book does not exist in central, insert it
-    IF NOT FOUND THEN
-        INSERT INTO central.Books (isbn, title, author, year, weight, typeId, genreId)
-        VALUES (NEW.isbn, NEW.title, NEW.author, NEW.year, NEW.weight, NEW.typeId, NEW.genreId);
-    END IF;
-
-    RETURN NEW;
+    INSERT INTO central.books (isbn, title, author, year, weight, typeId, genreId)
+    SELECT isbn, title, author, year, weight, typeId, genreId
+    FROM D1.Books d1 LEFT JOIN central.Books c
+    ON d1.isbn = c.isbn AND d1.title = c.title AND d1.author = c.author
+    WHERE c.isbn IS NULL;
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER add_missing_d1_books_to_central AFTER
-INSERT OR UPDATE ON D1.Books FOR EACH ROW --for illustrative purposes, i guess?
-EXECUTE FUNCTION add_missing_d1_books_to_central ();
+CREATE OR REPLACE FUNCTION add_missing_d1_copies_to_central () RETURNS void AS $$
+BEGIN
+    INSERT INTO central.Copies (bookId, sellerId, status, price, buyInPrice)
+    SELECT cb.bookId, d1c.sellerId, d1c.status, d1c.price, d1c.buyInPrice -- if books are always synced before copies, they should have a bookId and there should not be any problems
+    FROM D1.Copies d1c
+    JOIN D1.Books d1b ON d1c.bookId = d1b.bookId
+    JOIN central.Books cb ON d1b.isbn = cb.isbn AND d1b.title = cb.title AND d1b.author = cb.author
+    LEFT JOIN central.Copies cc ON d1c.bookId = cc.bookId AND d1c.sellerId = cc.sellerId AND cc.price = d1c.price
+    WHERE cc.copyId IS NULL;
+END;
+$$ LANGUAGE plpgsql;
 
 -- shop functions
 CREATE OR REPLACE FUNCTION calculate_subtotal (copyids UUID[]) RETURNS NUMERIC AS $$
