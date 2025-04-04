@@ -82,7 +82,24 @@ const get = async (req, res) => {
             'SELECT orderid, time, status, subtotal, shipping, total FROM central.Orders WHERE userid = $1',
             [userid],
         );
-        res.send({ orders: orders.rows });
+        if (orders.rowCount === 0) {
+            return res.status(200).send([]);
+        }
+
+        const ordersWithCopies = await Promise.all(
+            orders.rows.map(async (order) => {
+                const copies = await db.query(
+                    'SELECT Copies.copyid, Copies.sellerid, Copies.price, Books.title, Books.author, Books.year ' +
+                        'FROM central.OrderItems JOIN central.Copies ON OrderItems.copyid = Copies.copyid ' +
+                        'JOIN central.Books ON Copies.bookid = Books.bookid ' +
+                        'WHERE OrderItems.orderid = $1',
+                    [order.orderid],
+                );
+                return { ...order, copies: copies.rows };
+            }),
+        );
+
+        res.status(200).send(ordersWithCopies);
     } catch (error) {
         res.status(500).send({ message: 'Error fetching orders', error });
     }

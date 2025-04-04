@@ -5,6 +5,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
+import InventoryIcon from '@mui/icons-material/Inventory';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -42,6 +43,11 @@ export const MenuDrawer = ({ toggleDrawer, userRole }) => {
             text: 'Laajennettu haku',
             icon: <ManageSearchIcon />,
             onClick: () => navigate(paramsToUrl({ page: 'search-advanced' })),
+        },
+        {
+            text: 'Omat tilaukset',
+            icon: <InventoryIcon />,
+            onClick: () => navigate(paramsToUrl({ page: 'orders' })),
         },
         {
             text: 'Raportit',
