@@ -1,6 +1,3 @@
--- Enable the UUID extension for globally unique IDs
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-
 -- Initialize the Central Database
 CREATE SCHEMA central;
 
@@ -42,7 +39,7 @@ CREATE TABLE central.Types (typeId SERIAL PRIMARY KEY, name TEXT NOT NULL);
 CREATE TABLE central.Genres (genreId SERIAL PRIMARY KEY, name TEXT NOT NULL);
 
 CREATE TABLE central.Books (
-    bookId UUID DEFAULT uuid_generate_v4 () PRIMARY KEY,
+    bookId UUID DEFAULT gen_random_uuid () PRIMARY KEY,
     isbn TEXT UNIQUE, -- can be null
     title TEXT NOT NULL,
     author TEXT NOT NULL,
@@ -55,7 +52,7 @@ CREATE TABLE central.Books (
 );
 
 CREATE TABLE central.Copies (
-    copyId UUID DEFAULT uuid_generate_v4 () PRIMARY KEY,
+    copyId UUID DEFAULT gen_random_uuid () PRIMARY KEY,
     bookId UUID NOT NULL REFERENCES central.Books (bookId),
     sellerId TEXT REFERENCES central.Sellers (sellerId),
     status bookStatus NOT NULL DEFAULT 'available',
@@ -88,7 +85,7 @@ CREATE TABLE central.ShippingCosts (weight NUMERIC PRIMARY KEY, cost NUMERIC NOT
 CREATE SCHEMA D1;
 
 CREATE TABLE D1.Books (
-    bookId UUID DEFAULT uuid_generate_v4 () PRIMARY KEY,
+    bookId UUID DEFAULT gen_random_uuid () PRIMARY KEY,
     isbn TEXT UNIQUE, -- can be null
     title TEXT NOT NULL,
     author TEXT NOT NULL,
@@ -99,7 +96,7 @@ CREATE TABLE D1.Books (
 );
 
 CREATE TABLE D1.Copies (
-    copyId UUID DEFAULT uuid_generate_v4 () PRIMARY KEY,
+    copyId UUID DEFAULT gen_random_uuid () PRIMARY KEY,
     bookId UUID NOT NULL REFERENCES D1.Books (bookId),
     sellerId TEXT NOT NULL DEFAULT 'lasse@lassenlehti.fi',
     status bookStatus NOT NULL DEFAULT 'available',
@@ -112,7 +109,7 @@ CREATE TABLE D1.Copies (
 CREATE SCHEMA D3;
 
 CREATE TABLE D3.Books (
-    bookId UUID DEFAULT uuid_generate_v4 () PRIMARY KEY,
+    bookId UUID DEFAULT gen_random_uuid () PRIMARY KEY,
     isbn TEXT UNIQUE, -- can be null
     title TEXT NOT NULL,
     author TEXT NOT NULL,
@@ -123,7 +120,7 @@ CREATE TABLE D3.Books (
 );
 
 CREATE TABLE D3.Copies (
-    copyId UUID DEFAULT uuid_generate_v4 () PRIMARY KEY,
+    copyId UUID DEFAULT gen_random_uuid () PRIMARY KEY,
     bookId UUID NOT NULL REFERENCES D3.Books (bookId),
     sellerId TEXT NOT NULL DEFAULT 'kimmo@kirjakammio.fi',
     status bookStatus NOT NULL DEFAULT 'available',
