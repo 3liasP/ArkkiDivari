@@ -243,8 +243,10 @@ BEGIN
 END
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER sync_d3_books AFTER
-INSERT OR UPDATE ON D3.Books FOR EACH ROW
+CREATE TRIGGER sync_d3_books
+AFTER INSERT
+OR
+UPDATE ON D3.Books FOR EACH ROW
 EXECUTE FUNCTION sync_d3_books ();
 
 CREATE OR REPLACE FUNCTION sync_d3_copies () RETURNS TRIGGER AS $$
@@ -267,29 +269,41 @@ BEGIN
 END
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER sync_d3_copies AFTER
-INSERT OR UPDATE ON D3.Copies FOR EACH ROW
+CREATE TRIGGER sync_d3_copies
+AFTER INSERT
+OR
+UPDATE ON D3.Copies FOR EACH ROW
 EXECUTE FUNCTION sync_d3_copies ();
 
-CREATE OR REPLACE FUNCTION add_missing_d1_books_to_central () RETURNS void AS $$
+CREATE OR REPLACE FUNCTION add_missing_d1_books_to_central () RETURNS INTEGER AS $$
+DECLARE
+    row_count INTEGER;
 BEGIN
-    INSERT INTO central.books (isbn, title, author, year, weight, typeId, genreId)
-    SELECT isbn, title, author, year, weight, typeId, genreId
+    INSERT INTO central.Books (isbn, title, author, year, weight, typeId, genreId)
+    SELECT d1.isbn, d1.title, d1.author, d1.year, d1.weight, d1.typeId, d1.genreId
     FROM D1.Books d1 LEFT JOIN central.Books c
     ON d1.isbn = c.isbn AND d1.title = c.title AND d1.author = c.author
     WHERE c.isbn IS NULL;
+    
+    GET DIAGNOSTICS row_count = ROW_COUNT;
+    RETURN row_count;
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION add_missing_d1_copies_to_central () RETURNS void AS $$
+CREATE OR REPLACE FUNCTION add_missing_d1_copies_to_central () RETURNS INTEGER AS $$
+DECLARE
+    row_count INTEGER;
 BEGIN
     INSERT INTO central.Copies (bookId, sellerId, status, price, buyInPrice)
-    SELECT cb.bookId, d1c.sellerId, d1c.status, d1c.price, d1c.buyInPrice -- if books are always synced before copies, they should have a bookId and there should not be any problems
+    SELECT cb.bookId, d1c.sellerId, d1c.status, d1c.price, d1c.buyInPrice
     FROM D1.Copies d1c
     JOIN D1.Books d1b ON d1c.bookId = d1b.bookId
     JOIN central.Books cb ON d1b.isbn = cb.isbn AND d1b.title = cb.title AND d1b.author = cb.author
-    LEFT JOIN central.Copies cc ON cc.bookId = cb.bookId AND d1c.sellerId = cc.sellerId AND dc1.price = cc.price
+    LEFT JOIN central.Copies cc ON cc.bookId = cb.bookId AND d1c.sellerId = cc.sellerId AND d1c.price = cc.price
     WHERE cc.copyId IS NULL;
+    
+    GET DIAGNOSTICS row_count = ROW_COUNT;
+    RETURN row_count;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -495,7 +509,8 @@ WHERE
     o.status = 'completed'
     AND o.time >= (CURRENT_DATE - INTERVAL '1 year')
 GROUP BY
-    u.userId, u.name;
+    u.userId,
+    u.name;
 
 -- tsvector, experimental
 ALTER TABLE central.Books

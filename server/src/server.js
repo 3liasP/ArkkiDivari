@@ -17,14 +17,15 @@ import {
     unless,
 } from './auth/auth.middleware.js';
 
-const runProcedure = async () => {
+const runProcedure = async (procedureName) => {
     try {
-        await db.query(`SELECT ${procedureName}();`); //eslint-disable-line
+        const result = await db.query(`SELECT ${procedureName}();`);
+        const count = result.rows[0][procedureName];
         console.log(
-            `Procedure ${procedureName} executed at ${new Date().toISOString}.`, //eslint-disable-line
+            `Procedure ${procedureName} executed at ${new Date().toISOString()}. Added ${count} records.`,
         );
     } catch (e) {
-        console.error(`Error executing procedure ${procedureName}:`, e); //eslint-disable-line
+        console.error(`Error executing procedure ${procedureName}:`, e);
     }
 };
 
@@ -71,9 +72,10 @@ const init = () => {
         console.log(`Server is running in ${MODE} mode on port ${PORT}.`);
     });
 
-    cron.schedule('* * * * *', () => {
-        runProcedure('add_missing_d1_books_to_central');
-        runProcedure('add_missing_d1_copies_to_central');
+    // default is every 10 minutes
+    cron.schedule(process.env.CRON_SCHEDULE || '*/10 * * * *', async () => {
+        await runProcedure('add_missing_d1_books_to_central');
+        await runProcedure('add_missing_d1_copies_to_central');
     });
 };
 
