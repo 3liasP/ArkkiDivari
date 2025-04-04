@@ -1,8 +1,8 @@
 import { useTheme } from '@emotion/react';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {
     Box,
@@ -39,15 +39,17 @@ import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { dayjsFormatTimeStamp } from '../../helpers/dayjs.helpers';
 import { paramsToUrl } from '../../helpers/url.helpers';
+import useSearchParams from '../../hooks/search-params';
+import { setCopyModalOpen } from '../../reducers/contexts.slice';
 import NoMatch from '../../routes/no-match';
+import CopyGrid from '../copy/copy-grid';
+import CopyNew from '../copy/copy-new'; // Import CopyNew component
+import { prepareCopy } from '../copy/copy.actions';
 import SummaryButtons from '../summary/summary-buttons';
 import { USER_ROLES } from '../user/user.constants';
 import BookControls from './book-controls';
 import BookTitle from './book-title';
 import { cloneBook, deleteBook, fetchBook } from './book.actions';
-import CopyGrid from '../copy/copy-grid';
-import CopyNew from '../copy/copy-new'; // Import CopyNew component
-import { prepareCopy } from '../copy/copy.actions';
 
 const BookSheet = ({
     ctx,
@@ -56,11 +58,14 @@ const BookSheet = ({
     editing,
     schema,
     userRole,
+    copyModalOpen,
     fetchBook,
     cloneBook,
     deleteBook,
     prepareCopy,
     notFound,
+    setCopyModalOpen,
+    searchResults,
 }) => {
     useEffect(() => {
         fetchBook(ctx, pageParam);
@@ -72,7 +77,6 @@ const BookSheet = ({
         anchorEl: null,
         selectedTab: 0,
         dialogOpen: false,
-        copyModalOpen: false, // State to manage CopyNew modal
     });
 
     const handleMenuClick = (event) => {
@@ -111,10 +115,7 @@ const BookSheet = ({
             }
             case 'copy': {
                 prepareCopy(ctx);
-                setState((prevState) => ({
-                    ...prevState,
-                    copyModalOpen: true,
-                }));
+                setCopyModalOpen({ ctx, open: true }); // Open the CopyNew modal
                 break;
             }
             case 'delete': {
@@ -139,10 +140,7 @@ const BookSheet = ({
     };
 
     const handleCopyModalClose = () => {
-        setState((prevState) => ({
-            ...prevState,
-            copyModalOpen: false, // Close the CopyNew modal
-        }));
+        setCopyModalOpen({ ctx, open: false });
     };
 
     const handleConfirmDelete = () => {
@@ -161,23 +159,14 @@ const BookSheet = ({
     const isWindowed = useMediaQuery(theme.breakpoints.down('lg'));
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-    const searchParams = {
-        criteria: {
-            bookid: [currentBook?.bookid],
-        },
-        args: {
-            limit: 100,
-            offset: 0,
-            orderBy: 'createdat',
-            sort: 'asc',
-        },
-    };
+    const searchParams = useSearchParams(currentBook?.bookid);
 
     if (notFound) {
         return <NoMatch />;
     }
 
     const subHeaders = ['title', 'author', 'year'];
+    const hasCopies = searchResults?.[0]?.copies.length > 0;
 
     if (currentBook && schema) {
         return (
@@ -256,7 +245,7 @@ const BookSheet = ({
                                                         <LibraryAddIcon fontSize="small" />
                                                     </ListItemIcon>
                                                     <ListItemText>
-                                                        Luo uusi myyntikappale
+                                                        Lisää uusi myyntikappale
                                                     </ListItemText>
                                                 </MenuItem>
                                                 {USER_ROLES[userRole]
@@ -268,6 +257,7 @@ const BookSheet = ({
                                                         onClick={
                                                             handleMenuItemClick
                                                         }
+                                                        disabled={hasCopies}
                                                     >
                                                         <ListItemIcon>
                                                             <DeleteForeverIcon fontSize="small" />
@@ -373,7 +363,7 @@ const BookSheet = ({
                     schema={schema}
                     editing={editing}
                     userRole={userRole}
-                    open={state.copyModalOpen}
+                    open={copyModalOpen}
                     onClose={handleCopyModalClose}
                 />
                 {editing && <SummaryButtons ctx={ctx} />}
@@ -416,6 +406,8 @@ const mapStateToProps = (state, ownProps) => ({
     schema: state.schema.data,
     notFound: state.contexts[ownProps.ctx].notFound,
     userRole: state.user.info.role,
+    copyModalOpen: state.contexts[ownProps.ctx].copyModalOpen || false,
+    searchResults: state.contexts[ownProps.ctx].searchResults,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -424,6 +416,7 @@ const mapDispatchToProps = (dispatch) => ({
         dispatch(cloneBook(ctx, newCtx, callBack)),
     deleteBook: (ctx, callBack) => dispatch(deleteBook(ctx, callBack)),
     prepareCopy: (ctx) => dispatch(prepareCopy(ctx)),
+    setCopyModalOpen: (paylaod) => dispatch(setCopyModalOpen(paylaod)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BookSheet);

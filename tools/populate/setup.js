@@ -1,9 +1,10 @@
 import { faker } from '@faker-js/faker';
 import api from '../lib/api.js';
+import { DEFAULTS } from './defaults.js';
 
-const createDemoData = async (numItems) => {
+const createDemoData = async (numUsers, numBooks) => {
     console.log('Creating demo data...');
-    const users = generateUsers();
+    const users = generateUsers(numUsers);
     for (const user of users) {
         const registered = await api.registerUser(user);
         if (registered)
@@ -12,7 +13,7 @@ const createDemoData = async (numItems) => {
                 password: user.password,
             });
     }
-    const books = generateBooks(numItems);
+    const books = generateBooks(numBooks);
     for (const book of books) {
         const result = await api.createBook(book);
         if (result) {
@@ -27,40 +28,7 @@ const createDemoData = async (numItems) => {
 };
 
 const generateUsers = (numUsers = 10) => {
-    const users = [
-        {
-            userid: 'admin@arkkidivari.com',
-            role: 'admin',
-            password: 'admin123',
-            name: 'Järjestelmänvalvoja',
-            address: 'Koulukatu 1',
-            zip: '33100',
-            city: 'Tampere',
-            phone: '0451098765',
-        },
-        {
-            userid: 'lasse@lassenlehti.fi',
-            role: 'seller',
-            password: 'lasse456',
-            name: 'Lasse Lehtinen',
-            address: 'Satamakatu 14',
-            zip: '33200',
-            city: 'Tampere',
-            phone: '0401234567',
-        },
-
-        {
-            userid: 'galle@galeinngalle.fi',
-            role: 'seller',
-            password: 'galle789',
-            name: 'Galle Galleinn',
-            address: 'Pasilanraitio 11',
-            zip: '00240',
-            city: 'Helsinki',
-            phone: '0507654321',
-        },
-    ];
-
+    const users = [...DEFAULTS.users];
     for (let i = 0; i < numUsers; i++) {
         users.push({
             userid: faker.internet.email(),
@@ -76,7 +44,7 @@ const generateUsers = (numUsers = 10) => {
 };
 
 const generateBooks = (numBooks) => {
-    const books = [];
+    const books = [...DEFAULTS.books];
     for (let i = 0; i < numBooks; i++) {
         books.push({
             isbn: faker.commerce.isbn(),
@@ -102,6 +70,7 @@ const generateCopies = (book) => {
             sellerid: faker.helpers.arrayElement([
                 'lasse@lassenlehti.fi',
                 'galle@galeinngalle.fi',
+                'kimmo@kirjakammio.fi',
             ]),
             status,
             price,
@@ -113,6 +82,12 @@ const generateCopies = (book) => {
 };
 
 const main = async () => {
+    if (!process.argv[2] || !process.argv[3]) {
+        console.error('Usage: node setup.js <numUsers> <numBooks>');
+        process.exit(1);
+    }
+    console.log('Running setups...');
+
     const numUsers = process.argv[2] || 10;
     const numBooks = process.argv[3] || 10;
     await createDemoData(numUsers, numBooks);

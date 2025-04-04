@@ -17,6 +17,7 @@ const CopyControls = ({
     editedCopy,
     schema,
     userRole,
+    userId,
     setEditedCopy,
     setEditedCopyProperty,
 }) => {
@@ -80,9 +81,12 @@ const CopyControls = ({
                     };
                 },
             );
+            if (type === 'seller' && USER_ROLES[userRole]?.privilege === 2) {
+                return options.filter((option) => option.id === userId);
+            }
             return options;
         },
-        [schema.associations],
+        [schema.associations, userRole, userId],
     );
 
     return (
@@ -203,6 +207,7 @@ const mapStateToProps = (state, ownProps) => ({
     editedCopy: state.contexts[ownProps.ctx].editedCopy,
     schema: state.schema.data,
     userRole: state.user.info.role,
+    userId: state.user.info.userid,
 });
 
 const mapDispatchToProps = (dispatch) => ({

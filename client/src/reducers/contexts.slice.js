@@ -31,6 +31,10 @@ const contextSlice = createSlice({
             const { ctx, key, value } = action.payload;
             state[ctx]['editedBook'][key] = value;
         },
+        setCopyModalOpen: (state, action) => {
+            const { ctx, open } = action.payload;
+            state[ctx]['copyModalOpen'] = open;
+        },
         setEditedCopy: (state, action) => {
             const { ctx, copy } = action.payload;
             state[ctx]['editedCopy'] = copy;
@@ -82,6 +86,7 @@ export const {
     setCurrentBook,
     setEditedBook,
     setEditedBookProperty,
+    setCopyModalOpen,
     setEditedCopy,
     setEditedCopyProperty,
     setEditedUser,

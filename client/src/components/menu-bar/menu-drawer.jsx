@@ -12,6 +12,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { paramsToUrl } from '../../helpers/url.helpers';
@@ -47,6 +48,10 @@ export const MenuDrawer = ({ toggleDrawer, userRole }) => {
             text: 'Tilaukseni',
             icon: <InventoryIcon />,
             onClick: () => navigate(paramsToUrl({ page: 'orders' })),
+        },
+            text: 'Raportit',
+            icon: <QueryStatsIcon />,
+            onClick: () => navigate(paramsToUrl({ page: 'reports' })),
         },
         {
             text: 'Käyttäjä',

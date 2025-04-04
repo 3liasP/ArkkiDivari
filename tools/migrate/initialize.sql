@@ -108,6 +108,30 @@ CREATE TABLE D1.Copies (
     soldDate TIMESTAMPTZ
 );
 
+-- Schema for seller D3
+CREATE SCHEMA D3;
+
+CREATE TABLE D3.Books (
+    bookId UUID DEFAULT uuid_generate_v4 () PRIMARY KEY,
+    isbn TEXT UNIQUE, -- can be null
+    title TEXT NOT NULL,
+    author TEXT NOT NULL,
+    year INT,
+    weight NUMERIC,
+    typeId INT REFERENCES central.Types (typeId),
+    genreId INT REFERENCES central.Genres (genreId)
+);
+
+CREATE TABLE D3.Copies (
+    copyId UUID DEFAULT uuid_generate_v4 () PRIMARY KEY,
+    bookId UUID NOT NULL REFERENCES D3.Books (bookId),
+    sellerId TEXT NOT NULL DEFAULT 'kimmo@kirjakammio.fi',
+    status bookStatus NOT NULL DEFAULT 'available',
+    price NUMERIC,
+    buyInPrice NUMERIC,
+    soldDate TIMESTAMPTZ
+);
+
 INSERT INTO
     central.Sellers (sellerId, schemaName, independent, name, address, zip, city, phone, website)
 VALUES
@@ -132,6 +156,17 @@ VALUES
         'Helsinki',
         '0507654321',
         'https://galeinngalle.fi'
+    ),
+    (
+        'kimmo@kirjakammio.fi',
+        'D3',
+        TRUE,
+        'Kirjakammio',
+        'Mannerheimintie 10',
+        '00100',
+        'Helsinki',
+        '094321',
+        'https://kirjakammio.fi'
     );
 
 INSERT INTO
@@ -160,7 +195,8 @@ VALUES
     ('Seikkailu'),
     ('Trilleri'),
     ('Draama'),
-    ('Huumori');
+    ('Huumori'),
+    ('Opas');
 
 INSERT INTO
     central.ShippingCosts (weight, cost)
@@ -186,6 +222,55 @@ EXECUTE FUNCTION update_updated_at ();
 CREATE TRIGGER update_updated_at BEFORE
 UPDATE ON central.Copies FOR EACH ROW
 EXECUTE FUNCTION update_updated_at ();
+
+CREATE OR REPLACE FUNCTION sync_d3_books () RETURNS TRIGGER AS $$
+BEGIN
+    PERFORM 1 FROM central.Books
+    WHERE isbn = NEW.isbn AND title = NEW.title AND author = NEW.author;
+    
+    IF NOT FOUND THEN
+        INSERT INTO central.Books (isbn, title, author, year, weight, typeId, genreId)
+        VALUES (NEW.isbn, NEW.title, NEW.author, NEW.year, NEW.weight, NEW.typeId, NEW.genreId);
+        SELECT bookId INTO NEW.bookId
+        FROM central.Books
+        WHERE isbn = NEW.isbn AND title = NEW.title AND author = NEW.author;
+    ELSE
+        SELECT bookId INTO NEW.bookId
+        FROM central.Books
+        WHERE isbn = NEW.isbn AND title = NEW.title AND author = NEW.author;
+    END IF;
+
+    RETURN NEW;
+END
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER sync_d3_books AFTER
+INSERT OR UPDATE ON D3.Books FOR EACH ROW
+EXECUTE FUNCTION sync_d3_books ();
+
+CREATE OR REPLACE FUNCTION sync_d3_copies () RETURNS TRIGGER AS $$
+DECLARE
+    central_bookId UUID;
+BEGIN
+    -- Fetch the corresponding bookId from central.Books
+    SELECT bookId INTO central_bookId
+    FROM central.Books
+    WHERE isbn = (SELECT isbn FROM D3.Books WHERE bookId = NEW.bookId);
+
+    -- Ensure the bookId exists in central.Books
+    IF central_bookId IS NULL THEN
+        RAISE EXCEPTION 'Book ID % does not exist in central.Books', NEW.bookId;
+    END IF;
+
+    INSERT INTO central.Copies (bookId, sellerId, status, price, buyInPrice)
+    VALUES (central_bookId, NEW.sellerId, NEW.status, NEW.price, NEW.buyInPrice);
+    RETURN NEW;
+END
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER sync_d3_copies AFTER
+INSERT OR UPDATE ON D3.Copies FOR EACH ROW
+EXECUTE FUNCTION sync_d3_copies ();
 
 -- shop functions
 CREATE OR REPLACE FUNCTION calculate_subtotal (copyids UUID[]) RETURNS NUMERIC AS $$
@@ -358,6 +443,38 @@ BEGIN
     WHERE orderId = _orderid;   
 END;
 $$ LANGUAGE plpgsql;
+
+-- views
+-- report R2
+CREATE OR REPLACE VIEW central.GenreSalesSummary AS
+SELECT
+    g.name AS genre,
+    SUM(c.price) AS total_sales_price,
+    AVG(c.price) AS average_price
+FROM
+    central.Copies c
+    JOIN central.Books b ON c.bookId = b.bookId
+    JOIN central.Genres g ON b.genreId = g.genreId
+WHERE
+    c.status = 'available'
+GROUP BY
+    g.name;
+
+-- report R3
+CREATE OR REPLACE VIEW central.CustomerPurchasesLastYear AS
+SELECT
+    u.userId,
+    u.name,
+    COUNT(oi.copyId) AS copies_purchased
+FROM
+    central.Users u
+    JOIN central.Orders o ON u.userId = o.userId
+    JOIN central.OrderItems oi ON o.orderId = oi.orderId
+WHERE
+    o.status = 'completed'
+    AND o.time >= (CURRENT_DATE - INTERVAL '1 year')
+GROUP BY
+    u.userId, u.name;
 
 -- tsvector, experimental
 ALTER TABLE central.Books

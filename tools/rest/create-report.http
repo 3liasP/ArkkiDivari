@@ -1,0 +1,2 @@
+### Create Report
+GET http://localhost:8010/report/R2

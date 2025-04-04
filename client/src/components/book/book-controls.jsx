@@ -45,7 +45,7 @@ const BookControls = ({
     setIdMode,
 }) => {
     const [localBook, setLocalBook] = useState({});
-    const [localIdMode, setLocalIdMode] = useState('barcode');
+    const [localIdMode, setLocalIdMode] = useState('manual');
     const [scannerOpen, setScannerOpen] = useState(false);
 
     const handleIdModeChange = (event) => {
@@ -141,15 +141,15 @@ const BookControls = ({
     }, [ctx, schema.books.order]);
 
     const idModes = {
-        barcode: {
-            label: 'Lue viivakoodi kameralla',
-            icon: <QrCodeScannerIcon />,
-            helperText: 'Napauta kenttää lukeaksesi viivakoodin',
-        },
         manual: {
             label: 'Syötä käsin',
             icon: <EditIcon />,
             helperText: 'Syötä ISBN muodossa 978-3-16-148410-0',
+        },
+        barcode: {
+            label: 'Lue viivakoodi kameralla',
+            icon: <QrCodeScannerIcon />,
+            helperText: 'Napauta kenttää lukeaksesi viivakoodin',
         },
     };
 

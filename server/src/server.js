@@ -8,6 +8,7 @@ import schemaRoutes from './routes/schema.routes.js';
 import searchRoutes from './routes/search.routes.js';
 import userRoutes from './routes/user.routes.js';
 import orderRoutes from './routes/order.routes.js';
+import reportRoutes from './routes/report.routes.js';
 import { accessLogMiddleware, errorLogMiddleware } from './utils/logger.js';
 import {
     authMiddleware,
@@ -48,6 +49,7 @@ const init = () => {
     app.use('/api/search', searchRoutes);
     app.use('/api/user', userRoutes);
     app.use('/api/order', orderRoutes);
+    app.use('/api/report', reportRoutes);
 
     app.get('/api', (req, res) => {
         res.send({ message: 'Server running', time: new Date() });
