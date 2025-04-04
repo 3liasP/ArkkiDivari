@@ -329,7 +329,7 @@ class Api {
     }
     async getOrderHistory() {
         try {
-            const response = await this.request(`${this.baseURL}/order/`, {
+            const response = await this.request(`${this.baseURL}/order`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
