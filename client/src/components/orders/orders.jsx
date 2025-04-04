@@ -8,7 +8,7 @@ const Orders = ({ ctx }) => {
         <Container maxWidth="false">
             <Box mt={3}>
                 <Typography variant="h4" component="h1" gutterBottom>
-                    Tilaushistoria
+                    Omat tilaukset
                 </Typography>
             </Box>
             <OrderGrid ctx={ctx} />

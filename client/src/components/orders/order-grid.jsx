@@ -71,12 +71,11 @@ const OrderGrid = ({ ctx, loading, orderHistory, fetchOrderHistory }) => {
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
-                mt: 4,
             }}
         >
             {orderHistory.length === 0 ? (
-                <Typography variant="h6" gutterBottom>
-                    Ei tehtyjä tilauksia. Näet tilauksesi täältä, kun olet
+                <Typography variant="subtitle1" gutterBottom>
+                    Ei tehtyjä tilauksia. Näet tilaushistoriasi täällä, kun olet
                     tehnyt tilauksen.
                 </Typography>
             ) : (
@@ -84,6 +83,7 @@ const OrderGrid = ({ ctx, loading, orderHistory, fetchOrderHistory }) => {
                     display="flex"
                     justifyContent="center"
                     flexDirection="column"
+                    mt={3}
                 >
                     {orderHistory.toReversed().map((order) => (
                         <Card key={order.orderid} sx={{ mb: 2, boxShadow: 3 }}>
@@ -118,7 +118,7 @@ const OrderGrid = ({ ctx, loading, orderHistory, fetchOrderHistory }) => {
                                             gutterBottom
                                             sx={{ mr: 3 }}
                                         >
-                                            {`Tilaussumma: ${order.subtotal} €`}
+                                            {`Välisumma: ${order.subtotal} €`}
                                         </Typography>
                                         <Typography
                                             variant="subtitle1"

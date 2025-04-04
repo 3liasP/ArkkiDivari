@@ -45,7 +45,7 @@ export const MenuDrawer = ({ toggleDrawer, userRole }) => {
             onClick: () => navigate(paramsToUrl({ page: 'search-advanced' })),
         },
         {
-            text: 'Tilaukseni',
+            text: 'Omat tilaukset',
             icon: <InventoryIcon />,
             onClick: () => navigate(paramsToUrl({ page: 'orders' })),
         },
