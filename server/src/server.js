@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
+import cron from 'node-cron';
 import db from './db/database.js';
 import bookRoutes from './routes/book.routes.js';
 import copyRoutes from './routes/copy.routes.js';
@@ -15,6 +16,17 @@ import {
     mockAuthMiddleware,
     unless,
 } from './auth/auth.middleware.js';
+
+const runProcedure = async () => {
+    try {
+        await db.query(`SELECT ${procedureName}();`); //eslint-disable-line
+        console.log(
+            `Procedure ${procedureName} executed at ${new Date().toISOString}.`, //eslint-disable-line
+        );
+    } catch (e) {
+        console.error(`Error executing procedure ${procedureName}:`, e); //eslint-disable-line
+    }
+};
 
 const init = () => {
     const PORT = process.env.NODE_PORT || 8010;
@@ -57,6 +69,11 @@ const init = () => {
 
     app.listen(PORT, () => {
         console.log(`Server is running in ${MODE} mode on port ${PORT}.`);
+    });
+
+    cron.schedule('* * * * *', () => {
+        runProcedure('add_missing_d1_books_to_central');
+        runProcedure('add_missing_d1_copies_to_central');
     });
 };
 
