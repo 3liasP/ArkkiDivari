@@ -1,0 +1,9 @@
+<!ELEMENT teokset (teos*)>
+<!ELEMENT teos (ttiedot,nide*)>
+<!ELEMENT ttiedot (nimi, tekija, isbn)>
+<!ELEMENT nide (hinta,paino?)>
+<!ELEMENT nimi (#PCDATA)>
+<!ELEMENT tekija (#PCDATA)>
+<!ELEMENT isbn (#PCDATA)>
+<!ELEMENT hinta (#PCDATA)>
+<!ELEMENT paino (#PCDATA)>

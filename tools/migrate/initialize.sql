@@ -167,6 +167,17 @@ VALUES
         'Helsinki',
         '094321',
         'https://kirjakammio.fi'
+    ),
+    (
+        'pekka@polyinenhylly.fi',
+        'D4',
+        FALSE,
+        'Pölyinen Hylly',
+        'Kauppakatu 5',
+        '33100',
+        'Tampere',
+        '0409876543',
+        'https://polyinenhylly.fi'
     );
 
 INSERT INTO

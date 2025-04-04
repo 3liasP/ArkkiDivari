@@ -8,6 +8,7 @@
     "license": "MIT",
     "description": "Tools for Antiquarian",
     "dependencies": {
-        "@faker-js/faker": "^9.4.0"
+        "@faker-js/faker": "^9.4.0",
+        "fast-xml-parser": "^5.2.0"
     }
 }

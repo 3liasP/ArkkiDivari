@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE teokset SYSTEM "books.dtd">
+<teokset>
+    <teos>
+        <ttiedot>
+            <nimi>Seitsemän veljestä</nimi>
+            <tekija>Aleksis Kivi</tekija>
+            <isbn>9789511185222</isbn>
+        </ttiedot>
+        <nide>
+            <hinta>19.90</hinta>
+            <paino>450</paino>
+        </nide>
+        <nide>
+            <hinta>15.50</hinta>
+            <paino>430</paino>
+        </nide>
+        <nide>
+            <hinta>22.00</hinta>
+            <paino>455</paino>
+        </nide>
+    </teos>
+    <teos>
+        <ttiedot>
+            <nimi>Sinuhe egyptiläinen</nimi>
+            <tekija>Mika Waltari</tekija>
+            <isbn>9789510420171</isbn>
+        </ttiedot>
+        <nide>
+            <hinta>24.50</hinta>
+            <paino>680</paino>
+        </nide>
+    </teos>
+    <teos>
+        <ttiedot>
+            <nimi>Kalevala</nimi>
+            <tekija>Elias Lönnrot</tekija>
+            <isbn>9789511170006</isbn>
+        </ttiedot>
+        <nide>
+            <hinta>28.90</hinta>
+            <paino>750</paino>
+        </nide>
+        <nide>
+            <hinta>32.50</hinta>
+            <paino>890</paino>
+        </nide>
+    </teos>
+    <teos>
+        <ttiedot>
+            <nimi>Anna Karenina</nimi>
+            <tekija>Leo Tolstoi</tekija>
+            <isbn>9789510459720</isbn>
+        </ttiedot>
+        <nide>
+            <hinta>17.90</hinta>
+            <paino>630</paino>
+        </nide>
+        <nide>
+            <hinta>14.50</hinta>
+            <paino>590</paino>
+        </nide>
+        <nide>
+            <hinta>19.90</hinta>
+            <paino>645</paino>
+        </nide>
+        <nide>
+            <hinta>21.00</hinta>
+            <paino>640</paino>
+        </nide>
+    </teos>
+    <teos>
+        <ttiedot>
+            <nimi>Taru sormusten herrasta</nimi>
+            <tekija>J.R.R. Tolkien</tekija>
+            <isbn>9789510326221</isbn>
+        </ttiedot>
+        <nide>
+            <hinta>29.90</hinta>
+            <paino>980</paino>
+        </nide>
+        <nide>
+            <hinta>32.50</hinta>
+            <paino>1050</paino>
+        </nide>
+    </teos>
+    <teos>
+        <ttiedot>
+            <nimi>Tuulen varjo</nimi>
+            <tekija>Carlos Ruiz Zafón</tekija>
+            <isbn>9789510352229</isbn>
+        </ttiedot>
+        <nide>
+            <hinta>23.50</hinta>
+            <paino>520</paino>
+        </nide>
+        <nide>
+            <hinta>19.90</hinta>
+            <paino>505</paino>
+        </nide>
+        <nide>
+            <hinta>21.00</hinta>
+            <paino>515</paino>
+        </nide>
+    </teos>
+    <teos>
+        <ttiedot>
+            <nimi>Puhdistus</nimi>
+            <tekija>Sofi Oksanen</tekija>
+            <isbn>9789510375952</isbn>
+        </ttiedot>
+        <nide>
+            <hinta>18.90</hinta>
+            <paino>350</paino>
+        </nide>
+        <nide>
+            <hinta>15.50</hinta>
+            <paino>340</paino>
+        </nide>
+    </teos>
+    <teos>
+        <ttiedot>
+            <nimi>Jokin sinusta</nimi>
+            <tekija>Tommi Kinnunen</tekija>
+            <isbn>9789510434031</isbn>
+        </ttiedot>
+        <nide>
+            <hinta>24.90</hinta>
+            <paino>410</paino>
+        </nide>
+        <nide>
+            <hinta>21.50</hinta>
+            <paino>400</paino>
+        </nide>
+        <nide>
+            <hinta>23.00</hinta>
+            <paino>405</paino>
+        </nide>
+        <nide>
+            <hinta>22.50</hinta>
+            <paino>415</paino>
+        </nide>
+        <nide>
+            <hinta>21.90</hinta>
+            <paino>400</paino>
+        </nide>
+    </teos>
+    <teos>
+        <ttiedot>
+            <nimi>Tuntematon sotilas</nimi>
+            <tekija>Väinö Linna</tekija>
+            <isbn>9789510427989</isbn>
+        </ttiedot>
+        <nide>
+            <hinta>20.90</hinta>
+            <paino>490</paino>
+        </nide>
+    </teos>
+    <teos>
+        <ttiedot>
+            <nimi>Pimeän verho</nimi>
+            <tekija>Ilkka Remes</tekija>
+            <isbn>9789510445662</isbn>
+        </ttiedot>
+        <nide>
+            <hinta>25.50</hinta>
+            <paino>480</paino>
+        </nide>
+        <nide>
+            <hinta>22.90</hinta>
+            <paino>470</paino>
+        </nide>
+        <nide>
+            <hinta>24.00</hinta>
+            <paino>475</paino>
+        </nide>
+    </teos>
+</teokset>
