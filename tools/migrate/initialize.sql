@@ -79,6 +79,12 @@ CREATE TABLE central.OrderItems (
     PRIMARY KEY (orderId, copyId)
 );
 
+CREATE TABLE central.Favorites (
+    userId TEXT NOT NULL REFERENCES central.Users (userId),
+    copyId UUID NOT NULL REFERENCES central.Copies (copyId),
+    PRIMARY KEY (userId, copyId)
+);
+
 CREATE TABLE central.ShippingCosts (weight NUMERIC PRIMARY KEY, cost NUMERIC NOT NULL);
 
 -- Example of creating a seller schema and its tables
