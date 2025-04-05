@@ -14,6 +14,11 @@ import {
 import { COPY_STATUSES } from './copy.constants';
 import { setCopyModalOpen } from '../../reducers/contexts.slice';
 import { prepareCopy } from './copy.actions';
+import {
+    fetchFavoriteIDs,
+    addFavorite,
+    removeFavorite,
+} from '../favorites/favorite.actions';
 
 const CopyGrid = ({
     ctx,
@@ -21,15 +26,24 @@ const CopyGrid = ({
     schema,
     results,
     shoppingCart,
+    favoriteIDs,
     search,
     addToShoppingCart,
     toggleShoppingCartOpen,
     prepareCopy,
     setCopyModalOpen,
+    fetchFavoriteIDs,
+    addFavorite,
+    removeFavorite,
 }) => {
     useEffect(() => {
         search(ctx, params);
     }, [ctx, params, search]);
+
+    // Fetch favorite IDs when the component mounts
+    useEffect(() => {
+        fetchFavoriteIDs(ctx);
+    }, [ctx, fetchFavoriteIDs]);
 
     const bookCopies = useMemo(() => {
         if (!results || !schema) return [];
@@ -57,6 +71,12 @@ const CopyGrid = ({
     const handleAddToFavorites = (copy) => {
         // Implement add to favorites functionality
         console.log('Add to favorites:', copy);
+        addFavorite(ctx, copy.copyid);
+    };
+
+    const handleRemoveFromFavorites = (copy) => {
+        console.log('Remove from favorites:', copy);
+        removeFavorite(ctx, copy.copyid);
     };
 
     const inCart = (copy) =>
@@ -175,15 +195,29 @@ const CopyGrid = ({
                             >
                                 Lisää ostoskoriin
                             </Button>
-                            <Button
-                                variant="outlined"
-                                color="primary"
-                                startIcon={<FavoriteIcon />}
-                                onClick={() => handleAddToFavorites(copy)}
-                                disabled={copy.status !== 'available'}
-                            >
-                                Lisää suosikiksi
-                            </Button>
+                            {favoriteIDs.includes(copy.copyid) ? (
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    startIcon={<FavoriteIcon />}
+                                    onClick={() =>
+                                        handleRemoveFromFavorites(copy)
+                                    }
+                                    disabled={copy.status !== 'available'}
+                                >
+                                    Poista suosikeista
+                                </Button>
+                            ) : (
+                                <Button
+                                    variant="outlined"
+                                    color="primary"
+                                    startIcon={<FavoriteIcon />}
+                                    onClick={() => handleAddToFavorites(copy)}
+                                    disabled={copy.status !== 'available'}
+                                >
+                                    Lisää suosikiksi
+                                </Button>
+                            )}
                         </Box>
                     </CardContent>
                 </Card>
@@ -196,6 +230,7 @@ const mapStateToProps = (state, ownProps) => ({
     schema: state.schema.data,
     results: state.contexts[ownProps.ctx].searchResults,
     shoppingCart: state.user.shoppingCart,
+    favoriteIDs: state.contexts[ownProps.ctx].favoriteIDs,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -204,6 +239,9 @@ const mapDispatchToProps = (dispatch) => ({
     toggleShoppingCartOpen: () => dispatch(toggleShoppingCartOpen()),
     prepareCopy: (ctx) => dispatch(prepareCopy(ctx)),
     setCopyModalOpen: (paylaod) => dispatch(setCopyModalOpen(paylaod)),
+    fetchFavoriteIDs: (ctx) => dispatch(fetchFavoriteIDs(ctx)),
+    addFavorite: (ctx, copyid) => dispatch(addFavorite(ctx, copyid)),
+    removeFavorite: (ctx, copyid) => dispatch(removeFavorite(ctx, copyid)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CopyGrid);

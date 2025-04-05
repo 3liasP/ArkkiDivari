@@ -7,6 +7,7 @@ const add = async (req, res) => {
     if (!copyid) {
         return res.status(400).send({ message: 'Request missing copyid!' });
     }
+    // Maybe should check if the copyid already exists in the favorites ?
 
     try {
         await db.query(
