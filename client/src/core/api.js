@@ -448,6 +448,31 @@ class Api {
             throw error;
         }
     }
+
+    async getFavoriteData() {
+        try {
+            const response = await this.request(
+                `${this.baseURL}/favorite/all`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                },
+            );
+
+            if (!response.ok) {
+                const errMsg = await getErrMsg(response);
+                throw new Error(errMsg);
+            }
+
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error fetching favorite data:', error);
+            throw error;
+        }
+    }
 }
 
 const getErrMsg = async (response) => {

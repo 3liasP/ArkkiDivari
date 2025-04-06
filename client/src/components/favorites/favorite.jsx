@@ -1,8 +1,9 @@
 import { Container, Box, Typography, Grow } from '@mui/material';
 import { connect } from 'react-redux';
 import React from 'react';
+import FavoriteGrid from './favorite-grid';
 
-const Favorites = () => {
+const Favorites = ({ ctx }) => {
     return (
         <Container maxWidth="false">
             <Box mt={3}>
@@ -12,6 +13,7 @@ const Favorites = () => {
                     </Typography>
                 </Grow>
             </Box>
+            <FavoriteGrid ctx={ctx} />
         </Container>
     );
 };

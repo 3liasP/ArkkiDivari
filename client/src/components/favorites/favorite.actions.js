@@ -1,4 +1,8 @@
-import { setFavoriteIDs } from '../../reducers/contexts.slice';
+import {
+    setFavoriteIDs,
+    setFavoriteData,
+    setLoading,
+} from '../../reducers/contexts.slice';
 import api from '../../core/api';
 import { showToaster } from '../../reducers/toaster.slice';
 
@@ -35,5 +39,18 @@ export const removeFavorite = (ctx, copyid) => async (dispatch) => {
     } catch (error) {
         console.error('Error removing favorite:', error.message);
         dispatch(showToaster({ message: error.message, variant: 'error' }));
+    }
+};
+
+export const fetchFavoriteData = (ctx) => async (dispatch) => {
+    try {
+        dispatch(setLoading({ ctx, loading: true }));
+        const data = await api.getFavoriteData();
+        dispatch(setFavoriteData({ ctx, data }));
+    } catch (error) {
+        console.error('Error fetching favorite data:', error.message);
+        dispatch(showToaster({ message: error.message, variant: 'error' }));
+    } finally {
+        dispatch(setLoading({ ctx, loading: false }));
     }
 };

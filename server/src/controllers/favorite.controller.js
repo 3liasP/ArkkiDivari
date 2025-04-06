@@ -63,8 +63,46 @@ const remove = async (req, res) => {
     }
 };
 
+const getAll = async (req, res) => {
+    const { userid } = req.user;
+
+    try {
+        const copyids = await db.query(
+            'SELECT central.Favorites.copyid FROM central.Favorites ' +
+                'JOIN central.Copies ON central.Favorites.copyid = central.Copies.copyid ' +
+                'JOIN central.Books ON central.Copies.bookid = central.Books.bookid ' +
+                'WHERE userid = $1 ' +
+                'ORDER BY central.Books.title, central.Copies.price ASC',
+            [userid],
+        );
+
+        if (copyids.rows.length === 0) {
+            return res.status(200).send([]);
+        }
+
+        const favoriteData = await Promise.all(
+            copyids.rows.map(async (row) => {
+                const copyid = row.copyid;
+                const copyData = await db.query(
+                    'SELECT * FROM central.Copies ' +
+                        'JOIN central.Books ON central.Copies.bookid = central.Books.bookid ' +
+                        'WHERE copyid = $1',
+                    [copyid],
+                );
+                return { copyid, ...copyData.rows[0] };
+            }),
+        );
+
+        res.status(200).json(favoriteData);
+    } catch (error) {
+        console.error('Error fetching all favorite data:', error);
+        res.status(500).json({ message: 'Error fetching all favorite data' });
+    }
+};
+
 export default {
     add,
     get,
     remove,
+    getAll,
 };
