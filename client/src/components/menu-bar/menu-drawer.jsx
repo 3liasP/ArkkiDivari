@@ -1,23 +1,22 @@
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AddIcon from '@mui/icons-material/Add';
-import HelpIcon from '@mui/icons-material/Help';
-import HomeIcon from '@mui/icons-material/Home';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import HomeIcon from '@mui/icons-material/Home';
+import InventoryIcon from '@mui/icons-material/Inventory';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
-import InventoryIcon from '@mui/icons-material/Inventory';
+import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { paramsToUrl } from '../../helpers/url.helpers';
 import { USER_ROLES } from '../user/user.constants';
-import { connect } from 'react-redux';
 
 export const MenuDrawer = ({ toggleDrawer, userRole }) => {
     const navigate = useNavigate();
@@ -59,11 +58,6 @@ export const MenuDrawer = ({ toggleDrawer, userRole }) => {
             text: 'Käyttäjä',
             icon: <AccountCircleIcon />,
             onClick: () => navigate(paramsToUrl({ page: 'user' })),
-        },
-        {
-            text: 'Tuki',
-            icon: <HelpIcon />,
-            onClick: () => navigate(paramsToUrl({ page: 'support' })),
         },
     ].filter(Boolean);
 

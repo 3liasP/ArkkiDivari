@@ -319,7 +319,7 @@ const BookSheet = ({
                                 onChange={handleTabChange}
                                 variant={isMobile ? 'fullWidth' : 'standard'}
                             >
-                                <Tab label="Myynnissä" />
+                                <Tab label="Myyntikappaleet" />
                                 <Tab
                                     label={
                                         USER_ROLES[userRole]?.privilege >= 2

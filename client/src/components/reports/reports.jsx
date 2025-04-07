@@ -23,12 +23,13 @@ const Reports = ({ userRole, showToaster }) => {
     const availableReports = [
         {
             id: 'R2',
-            name: 'R2: Myynnin yhteenveto',
-            description: 'Yhteenveto myydyistä myyntikappaleista genreittäin',
+            name: 'R2: Myytävien teosten genreittäinen myyntiraportti',
+            description:
+                'Yhteenveto myynnissä olevista teoksista genreittäin ja niiden keskihinnasta',
         },
         {
             id: 'R3',
-            name: 'R3: Viime vuoden myynti',
+            name: 'R3: Viime vuoden myyntiraportti',
             description: 'Asiakkaiden tekemät ostokset viime vuoden ajalta',
         },
     ];
