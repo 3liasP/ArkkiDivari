@@ -6,6 +6,8 @@ import {
     Typography,
     Button,
     Skeleton,
+    useTheme,
+    useMediaQuery,
 } from '@mui/material';
 import { useEffect } from 'react';
 import bookIcon from '../../assets/svg/book.svg';
@@ -14,20 +16,31 @@ import { dayjsFormatTimeStamp } from '../../helpers/dayjs.helpers';
 import { removeFavorite, fetchFavoriteData } from './favorite.actions';
 import { COPY_STATUSES } from '../copy/copy.constants';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { useNavigate } from 'react-router-dom';
 import { paramsToUrl } from '../../helpers/url.helpers';
+import {
+    addToShoppingCart,
+    toggleShoppingCartOpen,
+} from '../../reducers/user.slice';
 
 const FavoriteGrid = ({
     ctx,
     loading,
     schema,
+    shoppingCart,
     favoriteData,
     removeFavorite,
     fetchFavoriteData,
+    addToShoppingCart,
+    toggleShoppingCartOpen,
 }) => {
     useEffect(() => {
         fetchFavoriteData(ctx);
-    }, [ctx, fetchFavoriteData, removeFavorite]);
+    }, [ctx, fetchFavoriteData]);
+
+    const theme = useTheme();
+    const isWindowed = useMediaQuery(theme.breakpoints.up('md'));
 
     const subHeaders = ['author', 'year'];
 
@@ -42,14 +55,38 @@ const FavoriteGrid = ({
         );
     };
 
-    if (loading) {
+    const handleAddToCart = (copy) => {
+        addToShoppingCart(copy);
+        toggleShoppingCartOpen();
+    };
+
+    const inCart = (copy) => {
+        shoppingCart.some((item) => item.copyid === copy.copyid);
+    };
+
+    if (loading || !schema) {
         return (
-            <Box sx={{ display: 'flex', mt: 2, flexDirection: 'column' }}>
-                <Skeleton
-                    variant="rectangular"
-                    height="80vh"
-                    sx={{ borderRadius: 1 }}
-                />
+            <Box
+                maxWidth="false"
+                sx={{
+                    display: 'grid',
+                    mt: 4,
+                    gridTemplateColumns:
+                        'repeat(auto-fill, minmax(300px, 1fr))',
+                    gap: 2,
+                }}
+            >
+                {Array.from(
+                    { length: isWindowed ? 12 : 6 },
+                    (_, i) => i + 1,
+                ).map((i) => (
+                    <Skeleton
+                        variant="rectangular"
+                        key={i}
+                        height={430}
+                        sx={{ borderRadius: 1 }}
+                    />
+                ))}
             </Box>
         );
     }
@@ -59,7 +96,7 @@ const FavoriteGrid = ({
             <Box display="flex" flexDirection="column" mt={4}>
                 <Typography variant="h6" component="h2" gutterBottom>
                     Näyttää siltä, ettet ole vielä lisännyt suosikkeja. Näet
-                    jatkossa lisäämäsi suosikit tältä sivulta.
+                    jatkossa kaikki lisäämäsi suosikit tältä sivulta.
                 </Typography>
             </Box>
         );
@@ -93,14 +130,14 @@ const FavoriteGrid = ({
                         <Box display="flex" justifyContent="start">
                             <span>
                                 <Typography variant="h6">
-                                    {copy.title}
+                                    {copy.book?.title}
                                 </Typography>
                             </span>
                         </Box>
                         <Box display="flex" justifyContent="start">
                             {subHeaders.map((key, index) => (
                                 <Typography key={key} variant="body2">
-                                    {copy[key]}
+                                    {copy.book?.[key]}
                                     {index < 1 && (
                                         <span>
                                             &nbsp;
@@ -141,11 +178,26 @@ const FavoriteGrid = ({
                         <Box display="block" sx={{ mt: 2 }}>
                             <Button
                                 variant="contained"
+                                color="secondary"
+                                startIcon={<AddShoppingCartIcon />}
+                                onClick={() => handleAddToCart(copy)}
+                                disabled={
+                                    copy.status !== 'available' || inCart(copy)
+                                }
+                            >
+                                Lisää ostoskoriin
+                            </Button>
+                        </Box>
+                        <Box display="block" sx={{ mt: 2 }}>
+                            <Button
+                                variant="contained"
                                 color="primary"
                                 startIcon={<FavoriteIcon />}
                                 onClick={() => {
                                     removeFavorite(ctx, copy.copyid);
-                                    fetchFavoriteData(ctx);
+                                    setTimeout(() => {
+                                        fetchFavoriteData(ctx);
+                                    }, 100);
                                 }}
                             >
                                 Poista suosikeista
@@ -162,11 +214,14 @@ const mapStateToProps = (state) => ({
     schema: state.schema.data,
     favoriteData: state.contexts.favorites.favoriteData,
     loading: state.contexts.favorites.loading,
+    shoppingCart: state.user.shoppingCart,
 });
 
 const mapDispatchToProps = (dispatch) => ({
     removeFavorite: (ctx, copyid) => dispatch(removeFavorite(ctx, copyid)),
     fetchFavoriteData: (ctx) => dispatch(fetchFavoriteData(ctx)),
+    addToShoppingCart: (item) => dispatch(addToShoppingCart(item)),
+    toggleShoppingCartOpen: () => dispatch(toggleShoppingCartOpen()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FavoriteGrid);

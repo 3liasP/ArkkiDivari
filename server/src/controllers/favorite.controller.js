@@ -83,13 +83,22 @@ const getAll = async (req, res) => {
         const favoriteData = await Promise.all(
             copyids.rows.map(async (row) => {
                 const copyid = row.copyid;
-                const copyData = await db.query(
-                    'SELECT * FROM central.Copies ' +
-                        'JOIN central.Books ON central.Copies.bookid = central.Books.bookid ' +
-                        'WHERE copyid = $1',
+
+                const copy = await db.query(
+                    'SELECT * FROM central.Copies ' + 'WHERE copyid = $1',
                     [copyid],
                 );
-                return { copyid, ...copyData.rows[0] };
+
+                // Check if the copy exists
+                if (copy.rows.length === 0) {
+                    return null;
+                }
+                const book = await db.query(
+                    'SELECT * FROM central.Books ' + 'WHERE bookid = $1',
+                    [copy.rows[0].bookid],
+                );
+
+                return { ...copy.rows[0], book: book.rows[0] };
             }),
         );
 

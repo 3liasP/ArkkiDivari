@@ -34,7 +34,7 @@ export const removeFavorite = (ctx, copyid) => async (dispatch) => {
         await api.removeFavorite(copyid);
         dispatch(fetchFavoriteIDs(ctx));
         dispatch(
-            showToaster({ message: 'Suosikki poistettu', variant: 'success' }),
+            showToaster({ message: 'Suosikki poistettu', variant: 'info' }),
         );
     } catch (error) {
         console.error('Error removing favorite:', error.message);
