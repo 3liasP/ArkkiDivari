@@ -494,6 +494,20 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION get_user_schema(user_id TEXT) RETURNS TEXT AS $$
+DECLARE
+    schema_name TEXT;
+BEGIN
+    -- Try to get the schema name from the seller associated with the user
+    SELECT s.schemaName INTO schema_name
+    FROM central.Users u
+    JOIN central.Sellers s ON u.sellerId = s.sellerId
+    WHERE u.userId = user_id;
+    
+    RETURN schema_name;
+END;
+$$ LANGUAGE plpgsql;
+
 -- views
 -- report R2
 CREATE OR REPLACE VIEW central.GenreSalesSummary AS

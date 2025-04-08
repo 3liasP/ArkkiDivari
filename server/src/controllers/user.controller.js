@@ -80,7 +80,7 @@ const register = async (req, res) => {
         password,
         name,
         role = 'customer',
-        sellerid = null,
+        sellerid = role === 'seller' ? userid : null,
         address = null,
         zip = null,
         city = null,
