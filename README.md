@@ -32,7 +32,7 @@ A detailed list of the `npm` packages used can be found in the `package.json` fi
 
 ## Getting Started
 
-The application is deployed in Tampere University's linux server with nginx. Outside of University's network you can access it with using a VPN, such as [EduVPN](https://www.eduvpn.org).
+The application is deployed in Tampere University's linux server with nginx. Outside of University's network you can access it using a VPN, such as [EduVPN](https://www.eduvpn.org).
 
 Application is found in the following address: http://tie-tkannat.it.tuni.fi:8011/ . It is fully working in prod mode and can be accessed straight from this URL. You can create a new user or use some of the existing ones. Application has 3 different user roles (admin, seller and customer). Following list includes premade user accounts and their passwords and roles. Creating a new account through registration page will have a customer-role.
 
@@ -54,9 +54,9 @@ Application is found in the following address: http://tie-tkannat.it.tuni.fi:801
     ```
 2. Install Node.js (v. 22) and PostgreSQL
 
-3. Checkout branch dev
+3. Checkout branch main:
     ```bash
-    git checkout dev
+    git checkout main
     ```
 4. Create a file `.env` into `server/`-directory and copy data from `.env.sample` to `.env`
 5. For no login set value of `NODE_ENV` to "dev"
