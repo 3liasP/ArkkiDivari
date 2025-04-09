@@ -13,6 +13,10 @@ const initialState = {
     },
     support: {},
     checkout: {},
+    favorites: {
+        favoriteData: [],
+        loading: false,
+    },
 };
 
 const contextSlice = createSlice({
@@ -79,6 +83,14 @@ const contextSlice = createSlice({
             const { ctx, loading } = action.payload;
             state[ctx]['loading'] = loading;
         },
+        setFavoriteIDs: (state, action) => {
+            const { ctx, copyids } = action.payload;
+            state[ctx]['favoriteIDs'] = copyids;
+        },
+        setFavoriteData: (state, action) => {
+            const { ctx, data } = action.payload;
+            state[ctx]['favoriteData'] = data;
+        },
     },
 });
 
@@ -98,6 +110,8 @@ export const {
     setSearchResults,
     setOrderHistory,
     setLoading,
+    setFavoriteIDs,
+    setFavoriteData,
 } = contextSlice.actions;
 
 export default contextSlice.reducer;

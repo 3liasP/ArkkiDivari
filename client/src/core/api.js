@@ -327,6 +327,7 @@ class Api {
             throw error;
         }
     }
+
     async getOrderHistory() {
         try {
             const response = await this.request(`${this.baseURL}/order`, {
@@ -348,6 +349,7 @@ class Api {
             throw error;
         }
     }
+
     async downloadReport(reportId) {
         try {
             const response = await this.request(
@@ -375,6 +377,99 @@ class Api {
             return true;
         } catch (error) {
             console.error(`Error downloading report ${reportId}:`, error);
+            throw error;
+        }
+    }
+
+    async getFavoriteIDs() {
+        try {
+            const response = await this.request(`${this.baseURL}/favorite`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) {
+                const errMsg = await getErrMsg(response);
+                throw new Error(errMsg);
+            }
+
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error fetching favorite copy IDs:', error);
+            throw error;
+        }
+    }
+
+    async addFavorite(copyid) {
+        try {
+            const response = await this.request(`${this.baseURL}/favorite`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ copyid }),
+            });
+
+            if (!response.ok) {
+                const errMsg = await getErrMsg(response);
+                throw new Error(errMsg);
+            }
+
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error adding favorite:', error);
+            throw error;
+        }
+    }
+
+    async removeFavorite(copyid) {
+        try {
+            const response = await this.request(`${this.baseURL}/favorite`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ copyid }),
+            });
+
+            if (!response.ok) {
+                const errMsg = await getErrMsg(response);
+                throw new Error(errMsg);
+            }
+
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error removing favorite:', error);
+            throw error;
+        }
+    }
+
+    async getFavoriteData() {
+        try {
+            const response = await this.request(
+                `${this.baseURL}/favorite/all`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                },
+            );
+
+            if (!response.ok) {
+                const errMsg = await getErrMsg(response);
+                throw new Error(errMsg);
+            }
+
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error fetching favorite data:', error);
             throw error;
         }
     }

@@ -27,7 +27,7 @@ export const MenuDrawer = ({ toggleDrawer, userRole }) => {
         {
             text: 'Suosikit',
             icon: <FavoriteIcon />,
-            onClick: () => navigate('/favorites'),
+            onClick: () => navigate(paramsToUrl({ page: 'favorites' })),
         },
         userPrivilege >= 2 && {
             text: 'Uusi teos',

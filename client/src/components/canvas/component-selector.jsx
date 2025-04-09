@@ -14,6 +14,7 @@ import Login from '../login/login';
 import Checkout from '../checkout/checkout';
 import Orders from '../orders/orders';
 import Reports from '../reports/reports';
+import Favorite from '../favorites/favorite';
 
 const ComponentSelector = ({ loggedIn, setCtx }) => {
     const [page, pageParam] = useLocationParams();
@@ -43,6 +44,10 @@ const ComponentSelector = ({ loggedIn, setCtx }) => {
             } else {
                 return <NoMatch />;
             }
+        }
+        case 'favorites': {
+            setCtx({ ctx: page });
+            return <Favorite ctx="favorites" pageParam={pageParam} />;
         }
         case 'book-new': {
             setCtx({ ctx: page });
