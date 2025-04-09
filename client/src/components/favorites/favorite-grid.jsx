@@ -93,12 +93,10 @@ const FavoriteGrid = ({
 
     if (!favoriteData || favoriteData.length === 0) {
         return (
-            <Box display="flex" flexDirection="column" mt={4}>
-                <Typography variant="h6" component="h2" gutterBottom>
-                    Näyttää siltä, ettet ole vielä lisännyt suosikkeja. Näet
-                    jatkossa kaikki lisäämäsi suosikit tältä sivulta.
-                </Typography>
-            </Box>
+            <Typography variant="subtitle1" gutterBottom>
+                Näyttää siltä, ettet ole vielä lisännyt suosikkeja. Näet
+                jatkossa kaikki lisäämäsi suosikit tältä sivulta.
+            </Typography>
         );
     }
 

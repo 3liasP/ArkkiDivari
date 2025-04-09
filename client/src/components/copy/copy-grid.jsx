@@ -69,13 +69,10 @@ const CopyGrid = ({
     };
 
     const handleAddToFavorites = (copy) => {
-        // Implement add to favorites functionality
-        console.log('Add to favorites:', copy);
         addFavorite(ctx, copy.copyid);
     };
 
     const handleRemoveFromFavorites = (copy) => {
-        console.log('Remove from favorites:', copy);
         removeFavorite(ctx, copy.copyid);
     };
 
@@ -195,7 +192,7 @@ const CopyGrid = ({
                             >
                                 Lisää ostoskoriin
                             </Button>
-                            {favoriteIDs.includes(copy.copyid) ? (
+                            {favoriteIDs?.includes(copy.copyid) ? (
                                 <Button
                                     variant="contained"
                                     color="primary"
