@@ -1,0 +1,14 @@
+{
+    "name": "antiquarian-tools",
+    "version": "1.0.0",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {},
+    "author": "Rubber Ducks",
+    "license": "MIT",
+    "description": "Tools for Antiquarian",
+    "dependencies": {
+        "@faker-js/faker": "^9.4.0",
+        "fast-xml-parser": "^5.2.0"
+    }
+}

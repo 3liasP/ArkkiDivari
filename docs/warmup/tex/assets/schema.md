@@ -1,0 +1,6 @@
+Varaus(<u>varausId</u>,opetustilaId,kayttajaId,periodiId,kuvaus,startTime,endTime)
+Opetustila(<u>opetustilaId</u>,tunnus,paikkaluku,varustus,vuokrakustannus,lisatiedot)
+Varustus(<u>varustusId</u>,nimi)
+OpetustilaVarustus(<u>opetustilaId</u>,<u>varustusId</u>)
+Kayttaja(<u>kayttajaId</u>,nimi,yksikko)
+Periodi(<u>periodiId</u>,numero,alkupaiva,loppupaiva)

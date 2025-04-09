@@ -1,0 +1,47 @@
+@startuml Opetustilan varaamisjärjestelmä
+skinparam linetype ortho
+entity Varaus {
++ varausId
++ startTime
++ endTime
+}
+
+entity Tapahtuma {
++ tapahtumaId
++ nimi
++ kuvaus
+}
+
+entity Opetustila{
++ opetustilaId
++ tunnus
++ paikkaluku
++ vuokrakustannus
++ lisatiedot
+}
+
+entity Varustus{
++ varustusId
++ nimi
+}
+
+entity Kayttaja {
++ kayttajaId
++ nimi
++ yksikkö
+}
+
+entity Periodi {
++ periodiId
++ numero
++ alkupaiva
++ loppupaiva
++ vuosi
+}
+
+Opetustila "1" -- "N" Varaus
+Kayttaja "1  " -- "N" Varaus
+Tapahtuma "1 " -- "N" Varaus
+Opetustila "N " -- "M " Varustus
+Periodi "N" -- "M  " Varaus
+@enduml

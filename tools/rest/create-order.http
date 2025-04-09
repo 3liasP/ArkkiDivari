@@ -1,0 +1,7 @@
+### Get all orders
+POST http://localhost:8010/api/order/create
+Content-Type: application/json
+
+{
+    "copyids": ["7159775d-37df-45c8-aee9-c08ca0ab4d0e"]
+}

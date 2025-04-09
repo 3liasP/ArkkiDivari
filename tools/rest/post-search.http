@@ -1,0 +1,15 @@
+### Search Request
+POST http://localhost:8010/api/search
+Content-Type: application/json
+
+{
+    "query": "Hamlet",
+    "criteria": {
+    },
+    "args": {
+        "limit": 100,
+        "sort": "asc",
+        "copies": true,
+        "orderby": "author"
+    }
+}

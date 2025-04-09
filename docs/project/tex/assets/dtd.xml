@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE teokset [
+    <!ELEMENT teokset (teos*)>
+    <!ELEMENT teos (ttiedot,nide*)>
+    <!ELEMENT ttiedot (nimi, tekija, isbn)>
+    <!ELEMENT nide (hinta, paino?)>
+    <!ELEMENT nimi (#PCDATA)>
+    <!ELEMENT tekija (#PCDATA)>
+    <!ELEMENT isbn (#PCDATA)>
+    <!ELEMENT hinta (#PCDATA)>
+    <!ELEMENT paino (#PCDATA)>
+]>
+<teokset>
+    <teos>
+        <ttiedot>
+            <nimi>Elektran tytär</nimi>
+            <tekija>Madeleine Brent</tekija>
+            <isbn>9155430674</isbn>
+        </ttiedot>
+        <nide>
+            <hinta>12.00</hinta>
+            <paino>300</paino>
+        </nide>
+    </teos>
+
+    <teos>
+        <ttiedot>
+            <nimi>Turms, kuolematon</nimi>
+            <tekija>Mika Waltari</tekija>
+            <isbn>9789510431122</isbn>
+        </ttiedot>
+        <nide>
+            <hinta>15.00</hinta>
+            <paino>400</paino>
+        </nide>
+    </teos>
+</teokset>

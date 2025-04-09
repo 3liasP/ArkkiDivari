@@ -1,0 +1,71 @@
+@startuml Central Antiquarian
+skinparam linetype ortho
+
+entity Types {
+    + typeId
+    + name
+}
+
+entity Genres {
+    + genreId
+    + name
+}
+
+entity Books {
+    + bookId
+    + isbn
+    + title
+    + author
+    + year
+}
+
+entity Copies {
+    + copyId
+    + status
+    + price
+    + weight
+    + buyInPrice
+    + soldDate
+}
+
+entity Users {
+    + userId
+    + role
+    + password
+    + name
+    + address
+    + zip
+    + city
+    + phone
+}
+
+entity Orders {
+    + orderId
+    + time
+    + status
+    + subtotal
+    + shipping
+    + total
+}
+
+entity Sellers {
+    + sellerId
+    + schemaName
+    + independent
+    + name
+    + address
+    + zip
+    + city
+    + phone
+}
+
+Books "1  " -- "N" Copies
+Books "N" -- "M  " Sellers
+Books "N " -- "1" Types
+Books "N" -- "1  " Genres
+Copies "N" -- "1 " Orders
+Copies "N " -- "1" Sellers
+Orders "N " -- "1" Users
+Users "N  " -- "1" Sellers
+
+@enduml
